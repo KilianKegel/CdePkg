@@ -200,23 +200,10 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
     2. download NASM and OPENSSL tools
     3. download EDK2 and EDK2-NON-OSI from tianocore and CdeBinPkg
     4. setup the build environment variables
-4. build the source tree:
-    * For MINNOWBOARD BUILD type:<br>`build -a IA32 -a X64 -n 5 -t VS2015x86 -b DEBUG -p PlatformPkgX64.dsc`
-    * For  EMULATION  BUILD type:<br>`build -p EmulatorPkg.dsc -t VS2015x86 -a IA32`
-5. build the CdeBinPkg source tree:
-    * NOTE: CdeBinPkg CdeServices driver and CdeLib library are provided in binary format per default
-      but can be recreated within a VS2019 session<br>
-      To do so, start CdeBinPkgSrc.sln with VS2019
-6. Emulation Build run/debug
-    * run: `runemu.bat`
-    * debug: `dbgemu.bat`<br>
-      NOTE: To use `__debugbreak()` the debug engine (VS2019) must be connected to the process *before*
-            the breakpoint is reached.
-
 7. Create and debug a new **CdePkg** driver<br>
    The [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg) can be used
    to create and debug **CdePkg**-based drivers<br>
-   ATTENTION: Only a small number of ANSI C library [functions are yet validated](implemented.md)
+   ATTENTION: 110 functions of ANSI C library [functions are validated](implemented.md)
 
 ## Related Projects
 | related project|annotation|
