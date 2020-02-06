@@ -1,0 +1,7 @@
+CdeLoadOptionsDxe/Win32
+CdeLoadOptionsDxe/x64
+CdeLoadOptionsPei/Win32
+CdeWelcomeDxe/Win32
+CdeWelcomeDxe/x64
+CdeWelcomePei/Win32
+build
