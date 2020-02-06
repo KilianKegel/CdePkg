@@ -193,8 +193,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 [todo reminder](todoreminder.md)
 
 ## Howto
-1. install a build machine: https://github.com/KilianKegel/HowTo-setup-an-UEFI-Development-PC#howto-setup-an-uefi-development-pc
-    * VS2015x86 tool chain is used. Make sure, that **MSVC v140 VS2015 build tools** are installed
+0. **CdePkg** is a submodule of the [**EDK2020-MinnowBoard**](https://github.com/KilianKegel/EDK2020-MinnowBoard.git) project.<br> https://github.com/KilianKegel/EDK2020-MinnowBoard#howto-installbuildedit
 2. `git clone -b CdePkg --recursive https://github.com/tianocore/edk2-staging.git`
 3. run **LAUNCH.BAT**, that will
     1. check build tools are installed
