@@ -215,12 +215,12 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
             the breakpoint is reached.
 
 7. Create and debug a new **CdePkg** driver<br>
-   The [CdeValidationPkg](CdeValidationPkg/README.md#cdevalidationpkg) can be used
+   The [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg) can be used
    to create and debug **CdePkg**-based drivers<br>
    ATTENTION: Only a small number of ANSI C library [functions are yet validated](implemented.md)
 
 ## Related Projects
-| related project|annotation|
+|Â related project|annotation|
 |:-|:-|
 |[Torito C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library)|C Library for UEFI Shell only. All projects below are built on or derived from *Torito C Library*|
 |[Visual ANSI C for UEFI Shell](https://github.com/KilianKegel/Visual-ANSI-C-for-UEFI-Shell#visual-ansi-c-for-uefi-shell)|Getting started with Visual Studio for UEFI Shell and ANSI C cross-development.
