@@ -115,7 +115,7 @@ defect system for repair/debug mode, enabling trace messages, excluding special
 **CdePkg**'s functionality is composed of three components:
   1. the C Library **CdeLib**
   2. the service driver **CdeServices**
-  3. the POST command line reference implementation [**CdeLoadOptions**](CdePkg/CdeLoadOptionsDxe)
+  3. the POST command line reference implementation [**CdeLoadOptions**](https://github.com/KilianKegel/CdePkg/tree/master/CdeLoadOptionsDxe)
 
 all in 32 and 64 bit variants for DXE, SMM and PEI each.
 
