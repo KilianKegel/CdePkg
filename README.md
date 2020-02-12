@@ -178,7 +178,7 @@ The functions below are already implemented and tested, every single one of them
 
 [Torito C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
 tests to verify Microsoft's C Library compatibility and is also approved in various real world applications.
-Therefore the **CdePkg**'s C library will be validated by simple tests only, in the [CdeValidationPkg](CdeValidationPkg/README.md#cdevalidationpkg), for DXE, SMM and PEI respectively.
+Therefore the **CdePkg**'s C library will be validated by simple tests only, in the [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg), for DXE, SMM and PEI respectively.
 
 ### todo
 * add simple UART based (COM1) CON I/O interface since consoles are not supported during POST
