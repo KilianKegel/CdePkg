@@ -190,8 +190,6 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 * validate functions in DXE, SMM and PEI [List of available functions](implemented.md#validation-status)
 * complete library implementation
 
-[todo reminder](todoreminder.md)
-
 ## Howto
 1. **CdePkg** is a submodule of the [**EDK2020-MinnowBoard**](https://github.com/KilianKegel/EDK2020-MinnowBoard.git) project.<br> https://github.com/KilianKegel/EDK2020-MinnowBoard#howto-installbuildedit
 2. run **LAUNCH.BAT**, that will
