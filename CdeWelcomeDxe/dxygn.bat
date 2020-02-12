@@ -1,6 +1,6 @@
 @echo off
 rem
-rem Copyright (c) 2019, Kilian Kegel. All rights reserved.<BR>
+rem Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
 rem SPDX-License-Identifier: BSD-2-Clause-Patent
 rem
 if exist doxygen.tmp rd /s /q doxygen.tmp

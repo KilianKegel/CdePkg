@@ -1,6 +1,6 @@
 ﻿/*!
 @copyright
-    Copyright (c) 2019, Kilian Kegel. All rights reserved.<BR>
+    Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 @file CdeLoadOptionsPei.c
@@ -59,7 +59,7 @@ char* GetLoadOptions(COMM_GUID* pEfiCallerIdGuid) {
 			break;
 
     }
-    return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? NULL : CommandLine[i].szCommandLine;
+    return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? "unknownCdeDriverPei" : (CommandLine[i].rejectStart ? NULL : CommandLine[i].szCommandLine);
 }
 
 EFI_STATUS EFIAPI _Main(IN EFI_PEI_FILE_HANDLE *FfsHeader, IN const EFI_PEI_SERVICES   **pPeiServices)

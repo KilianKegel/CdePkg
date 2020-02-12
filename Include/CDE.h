@@ -1,6 +1,6 @@
 /*!
 @copyright
-    Copyright (c) 2019, Kilian Kegel. All rights reserved.<BR>
+    Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 @file
@@ -106,6 +106,7 @@ typedef struct _COMM_GUID {
 } COMM_GUID;
 
 typedef struct _COMMANDLINE {
+    int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
     COMM_GUID EfiCallerIdGuid;	/*	EFI_CALLER_ID_GUID from AutoGen.h
                                     gEfiCallerIdGuid from AutoGen.c
                                     FILE_GUID from .INF	*/

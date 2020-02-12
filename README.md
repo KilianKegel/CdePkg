@@ -1,4 +1,4 @@
-# CdePkg
+Ip4Driver.coverr# CdePkg
 C Development Environment Package for EDK2. This is a SubModule for the EDK2020-MinnowBoard project only. 
 * [Preface](README.md#preface)
 * [Introduction](README.md#introduction)
@@ -143,7 +143,7 @@ The **CdeLib** just provides small wrapper functions that invoke **CdeServices**
 ### **CdeLoadOptions** / command line
 Each *CdePkg*Driver reports its EfiCallerIdGuid while running through CRT0 to **CdeLoadOptions**.
 **CdeLoadOptions** provides a pointer to the matching "Command Line" from an simple EfiCallerIdGuid/CommandLine table
-within the file [`CdeLoadOptions.h`](/CdePkg/Include/CdeLoadOptions.h), 
+within the file [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h), 
 compiled into the [**CdeLoadOptions**](CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsDxe.c) driver binary.
 
 **This is just a proof of concept. In a real implementation, as mentioned above, the command line can be
@@ -193,17 +193,16 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 [todo reminder](todoreminder.md)
 
 ## Howto
-0. **CdePkg** is a submodule of the [**EDK2020-MinnowBoard**](https://github.com/KilianKegel/EDK2020-MinnowBoard.git) project.<br> https://github.com/KilianKegel/EDK2020-MinnowBoard#howto-installbuildedit
-2. `git clone -b CdePkg --recursive https://github.com/tianocore/edk2-staging.git`
-3. run **LAUNCH.BAT**, that will
+1. **CdePkg** is a submodule of the [**EDK2020-MinnowBoard**](https://github.com/KilianKegel/EDK2020-MinnowBoard.git) project.<br> https://github.com/KilianKegel/EDK2020-MinnowBoard#howto-installbuildedit
+2. run **LAUNCH.BAT**, that will
     1. check build tools are installed
     2. download NASM and OPENSSL tools
     3. download EDK2 and EDK2-NON-OSI from tianocore and CdeBinPkg
     4. setup the build environment variables
-7. Create and debug a new **CdePkg** driver<br>
+3. Create and debug a new **CdePkg** driver<br>
    The [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg) can be used
    to create and debug **CdePkg**-based drivers<br>
-   ATTENTION: 110 functions of ANSI C library [functions are validated](implemented.md)
+4. Convert an existing, traditional **MdePkg** driver to a **CdePkg** driver
 
 ## Related Projects
 | related project|annotation|
@@ -214,6 +213,12 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20200212
+* implement new **CdePkg** POST driver command line model:
+    1. each **CdePkg** driver listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) gets the command line parameters passed
+    2. each **CdePkg** driver listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) can be suppressed from beeing started by (`rejectStart=1`)
+    3. each **CdePkg** driver **NOT** listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) is started with `argv[0] == "unknownCdeDriverDxe"`
+* add **MdePkg* to **CdePkg** convertion sample [Ip4Dxe]()
 ### 20200202
 * move from [tianocore](https://github.com/tianocore/edk2-staging/tree/CdePkg) to my private account 
 
