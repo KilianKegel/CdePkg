@@ -143,7 +143,7 @@ The **CdeLib** just provides small wrapper functions that invoke **CdeServices**
 ### **CdeLoadOptions** / command line
 Each *CdePkg*Driver reports its EfiCallerIdGuid while running through CRT0 to **CdeLoadOptions**.
 **CdeLoadOptions** provides a pointer to the matching "Command Line" from an simple EfiCallerIdGuid/CommandLine table
-within the file [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h), 
+within the file [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h), 
 compiled into the [**CdeLoadOptions**](CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsDxe.c) driver binary.
 
 **This is just a proof of concept. In a real implementation, as mentioned above, the command line can be
@@ -215,9 +215,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 ## Revision history
 ### 20200212
 * implement new **CdePkg** POST driver command line model:
-    1. each **CdePkg** driver listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) gets the command line parameters passed
-    2. each **CdePkg** driver listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) can be suppressed from beeing started by (`rejectStart=1`)
-    3. each **CdePkg** driver **NOT** listed in [`CdeLoadOptions.h`](CdePkg/Include/CdeLoadOptions.h) is started with `argv[0] == "unknownCdeDriverDxe"`
+    1. each **CdePkg** driver listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) gets the command line parameters passed
+    2. each **CdePkg** driver listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) can be suppressed from beeing started by (`rejectStart=1`)
+    3. each **CdePkg** driver **NOT** listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) is started with `argv[0] == "unknownCdeDriverDxe"`
 * add **MdePkg* to **CdePkg** convertion sample [Ip4Dxe]()
 ### 20200202
 * move from [tianocore](https://github.com/tianocore/edk2-staging/tree/CdePkg) to my private account 
