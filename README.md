@@ -217,7 +217,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
     2. each **CdePkg** driver listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) can be suppressed from beeing started by (`rejectStart=1`)
     3. each **CdePkg** driver **NOT** listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) is started with `argv[0] == "unknownCdeDriverDxe"`
 * add **MdePkg* to **CdePkg** convertion sample [Ip4Dxe]()
-<a href="https://github.com/KilianKegel/CdePkg/blob/master/footnotes/IP4DriverCDiff.html">Ip4Dxe</a>
+<iframe src="https://onedrive.live.com/embed?cid=2DA9F33602619218&resid=2DA9F33602619218%21598409&authkey=AIAkBnH-X9GdZaI" width="98" height="120" frameborder="0" scrolling="no"></iframe>
 ### 20200202
 * move from [tianocore](https://github.com/tianocore/edk2-staging/tree/CdePkg) to my private account 
 
