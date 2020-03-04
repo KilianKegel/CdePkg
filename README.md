@@ -215,6 +215,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20200304
+* update CdeServicesPei.efi: restart memory allocation if switched from Pre-Memory-PEI to Post-Memory-PEI
+  Confirmed, that CdeServicesPei.efi has full functionality before and after PEI memory detection.
+* cloned all PEI validation programs to it's PRE (pre-mem) conterparts and add to `CdeLoadOptions.h`
+
 ### 20200212
 * implement new **CdePkg** POST driver command line model:
     1. each **CdePkg** driver listed in [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h) gets the command line parameters passed
