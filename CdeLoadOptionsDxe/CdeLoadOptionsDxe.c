@@ -1,13 +1,17 @@
-﻿/*!
+﻿#pragma warning(disable:4113)
+#pragma warning(disable:4028)
+#pragma warning(disable:4029)
+#pragma warning(disable:4189)
+/*!
 @copyright
-    Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
-    SPDX-License-Identifier: BSD-2-Clause-Patent
+	Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+	SPDX-License-Identifier: BSD-2-Clause-Patent
 
 @file CdeLoadOptionsDxe.c
 
 @brief C Development Environment (CDE) command line parameter driver in <em>CdePkg</em>\n
 
-@details	
+@details
 
 @todo
 
@@ -45,48 +49,49 @@ EFI_HANDLE        gImageHandle;                     // UEFI: image handel
 // include commandlines / load options of all drivers, register additional drivers in "CdeLoadOptionsDxe.h"
 //
 COMMANDLINE CommandLine[] = {
-    /* 
-	edit this file to change command line for each CDE driver: 
+	/*
+	edit this file to change command line for each CDE driver:
 	https://github.com/MinnowWare/CdePkg/blob/master/Include/CdeLoadOptions.h
-    */
-    #include <CdeLoadOptions.h> 
+	*/
+	#include <CdeLoadOptions.h> 
 };
 
-char* GetLoadOptions(COMM_GUID* pEfiCallerIdGuid) {
+char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* pVarBuf) {
+	EFI_SYSTEM_TABLE* SystemTable = PeiDxeInterface;
 	int i;
-    //__debugbreak();
-    for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
+	//__debugbreak();
+	for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
 
-		if (pEfiCallerIdGuid->Data1		== CommandLine[i].EfiCallerIdGuid.Data1 &&
-			pEfiCallerIdGuid->Data2		== CommandLine[i].EfiCallerIdGuid.Data2 &&
-			pEfiCallerIdGuid->Data3		== CommandLine[i].EfiCallerIdGuid.Data3 &&
-			pEfiCallerIdGuid->Data4[0]	== CommandLine[i].EfiCallerIdGuid.Data4[0] &&
-			pEfiCallerIdGuid->Data4[1]	== CommandLine[i].EfiCallerIdGuid.Data4[1] &&
-			pEfiCallerIdGuid->Data4[2]	== CommandLine[i].EfiCallerIdGuid.Data4[2] &&
-			pEfiCallerIdGuid->Data4[3]	== CommandLine[i].EfiCallerIdGuid.Data4[3] &&
-			pEfiCallerIdGuid->Data4[4]	== CommandLine[i].EfiCallerIdGuid.Data4[4] &&
-			pEfiCallerIdGuid->Data4[5]	== CommandLine[i].EfiCallerIdGuid.Data4[5] &&
-			pEfiCallerIdGuid->Data4[6]	== CommandLine[i].EfiCallerIdGuid.Data4[6] &&
-			pEfiCallerIdGuid->Data4[7]	== CommandLine[i].EfiCallerIdGuid.Data4[7]
+		if (pEfiCallerIdGuid->Data1 == CommandLine[i].EfiCallerIdGuid.Data1 &&
+			pEfiCallerIdGuid->Data2 == CommandLine[i].EfiCallerIdGuid.Data2 &&
+			pEfiCallerIdGuid->Data3 == CommandLine[i].EfiCallerIdGuid.Data3 &&
+			pEfiCallerIdGuid->Data4[0] == CommandLine[i].EfiCallerIdGuid.Data4[0] &&
+			pEfiCallerIdGuid->Data4[1] == CommandLine[i].EfiCallerIdGuid.Data4[1] &&
+			pEfiCallerIdGuid->Data4[2] == CommandLine[i].EfiCallerIdGuid.Data4[2] &&
+			pEfiCallerIdGuid->Data4[3] == CommandLine[i].EfiCallerIdGuid.Data4[3] &&
+			pEfiCallerIdGuid->Data4[4] == CommandLine[i].EfiCallerIdGuid.Data4[4] &&
+			pEfiCallerIdGuid->Data4[5] == CommandLine[i].EfiCallerIdGuid.Data4[5] &&
+			pEfiCallerIdGuid->Data4[6] == CommandLine[i].EfiCallerIdGuid.Data4[6] &&
+			pEfiCallerIdGuid->Data4[7] == CommandLine[i].EfiCallerIdGuid.Data4[7]
 			)
 			break;
 
-    }
-    return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? "unknownCdeDriverDxe" : (CommandLine[i].rejectStart ? NULL : CommandLine[i].szCommandLine);
+	}
+	return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? "unknownCdeDriverDxe" : (CommandLine[i].rejectStart ? NULL : CommandLine[i].szCommandLine);
 }
 
 
 EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTable)
 //int main(int argc, char **argv)
 {
-    EFI_STATUS Status = 0;
-    //__debugbreak();
+	EFI_STATUS Status = 0;
+	//__debugbreak();
 
-    Status = gST->BootServices->InstallMultipleProtocolInterfaces(
-        &gImageHandle,                                           // Image Handle
-        &gCdeLoadOptionsProtocolGuid, &CdeLoadOptionsProtocol,	// Guid / Protocol pair
-        NULL                                                    // End of list
-    );
+	Status = gST->BootServices->InstallMultipleProtocolInterfaces(
+		&gImageHandle,                                           // Image Handle
+		&gCdeLoadOptionsProtocolGuid, &CdeLoadOptionsProtocol,	// Guid / Protocol pair
+		NULL                                                    // End of list
+	);
 
-    return EFI_SUCCESS;
+	return EFI_SUCCESS;
 }

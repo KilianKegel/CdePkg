@@ -114,7 +114,7 @@ typedef struct _COMMANDLINE {
     char* szCommandLine;		/*  assigned command line includeing filename*/
 }COMMANDLINE;
 
-typedef char* GETLOADOPTIONS (COMM_GUID * pEfiCallerIdGuid);
+typedef char* GETLOADOPTIONS (void* PeiDxeInterface, COMM_GUID * pEfiCallerIdGuid, char *pVarBuf/* of 128 elements */);
 
 typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 

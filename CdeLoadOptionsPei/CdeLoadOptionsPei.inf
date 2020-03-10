@@ -18,25 +18,27 @@
 #
 
 [Sources]
-	CdeLoadOptionsPei.c
-	CdeLoadOptionsPei.uni
+    CdeLoadOptionsPei.c
+    CdeLoadOptionsPei.uni
 
 [Packages]
-	CdePkg/CdePkg.dec
-	MdePkg/MdePkg.dec
-	MdeModulePkg/MdeModulePkg.dec
+    CdePkg/CdePkg.dec
+    MdePkg/MdePkg.dec
+    MdeModulePkg/MdeModulePkg.dec
 
 [LibraryClasses]
-	  PeimEntryPoint
+    PeimEntryPoint
+    CdeLib
+
 
 [Guids]
-	gCdeEndOfDxeGuid
-	gEfiConsoleOutDeviceGuid                      ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
-	gEfiConsoleInDeviceGuid                       ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
-	gEfiConsoleOutDeviceGuid
-	gEfiConsoleInDeviceGuid
-	gCdeConsoleInDeviceGuid
-	gCdeConsoleOutDeviceGuid
+    gCdeEndOfDxeGuid
+    gEfiConsoleOutDeviceGuid                      ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
+    gEfiConsoleInDeviceGuid                       ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
+    gEfiConsoleOutDeviceGuid
+    gEfiConsoleInDeviceGuid
+    gCdeConsoleInDeviceGuid
+    gCdeConsoleOutDeviceGuid
 
 [Depex]
-	TRUE
+    TRUE
