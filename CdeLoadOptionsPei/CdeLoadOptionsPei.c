@@ -33,20 +33,11 @@
 #include <Library\PeiServicesLib.h>
 #include <CDE.h>
 
-void sndstr(char* str) {
-    
-    while ('\0' != *str) {
-        
-        while (0 == (0x60 & inp(0x3fd)))
-            ;
-        outp(0x3F8, *str++);
-    };
-}
-
 typedef struct _NVRAMCOMMANDLINE {
     int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
     char CommandLine[0];		/*  assigned command line includeing filename*/
 }NVRAMCOMMANDLINE;
+
 COMMANDLINE CommandLine[] = {
     /*
     edit this file to change command line for each CDE driver:
@@ -89,28 +80,23 @@ char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char *p
         EFI_PEI_READ_ONLY_VARIABLE2_PPI* VariablePpi;
         EFI_PEI_SERVICES** pPeiServices = PeiDxeInterface;
         static EFI_GUID   EfiPeiReadOnlyVariable2PpiGuid = { 0x2ab86ef5, 0xecb5, 0x4134, { 0xb5, 0x56, 0x38, 0x54, 0xca, 0x1f, 0xe1, 0xb4 } };
-#define DBGFILE __FILE__"(%d): "
+#define DBGFILE __FILE__
 #define DBGLINE __LINE__
-        //Status = PeiServicesLocatePpi(&EfiPeiReadOnlyVariable2PpiGuid, 0, NULL, (VOID**)&VariablePpi);
-        sndstr(DBGFILE "-->welcome...\r\n");
+        //sndstr(DBGFILE "-->welcome...\r\n");
         Status = (*pPeiServices)->LocatePpi(pPeiServices, &EfiPeiReadOnlyVariable2PpiGuid, 0, NULL, (VOID**)&VariablePpi);
         if (EFI_SUCCESS == Status) {
-            sndstr(DBGFILE "-->Status1 EFI_SUCCESS\r\n");
+            //sndstr(DBGFILE "-->Status1 EFI_SUCCESS\r\n");
         }
         else {
-            sndstr(DBGFILE "-->Status1 EFI_FAIL\r\n");
+            //sndstr(DBGFILE "-->Status1 EFI_FAIL\r\n");
         }
         Status = VariablePpi->GetVariable(VariablePpi, L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
         if (EFI_SUCCESS == Status) {
-            sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
+            //sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
         }
         else {
-            sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
+            //sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
         }
-
-        //if (EFI_SUCCESS == Status) {
-        //    pNvram->rejectStart
-        //}
         
         return EFI_SUCCESS != Status ? "unknownCdeDriverPei" : (pNvram->rejectStart ? NULL : pNvram->CommandLine);
     }

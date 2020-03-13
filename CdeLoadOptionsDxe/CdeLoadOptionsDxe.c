@@ -34,11 +34,28 @@
 */
 #include <uefi.h>
 #include <CDE.h>
+#include <library\debuglib.h>
 
+extern char* strefierror(EFI_STATUS errcode);                           // Torito C extention according to strerror()
+
+typedef struct _NVRAMCOMMANDLINE {
+	int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
+	char CommandLine[0];		/*  assigned command line includeing filename*/
+}NVRAMCOMMANDLINE;
+
+extern char _CdeGetCurrentPrivilegeLevel(void);
+
+void sndstr(char* str) {
+	while (*str) {
+		while (0 == (0x60 & inp(0x3fd)))
+			;
+		outp(0x3f8, *str++);
+	}
+}
 //
 //
 //
-char* GetLoadOptions(COMM_GUID* pEfiCallerIdGuid);//prototype
+char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* pVarBuf);	//prototype
 CDE_LOADOPTIONS_PROTOCOL CdeLoadOptionsProtocol = { GetLoadOptions };
 
 EFI_GUID gCdeLoadOptionsProtocolGuid = CDE_LOAD_OPTIONS_PROTOCOL_GUID;
@@ -58,28 +75,53 @@ COMMANDLINE CommandLine[] = {
 
 char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* pVarBuf) {
 	EFI_SYSTEM_TABLE* SystemTable = PeiDxeInterface;
-	int i;
-	//__debugbreak();
-	for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
+	if (0 != _CdeGetCurrentPrivilegeLevel()) {                                      // running in EMULATION
+		int i;
+		//__debugbreak();
+		for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
 
-		if (pEfiCallerIdGuid->Data1 == CommandLine[i].EfiCallerIdGuid.Data1 &&
-			pEfiCallerIdGuid->Data2 == CommandLine[i].EfiCallerIdGuid.Data2 &&
-			pEfiCallerIdGuid->Data3 == CommandLine[i].EfiCallerIdGuid.Data3 &&
-			pEfiCallerIdGuid->Data4[0] == CommandLine[i].EfiCallerIdGuid.Data4[0] &&
-			pEfiCallerIdGuid->Data4[1] == CommandLine[i].EfiCallerIdGuid.Data4[1] &&
-			pEfiCallerIdGuid->Data4[2] == CommandLine[i].EfiCallerIdGuid.Data4[2] &&
-			pEfiCallerIdGuid->Data4[3] == CommandLine[i].EfiCallerIdGuid.Data4[3] &&
-			pEfiCallerIdGuid->Data4[4] == CommandLine[i].EfiCallerIdGuid.Data4[4] &&
-			pEfiCallerIdGuid->Data4[5] == CommandLine[i].EfiCallerIdGuid.Data4[5] &&
-			pEfiCallerIdGuid->Data4[6] == CommandLine[i].EfiCallerIdGuid.Data4[6] &&
-			pEfiCallerIdGuid->Data4[7] == CommandLine[i].EfiCallerIdGuid.Data4[7]
-			)
-			break;
+			if (pEfiCallerIdGuid->Data1 == CommandLine[i].EfiCallerIdGuid.Data1 &&
+				pEfiCallerIdGuid->Data2 == CommandLine[i].EfiCallerIdGuid.Data2 &&
+				pEfiCallerIdGuid->Data3 == CommandLine[i].EfiCallerIdGuid.Data3 &&
+				pEfiCallerIdGuid->Data4[0] == CommandLine[i].EfiCallerIdGuid.Data4[0] &&
+				pEfiCallerIdGuid->Data4[1] == CommandLine[i].EfiCallerIdGuid.Data4[1] &&
+				pEfiCallerIdGuid->Data4[2] == CommandLine[i].EfiCallerIdGuid.Data4[2] &&
+				pEfiCallerIdGuid->Data4[3] == CommandLine[i].EfiCallerIdGuid.Data4[3] &&
+				pEfiCallerIdGuid->Data4[4] == CommandLine[i].EfiCallerIdGuid.Data4[4] &&
+				pEfiCallerIdGuid->Data4[5] == CommandLine[i].EfiCallerIdGuid.Data4[5] &&
+				pEfiCallerIdGuid->Data4[6] == CommandLine[i].EfiCallerIdGuid.Data4[6] &&
+				pEfiCallerIdGuid->Data4[7] == CommandLine[i].EfiCallerIdGuid.Data4[7]
+				)
+				break;
 
+		}
+		return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? "unknownCdeDriverDxe" : (CommandLine[i].rejectStart ? NULL : CommandLine[i].szCommandLine);
 	}
-	return i == sizeof(CommandLine) / sizeof(CommandLine[0]) ? "unknownCdeDriverDxe" : (CommandLine[i].rejectStart ? NULL : CommandLine[i].szCommandLine);
-}
+	else {
 
+		EFI_STATUS Status;
+		NVRAMCOMMANDLINE* pNvram = (NVRAMCOMMANDLINE*)pVarBuf;
+		UINTN Size = 128;
+
+#define DBGFILE __FILE__
+#define DBGLINE __LINE__
+
+		DEBUG((DEBUG_INFO, __FILE__"(%d)\\" __FUNCTION__, __LINE__));
+		DEBUG((DEBUG_INFO, "guid -> %g\n", pEfiCallerIdGuid));
+		Status = SystemTable->RuntimeServices->GetVariable(L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
+		
+		DEBUG((DEBUG_INFO, "HELLO DEBUG: %a\n", strefierror(Status)));
+		
+		if (EFI_SUCCESS == Status) {
+			sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
+		}
+		else {
+			sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
+		}
+
+		return EFI_SUCCESS != Status ? "unknownCdeDriverDxe" : (pNvram->rejectStart ? NULL : pNvram->CommandLine);
+	}
+}
 
 EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTable)
 //int main(int argc, char **argv)
