@@ -107,10 +107,10 @@
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\delall.nsh" />
-    <None Include="..\disall.nsh" />
-    <None Include="..\enaclock.nsh" />
-    <None Include="..\setall.nsh" />
+    <None Include="delall.nsh" />
+    <None Include="disall.nsh" />
+    <None Include="enaclock.nsh" />
+    <None Include="setall.nsh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

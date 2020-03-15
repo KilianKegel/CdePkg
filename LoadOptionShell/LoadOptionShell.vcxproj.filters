@@ -16,9 +16,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\setall.nsh" />
-    <None Include="..\delall.nsh" />
-    <None Include="..\disall.nsh" />
-    <None Include="..\enaclock.nsh" />
+    <None Include="setall.nsh" />
+    <None Include="enaclock.nsh" />
+    <None Include="delall.nsh" />
+    <None Include="disall.nsh" />
   </ItemGroup>
 </Project>
