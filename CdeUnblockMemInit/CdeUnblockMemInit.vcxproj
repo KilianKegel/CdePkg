@@ -12,9 +12,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{cd22e2e2-9815-452d-8bb9-781d2b826534}</ProjectGuid>
+    <ProjectGuid>{afd827c5-fbb7-4889-8c70-b4dd2f365ced}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CdeWelcomePei</RootNamespace>
+    <RootNamespace>CdeUnblockMemInit</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -152,13 +152,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="CdeWelcomePei.inf" />
+    <None Include="CdeUnblockMemInitPRE.inf" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CdeWelcomePei.c" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

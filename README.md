@@ -205,6 +205,13 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
     	![Ip4Dxe.c](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/IP4DriverInfDiff.png)
     2. adjust the DriverEntryPoint-C-Sourcecode according to the image below
     	![Ip4Dxe.c](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/IP4DriverCDiff1.png)
+5.  Adjust the drivers command lines for the MinnowBoard POST drivers
+    1. copy `LoadOption.efi` tool from the UEFIBinaries folder to the UEFI Boot device
+    2. copy `delall.nsh`, `disall.nsh`, `setall.nsh` and `enaclock.nsh` scripts to the UEFI Boot device
+    3. run `setall.nsh` to enable the approbriate command line to each `CdeValidationPkg` driver
+    4. run `disall.nsh` to prevent each driver from being started
+    5. run `enaclock.nsh` to enable the `clock.efi` and the `argvc.efi` driver only
+    6. use `LoadOption.efi` to adjust each driver for your own needs
 
 ## Related Projects
 | related project|annotation|
@@ -215,6 +222,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20200315
+* implement command line support based on NVRAM variables for the MinnowBoard
+* create/provide `LoadOption` tool to **CdePkg** (UEFIBinaries\LoadOption.efi) to create command lines stored in NVRAM variables
+  (see [Howto](README.md#Howto)
+
 ### 20200304
 * update CdeServicesPei.efi: restart memory allocation if switched from Pre-Memory-PEI to Post-Memory-PEI
   Confirmed, that CdeServicesPei.efi has full functionality before and after PEI memory detection.

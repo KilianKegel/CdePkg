@@ -29,6 +29,8 @@
 [LibraryClasses]
 	UefiLib
 	UefiDriverEntryPoint
+	CdeLib
+
 [Guids]
 	gEfiConsoleOutDeviceGuid                      ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
 	gEfiConsoleInDeviceGuid                       ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
@@ -38,4 +40,4 @@
 	gCdeConsoleOutDeviceGuid
 
 [Depex]
-	TRUE
+	gEfiVariableArchProtocolGuid

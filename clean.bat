@@ -20,6 +20,7 @@ for /F "tokens=1-4 delims==," %%a in ('type CdePkg.sln ^| find ".vcxproj"') do (
     for  %%o in (%%c) do (
         echo %%~po
         if exist %%~po\x64 rd /s /q %%~po\x64
+        if exist %%~po\win32 rd /s /q %%~po\win32
         if exist %%~po\doxygen.tmp rd /s /q %%~po\doxygen.tmp
     )
 )

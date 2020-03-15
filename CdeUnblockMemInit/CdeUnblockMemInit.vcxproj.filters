@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CdeWelcomePei.inf" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Include\CDE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CdeWelcomePei.c">
+    <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CdeUnblockMemInitPRE.inf" />
   </ItemGroup>
 </Project>

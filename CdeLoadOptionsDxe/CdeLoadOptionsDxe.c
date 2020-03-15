@@ -45,13 +45,13 @@ typedef struct _NVRAMCOMMANDLINE {
 
 extern char _CdeGetCurrentPrivilegeLevel(void);
 
-void sndstr(char* str) {
-	while (*str) {
-		while (0 == (0x60 & inp(0x3fd)))
-			;
-		outp(0x3f8, *str++);
-	}
-}
+//void sndstr(char* str) {
+//	while (*str) {
+//		while (0 == (0x60 & inp(0x3fd)))
+//			;
+//		outp(0x3f8, *str++);
+//	}
+//}
 //
 //
 //
@@ -106,17 +106,13 @@ char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* p
 #define DBGFILE __FILE__
 #define DBGLINE __LINE__
 
-		DEBUG((DEBUG_INFO, __FILE__"(%d)\\" __FUNCTION__, __LINE__));
-		DEBUG((DEBUG_INFO, "guid -> %g\n", pEfiCallerIdGuid));
 		Status = SystemTable->RuntimeServices->GetVariable(L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
 		
-		DEBUG((DEBUG_INFO, "HELLO DEBUG: %a\n", strefierror(Status)));
-		
 		if (EFI_SUCCESS == Status) {
-			sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
+			//sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
 		}
 		else {
-			sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
+			//sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
 		}
 
 		return EFI_SUCCESS != Status ? "unknownCdeDriverDxe" : (pNvram->rejectStart ? NULL : pNvram->CommandLine);
