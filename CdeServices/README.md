@@ -1,4 +1,5 @@
-# Introduction
+# CdeServices
+## Introduction
 **CdeServices**, C Development Environment Services, is an UEFI POST driver that provides core
 functions and datastructures, that the CdeLib is build on. **CdeServices**' architecture enables
 **CdeLib** to run highly optimized in code and data space usage. It minimizes redundant code and
@@ -16,7 +17,7 @@ CdeServices contains:
   * buffered I/O core (`fread()`/`fwrite()`)
   * locale character tables
   * interface functions to access DXE- and PEI-API
-# Implementation
+## Implementation
 
 The **CdeServices** drivers are provided for DXE, SMM and PEI in binary format only.
 
