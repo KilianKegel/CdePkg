@@ -11,41 +11,77 @@
 */
 #ifndef _CDE_H_
 #define _CDE_H_
+#include <stddef.h>
 //
 //#TOCTRL NMOFINE
 //
 
 #pragma warning (disable:4456) //warning C4456: declaration of 'x' hides previous local declaration
 
+//
+// dump related definitions
+//
+
+typedef union _XDUMPPARM {
+    unsigned reg;
+    struct {
+        unsigned ElmSizeMin1 : 3;       /*!<element size minus one, only 0,1,3,7                    */
+        unsigned AddrSize : 3;          /*!<0,1,2,3,4 with:
+                                            0 == "%016llX: "
+                                            1 == "%08llX: "
+                                            2 == "%04llX: "
+                                            3 == "%02llX: "
+                                            4 == ""                                                 */
+        unsigned ElmsPerLine : 7;/*!< nBytesPerLine minus one bytes per line - 0 == 16,   */
+        unsigned NoAscii : 1;           /*!<append NO ASCII characters                              */
+        unsigned BaseOfs : 1;           /*!<base and offset, offset only otherwise                  */
+        unsigned NoDash : 1;            /*!<print dash "-" in between                               */
+        unsigned Pitch : 8;             /*!<pitch between two consecutive elements fo size elmsize  */
+    }bit;
+}XDUMPPARM;
+
+//
+// externs
+//
 extern char* gEfiCallerBaseName;
+
+// CDE related library diagnostic extentions 
+extern int _CdeMofine(char* pszDriver, char* pszFile, int nLine, char* pszFunction, char* pszClass, int fTraceEn, char* pszFormat, ...);
+extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long startaddr, unsigned long long(*pfnGetElm)(unsigned long long qwAddr), unsigned (*pfnWriteStr)(char* szLine),char *pBuf, int bufsize);
+// ANSI C Library related extentions 
+extern char* strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
+
 //
 // CDE MOdule FIle liNE (CDEMOFINE) trace support definitions
 //
-#define MOFINE_NDRIVER      (1 << 0)
-#define MOFINE_NFILE        (1 << 1)
-#define MOFINE_NLINE        (1 << 2)
-#define MOFINE_NFUNCTION    (1 << 3)
-#define MOFINE_NCLOCK       (1 << 4)
-#define MOFINE_NSTDOUT      (1 << 5)/*stderr instead*/
-#define MOFINE_NCLASS       (1 << 6)/*stderr instead*/
-#define MOFINE_RAWFORMAT    (INT_MIN)
+#define MOFINE_NDRIVER      (1 << 1)
+#define MOFINE_NFILE        (1 << 2)
+#define MOFINE_NLINE        (1 << 3)
+#define MOFINE_NFUNCTION    (1 << 4)
+#define MOFINE_NCLOCK       (1 << 5)
+#define MOFINE_NSTDOUT      (1 << 6)/* stderr instead */
+#define MOFINE_NCLASS       (1 << 7)/* stderr instead */
+#define MOFINE_RAWFORMAT    (1 << 8)
+#define MOFINE_STRIPPATH    (1 << 9)/* remove path from filename at runtime */
 
-#define MOFINE_EXITONCOND   (1 << 7)
-#define MOFINE_DEADONCOND   (1 << 6)
+#define MOFINE_EXITONCOND   (1 << 10)
+#define MOFINE_DEADONCOND   (1 << 11)
+
+#ifndef MOFINE_CONFIG
+#   define MOFINE_CONFIG       0 /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
+#endif//MOFINE_CONFIG
+
 //
 // MOFINE trace conficuration macro
 //
-#define MFNBAR(cond)/*  bare        */ NULL,                NULL,    0,       NULL,      /*string*/ 0,          /*condition*/0 != (cond),
-#define MFNNON(cond)/*  no class    */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/ 0,          /*condition*/0 != (cond),
-#define MFNINF(cond)/*  INFO        */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"INFO>", 	/*condition*/0 != (cond),
-#define MFNSUC(cond)/*  SUCCESS     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"SUCCESS>",	/*condition*/0 != (cond),
-#define MFNWAR(cond)/*  WARNING     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"WARNING>",	/*condition*/0 != (cond),
-#define MFNERR(cond)/*  ERROR       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ERROR>", 	/*condition*/0 != (cond),
-#define MFNFAT(cond)/*  FATAL       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"FATAL>", 	/*condition*/MOFINE_EXITONCOND | (0 != (cond)),
-#define MFNASS(cond)/*  ASSERT      */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ASSERT>", 	/*condition*/MOFINE_DEADONCOND | (0 != (cond)),
-
-int _CdeMofine(char* pszDriver, char* pszFile, int nLine, char* pszFunction, char* pszClass, int fTraceEn, char* pszFormat, ...);
-
+#define MFNBAR(cond)/*  bare        */ NULL,                NULL,    0,       NULL,      /*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNNON(cond)/*  no class    */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNINF(cond)/*  INFO        */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"INFO>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNSUC(cond)/*  SUCCESS     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"SUCCESS>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNWAR(cond)/*  WARNING     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"WARNING>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNERR(cond)/*  ERROR       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ERROR>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNFAT(cond)/*  FATAL       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"FATAL>", 	/*condition*/MOFINE_CONFIG | MOFINE_EXITONCOND | (0 != (cond)),
+#define MFNASS(cond)/*  ASSERT      */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ASSERT>", 	/*condition*/MOFINE_CONFIG | MOFINE_DEADONCOND | (0 != (cond)),
 
 #ifndef NMOFINE
 #define CDEMOFINE(cond_msg) _CdeMofine cond_msg /*MOdule-FIle-liNE COndition msg*/
