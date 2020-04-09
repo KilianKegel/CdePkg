@@ -5,24 +5,24 @@
 
 @file main.c
 
-@brief LoadOption UEFI shell tool to add, modify, disable and delete command line options for CdePkg based POST driver\n
+@brief CdeLoadOption UEFI shell tool to add, modify, disable and delete command line options for CdePkg based POST driver\n
 
-@details @brief LoadOption tool to add, modify, disable and delete command line options for CdePkg based POST driver\n
+@details @brief CdeLoadOption tool to add, modify, disable and delete command line options for CdePkg based POST driver\n
 
 @todo
 
 @mainpage
-    CdeUnblockMemInit driver for MinnowBoard
+    CdeLoadOption driver for MinnowBoard
 
 @section intro_sec Introduction
 For demonstration purpose only the MemoryInit.efi driver depex' on\n
     CDE_PEI_TMPTEST0_GUID {0xCDE00055, 0xb0ff, 0x498b, { 0xb1, 0x7c, 0xed, 0xb3, 0xa0, 0x2e, 0x7f, 0x6e }}\n
     that is installed by this driver.\n
-    <b>ATTENTION</b>: CdeUnblockMemInit has to be the last driver in the list to be started as Cde-PRE-memory driver in the related flash file descriptor .FDF file\n
+    <b>ATTENTION</b>: CdeLoadOption has to be the last driver in the list to be started as Cde-PRE-memory driver in the related flash file descriptor .FDF file\n
     The .FDF file is located here: overrides\edk2-platforms\PlatformPkg.fdf\n
 
 @subsection Parm_sec Command line parameters
-    1. LoadOption [/?] [/h] [/help]
+    1. CdeLoadOption [/?] [/h] [/help]
 
 */#include <stdio.h>
 #include <stdlib.h>
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
 
         if (ihlp || 1 == argc) {
             printf("\nLoadOption UEFI shell tool to add, modify, disable and delete command line\noptions for CdePkg based POST drivers\n\n");
-            printf("LoadOption /guid 12345678-0000-1111-2233-445566778899 [/cmd \"commandline\"] [/dis] [/ena] [/del]\n");
+            printf("CdeLoadOption /guid 12345678-0000-1111-2233-445566778899 [/cmd \"commandline\"] [/dis] [/ena] [/del]\n");
             printf("    or\nLoadOption /list\n\n");
             printf("    /list   list all command line reserved for CdePkg drivers\n");
             printf("    /guid   FILE_GUID of the POST driver\n");
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
                 }
 
                 if ((Status != EFI_SUCCESS)) {
-                    fprintf(stderr, __FILE__"(%d): ""num %d -> %s\n", __LINE__, num, strefierror(Status));
+                    fprintf(stdout, __FILE__"(%d): ""num %d -> %s\n", __LINE__, num, strefierror(Status));
                     break;
                 }
 
@@ -158,7 +158,7 @@ int main(int argc, char** argv) {
                         pNvram              /* OUT VOID * Data OPTIONAL*/
                     );
 
-                    //fprintf(stderr, __FILE__"%d): ""%s\n", __LINE__, strefierror(Status));
+                    //fprintf(stdout, __FILE__"%d): ""%s\n", __LINE__, strefierror(Status));
 
                     if (EFI_SUCCESS == Status) {
                         printf("\"%s\" %s\n", pNvram->CommandLine, pNvram->rejectStart ? "Start rejected" : "");
@@ -168,7 +168,7 @@ int main(int argc, char** argv) {
             } while (Status == EFI_SUCCESS);
 
             if (num == 0) {
-                fprintf(stderr, __FILE__"(%d): ""\"CdeLoadOption\" NVRAM variable not found\n", __LINE__);
+                fprintf(stdout, __FILE__"(%d): ""\"CdeLoadOption\" NVRAM variable not found\n", __LINE__);
             }
             break;
         }
@@ -176,15 +176,15 @@ int main(int argc, char** argv) {
         // check command line parameters
         //
         if (0 == iguid) {
-            fprintf(stderr, "MISSING parameter: /guid 12345678-AAAA-BBBB-CCDD-112233445566\n");
+            fprintf(stdout, "MISSING parameter: /guid 12345678-AAAA-BBBB-CCDD-112233445566\n");
             break;
         }
 
         if (0 == icmd && 0 == idis && 0 == idel && 0 == iena) {
-            fprintf(stderr, "MISSING parameter: /cmd \"drivername parm1 parm2\"\n");
-            fprintf(stderr, "                   /dis\n");
-            fprintf(stderr, "                   /ena\n");
-            fprintf(stderr, "                   /del\n");
+            fprintf(stdout, "MISSING parameter: /cmd \"drivername parm1 parm2\"\n");
+            fprintf(stdout, "                   /dis\n");
+            fprintf(stdout, "                   /ena\n");
+            fprintf(stdout, "                   /del\n");
             break;
         }
 
@@ -206,7 +206,7 @@ int main(int argc, char** argv) {
             &guid.Data4[6],
             &guid.Data4[7]);
         if (11 != n) {
-            fprintf(stderr, "Invalid GUID format\nUse: 11111111-2222-3333-4455-66778899AABB\n");
+            fprintf(stdout, "Invalid GUID format\nUse: 11111111-2222-3333-4455-66778899AABB\n");
             break;
         }
 
@@ -223,7 +223,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS)
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
             break;
         }
 
@@ -244,7 +244,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
                 break;
             }
 
@@ -258,10 +258,10 @@ int main(int argc, char** argv) {
                 pNvram              /* IN VOID* Data */
             );
             if (Status != EFI_SUCCESS) {
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
                 break;
             }
-            printf("CdeLoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully DISABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
+            printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully DISABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
             break;
 
         }
@@ -283,7 +283,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
                 break;
             }
 
@@ -298,10 +298,10 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
                 break;
             }
-            printf("CdeLoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully ENABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
+            printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully ENABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
             break;
         }
 
@@ -323,7 +323,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stderr, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
                 break;
             }
 
@@ -337,13 +337,13 @@ int main(int argc, char** argv) {
                 pNvram              /* OUT VOID * Data OPTIONAL*/
             );
 
-            //fprintf(stderr, __FILE__"%d): ""%s\n", __LINE__, strefierror(Status));
+            //fprintf(stdout, __FILE__"%d): ""%s\n", __LINE__, strefierror(Status));
 
             if (EFI_SUCCESS != Status) {
-                fprintf(stderr, __FILE__"(%d): ""fail to read NVRAM variable \"CdeLoadOption\" : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X -> %s\n", __LINE__, guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""fail to read NVRAM variable \"CdeLoadOption\" : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X -> %s\n", __LINE__, guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], strefierror(Status));
                 break;
             }
-            printf("CdeLoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X command line \"%s\" successfully createdn\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], pNvram->CommandLine);
+            printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X command line \"%s\" successfully createdn\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], pNvram->CommandLine);
 
         }
     } while (0);

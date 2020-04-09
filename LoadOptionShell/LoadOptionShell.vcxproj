@@ -11,7 +11,7 @@
     <ProjectGuid>{60d08dbf-6af6-424b-b003-18b56a03eb07}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LoadOptionShell</RootNamespace>
-    <ProjectName>LoadOptionShell</ProjectName>
+    <ProjectName>LoadOption for UEFI Shell</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

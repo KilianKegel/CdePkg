@@ -66,14 +66,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <ExceptionHandling>false</ExceptionHandling>
@@ -84,6 +85,10 @@
       <OmitFramePointers />
       <StringPooling>true</StringPooling>
       <CompileAs>CompileAsC</CompileAs>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+      <AssemblerOutput />
     </ClCompile>
     <Link>
       <SubSystem>EFI Boot Service Driver</SubSystem>
@@ -101,7 +106,7 @@
       <EntryPointSymbol>_MainEntryPointDxe</EntryPointSymbol>
       <RandomizedBaseAddress />
       <DataExecutionPrevention />
-      <ImageHasSafeExceptionHandlers />
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <OutputFile>$(OutDir)$(TargetName).efi</OutputFile>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <SectionAlignment>32</SectionAlignment>
