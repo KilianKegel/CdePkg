@@ -6,14 +6,14 @@
 @file main.c
 
 @brief
-    This module implements <em>demonstration dump</em>
+    This module implements <em>POST diagnostic for a Dump demonstration</em>
 @todo
 
 @mainpage
-    POST diagnostic for demonstration dump
+    POST diagnostic for a Dump demonstration
 
 @section intro_sec Introduction
-    POST diagnostic for RTC sample implementation
+    POST diagnostic for a Dump demonstration sample implementation
 
 @subsection Drv_sec Driver and Application matrix
     <table>
@@ -32,9 +32,6 @@
                     <TD>CDE000FF-EFD8-40D9-88EA-FA81F7D28732</td>
                     <TD>CDE000FF-D820-49BE-A829-839FCF26AE63</td>
                     <TD>CDE000FF-C263-48F3-BD6A-2E524D9AE131</td>
-                <tr>
-                    <th>parameter</th>
-                    <td colspan="3">/count <em>num</em> : test <em>num</em> ASCII characters</td></tr>
     </table>
 
 @subsection ref_sec References

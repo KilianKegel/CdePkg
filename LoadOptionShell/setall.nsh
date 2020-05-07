@@ -51,7 +51,7 @@ LoadOption /guid CDE000FF-686A-490B-B9C0-F6F1A832FB6B  /cmd "CdeDiagEFIVARDxe"
 LoadOption /guid CDE000FF-EFD8-40D9-88EA-FA81F7D28732  /cmd "CdeDiagDEMODUMPPRE"
 LoadOption /guid CDE000FF-D820-49BE-A829-839FCF26AE63  /cmd "CdeDiagDEMODUMPPei"
 LoadOption /guid CDE000FF-C263-48F3-BD6A-2E524D9AE131  /cmd "CdeDiagDEMODUMPDxe"
-
-
-
-
+LoadOption /guid CDE000FF-13C6-4C8B-BF60-E8D1165E9D3B  /cmd "CdeDiagTSCDiag /seccount 32"
+LoadOption /guid CDE000FF-8882-4391-B097-695F0C232946  /cmd "CdeDiagTSCDiag /seccount 32"
+LoadOption /guid CDE000FF-F7C7-4B2F-9250-ABD0FD57719C  /cmd "CdeDiagTSCDiag /seccount 32"
+  

@@ -1,53 +1,56 @@
-LoadOption /guid CDE000FF-D381-49C3-8D4A-44C94843F83C  /del
-LoadOption /guid CDE000FF-C6F5-49CC-BFD3-F44A5912649A  /del
-LoadOption /guid CDE000FF-C6F5-49CC-BFD3-F44A5912649B  /del
-LoadOption /guid CDE000FF-A3A6-4F7A-B16C-123708FB4DCD  /del
-LoadOption /guid CDE000FF-38C6-4B8D-A1E3-B59A3FC2361D  /del
-LoadOption /guid CDE000FF-38C6-4B8D-A1E3-B59A3FC2361E  /del
-LoadOption /guid CDE000FF-D745-4676-8787-C55CE99B39ED  /del
-LoadOption /guid CDE000FF-604C-48D1-B7F2-74BF3999E10E  /del
-LoadOption /guid CDE000FF-B3EB-44D3-B45C-A4E88E43A237  /del
-LoadOption /guid CDE000FF-C3BD-4A86-BA12-8B055AE19D4B  /del
-LoadOption /guid CDE000FF-4A99-4854-81FC-4D835574B820  /del
-LoadOption /guid CDE000FF-4A99-4854-81FC-4D835574B821  /del
-LoadOption /guid CDE000FF-D426-45CF-8D47-4675CCD4C31C  /del
-LoadOption /guid CDE000FF-6B55-4AD7-934D-5BD6D9CDD1BD  /del
-LoadOption /guid CDE000FF-6B55-4AD7-934D-5BD6D9CDD1BE  /del
-LoadOption /guid CDE000FF-D386-46BA-A7C1-7A254A8671A9  /del
-LoadOption /guid CDE000FF-FABB-436D-B4A3-18CC6CA7C746  /del
-LoadOption /guid CDE000FF-FABB-436D-B4A3-18CC6CA7C747  /del
-LoadOption /guid CDE000FF-0B23-4CBE-8149-6CDCA758EEB5  /del
-LoadOption /guid CDE000FF-B08C-4806-AF47-8330138A835E  /del
-LoadOption /guid CDE000FF-B08C-4806-AF47-8330138A835F  /del
-LoadOption /guid CDE000FF-F737-4515-AD5C-7C8E325A2B0F  /del
-LoadOption /guid CDE000FF-CC17-4C1C-863D-7660D331F14A  /del
-LoadOption /guid CDE000FF-CC17-4C1C-863D-7660D331F14B  /del
-LoadOption /guid CDE000FF-669C-4A4D-9EB8-050348A3A5DE  /del
-LoadOption /guid CDE000FF-4C0B-4994-A29E-09D8A3CBF7E2  /del
-LoadOption /guid CDE000FF-FBBA-4AA6-B1C2-9701038905B2  /del
-LoadOption /guid CDE000FF-A2C0-4C76-82D5-F0206EA53289  /del
-LoadOption /guid CDE000FF-A2C0-4C76-82D5-F0206EA5328A  /del
-LoadOption /guid CDE000FF-0375-4EC7-AEBD-5EA8970ED6D9  /del
-LoadOption /guid CDE000FF-721F-446A-A713-69E0A96F293D  /del
-LoadOption /guid CDE000FF-721F-446A-A713-69E0A96F293E  /del
-LoadOption /guid CDE000FF-AFB4-46F6-8C3B-BCC20A778BA2  /del
-LoadOption /guid CDE000FF-44D7-4E9C-95E0-A2451E8F7203  /del
-LoadOption /guid CDE000FF-44D7-4E9C-95E0-A2451E8F7204  /del
-LoadOption /guid CDE000FF-BA1D-49EF-B999-AAA652D11474  /del
-LoadOption /guid CDE000FF-A950-4A0E-B9AD-D25E524456D2  /del
-LoadOption /guid CDE000FF-A950-4A0E-B9AD-D25E524456D3  /del
-LoadOption /guid CDE000FF-4815-4A63-86AF-052FB39671BB  /del
-LoadOption /guid CDE000FF-077B-4A26-BC22-F0329B21F9F9  /del
-LoadOption /guid CDE000FF-FF24-4FB7-B7C2-D4FB22D4624F  /del
-LoadOption /guid CDE000FF-BFBF-4590-AA1B-A1775E872026  /del
-LoadOption /guid CDE000FF-941D-4C60-8B7B-31013A16EEAB  /del
-LoadOption /guid CDE000FF-BA6D-4707-BC83-F22C71F6C700  /del
-LoadOption /guid CDE000FF-4B2F-416B-99C1-6EF1EC221E81  /del
-LoadOption /guid CDE000FF-7F36-43CE-84F6-066F22750640  /del
-LoadOption /guid CDE000FF-CF70-4B97-83BA-88F49422717F  /del
-LoadOption /guid CDE000FF-9ADC-4C44-9646-76EE9374CACC  /del
-LoadOption /guid CDE000FF-1D13-4973-86E6-FDE74E151DFA  /del
-LoadOption /guid CDE000FF-686A-490B-B9C0-F6F1A832FB6B  /del
-LoadOption /guid CDE000FF-EFD8-40D9-88EA-FA81F7D28732  /del
-LoadOption /guid CDE000FF-D820-49BE-A829-839FCF26AE63  /del
-LoadOption /guid CDE000FF-C263-48F3-BD6A-2E524D9AE131  /del
+LoadOption /guid CDE000FF-D381-49C3-8D4A-44C94843F83C  /del /cmd "asserthfunctionsDxe"
+LoadOption /guid CDE000FF-C6F5-49CC-BFD3-F44A5912649A  /del /cmd "asserthfunctionsPei"
+LoadOption /guid CDE000FF-C6F5-49CC-BFD3-F44A5912649B  /del /cmd "asserthfunctionsPre"
+LoadOption /guid CDE000FF-A3A6-4F7A-B16C-123708FB4DCD  /del /cmd "ctypehfunctionsDxe "
+LoadOption /guid CDE000FF-38C6-4B8D-A1E3-B59A3FC2361D  /del /cmd "ctypehfunctionsPei "
+LoadOption /guid CDE000FF-38C6-4B8D-A1E3-B59A3FC2361E  /del /cmd "ctypehfunctionsPRE "
+LoadOption /guid CDE000FF-D745-4676-8787-C55CE99B39ED  /del /cmd "argcvDxe abc \"d e f g\" \\\"1 23"
+LoadOption /guid CDE000FF-604C-48D1-B7F2-74BF3999E10E  /del /cmd "argcvPei abc \"d e f g\" \\\"1 23"
+LoadOption /guid CDE000FF-B3EB-44D3-B45C-A4E88E43A237  /del /cmd "argcvPre abc \"d e f g\" \\\"1 23"
+LoadOption /guid CDE000FF-C3BD-4A86-BA12-8B055AE19D4B  /del /cmd "localehfunctionsDxe"
+LoadOption /guid CDE000FF-4A99-4854-81FC-4D835574B820  /del /cmd "localehfunctionsPei"
+LoadOption /guid CDE000FF-4A99-4854-81FC-4D835574B821  /del /cmd "localehfunctionsPei"
+LoadOption /guid CDE000FF-D426-45CF-8D47-4675CCD4C31C  /del /cmd "stdiohfunctionsDxe "
+LoadOption /guid CDE000FF-6B55-4AD7-934D-5BD6D9CDD1BD  /del /cmd "stdiohfunctionsPei "
+LoadOption /guid CDE000FF-6B55-4AD7-934D-5BD6D9CDD1BE  /del /cmd "stdiohfunctionsPRE "
+LoadOption /guid CDE000FF-D386-46BA-A7C1-7A254A8671A9  /del /cmd "stdlibhfunctionsDxe"
+LoadOption /guid CDE000FF-FABB-436D-B4A3-18CC6CA7C746  /del /cmd "stdlibhfunctionsPei"
+LoadOption /guid CDE000FF-FABB-436D-B4A3-18CC6CA7C747  /del /cmd "stdlibhfunctionsPRE"
+LoadOption /guid CDE000FF-0B23-4CBE-8149-6CDCA758EEB5  /del /cmd "stringhfunctionsDxe"
+LoadOption /guid CDE000FF-B08C-4806-AF47-8330138A835E  /del /cmd "stringhfunctionsPei"
+LoadOption /guid CDE000FF-B08C-4806-AF47-8330138A835F  /del /cmd "stringhfunctionsPRE"
+LoadOption /guid CDE000FF-F737-4515-AD5C-7C8E325A2B0F  /del /cmd "systeminterfaceDXE "
+LoadOption /guid CDE000FF-CC17-4C1C-863D-7660D331F14A  /del /cmd "systeminterfacePEI "
+LoadOption /guid CDE000FF-CC17-4C1C-863D-7660D331F14B  /del /cmd "systeminterfacePRE "
+LoadOption /guid CDE000FF-669C-4A4D-9EB8-050348A3A5DE  /del /cmd "templateDxe        "
+LoadOption /guid CDE000FF-4C0B-4994-A29E-09D8A3CBF7E2  /del /cmd "templatePei        "
+LoadOption /guid CDE000FF-FBBA-4AA6-B1C2-9701038905B2  /del /cmd "clockDxe /frq 64 /count 16"
+LoadOption /guid CDE000FF-A2C0-4C76-82D5-F0206EA53289  /del /cmd "clockPei /frq 64 /count 16"
+LoadOption /guid CDE000FF-A2C0-4C76-82D5-F0206EA5328A  /del /cmd "clockPRE /frq 64 /count 16"
+LoadOption /guid CDE000FF-0375-4EC7-AEBD-5EA8970ED6D9  /del /cmd "timehfunctionsDxe  "
+LoadOption /guid CDE000FF-721F-446A-A713-69E0A96F293D  /del /cmd "timehfunctionsPei  "
+LoadOption /guid CDE000FF-721F-446A-A713-69E0A96F293E  /del /cmd "timehfunctionsPRE  "
+LoadOption /guid CDE000FF-AFB4-46F6-8C3B-BCC20A778BA2  /del /cmd "wcharhfunctionsDxe "
+LoadOption /guid CDE000FF-44D7-4E9C-95E0-A2451E8F7203  /del /cmd "wcharhfunctionsPei "
+LoadOption /guid CDE000FF-44D7-4E9C-95E0-A2451E8F7204  /del /cmd "wcharhfunctionsPRE "
+LoadOption /guid CDE000FF-BA1D-49EF-B999-AAA652D11474  /del /cmd "wctypehfunctionsDxe"
+LoadOption /guid CDE000FF-A950-4A0E-B9AD-D25E524456D2  /del /cmd "wctypehfunctionsPei"
+LoadOption /guid CDE000FF-A950-4A0E-B9AD-D25E524456D3  /del /cmd "wctypehfunctionsPRE"
+LoadOption /guid CDE000FF-4815-4A63-86AF-052FB39671BB  /del /cmd "CdeDiagGPIOPRE"
+LoadOption /guid CDE000FF-077B-4A26-BC22-F0329B21F9F9  /del /cmd "CdeDiagGPIOPei"
+LoadOption /guid CDE000FF-FF24-4FB7-B7C2-D4FB22D4624F  /del /cmd "CdeDiagGPIODxe /all"
+LoadOption /guid CDE000FF-BFBF-4590-AA1B-A1775E872026  /del /cmd "CdeDiagRTCPRE"
+LoadOption /guid CDE000FF-941D-4C60-8B7B-31013A16EEAB  /del /cmd "CdeDiagRTCPei"
+LoadOption /guid CDE000FF-BA6D-4707-BC83-F22C71F6C700  /del /cmd "CdeDiagRTCDxe"
+LoadOption /guid CDE000FF-4B2F-416B-99C1-6EF1EC221E81  /del /cmd "CdeDiagPCIPRE"
+LoadOption /guid CDE000FF-7F36-43CE-84F6-066F22750640  /del /cmd "CdeDiagPCIPei"
+LoadOption /guid CDE000FF-CF70-4B97-83BA-88F49422717F  /del /cmd "CdeDiagPCIDxe"
+LoadOption /guid CDE000FF-9ADC-4C44-9646-76EE9374CACC  /del /cmd "CdeDiagEFIVARPRE"
+LoadOption /guid CDE000FF-1D13-4973-86E6-FDE74E151DFA  /del /cmd "CdeDiagEFIVARPei"
+LoadOption /guid CDE000FF-686A-490B-B9C0-F6F1A832FB6B  /del /cmd "CdeDiagEFIVARDxe"
+LoadOption /guid CDE000FF-EFD8-40D9-88EA-FA81F7D28732  /del /cmd "CdeDiagDEMODUMPPRE"
+LoadOption /guid CDE000FF-D820-49BE-A829-839FCF26AE63  /del /cmd "CdeDiagDEMODUMPPei"
+LoadOption /guid CDE000FF-C263-48F3-BD6A-2E524D9AE131  /del /cmd "CdeDiagDEMODUMPDxe"
+LoadOption /guid CDE000FF-13C6-4C8B-BF60-E8D1165E9D3B  /del /cmd "CdeDiagTSCDiag /seccount 32"
+LoadOption /guid CDE000FF-8882-4391-B097-695F0C232946  /del /cmd "CdeDiagTSCDiag /seccount 32"
+LoadOption /guid CDE000FF-F7C7-4B2F-9250-ABD0FD57719C  /del /cmd "CdeDiagTSCDiag /seccount 32"

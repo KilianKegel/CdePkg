@@ -28,7 +28,7 @@
     <None Include="buildPRE.inf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\CdePkg\Include\CdeLoadOptions.h">
+    <ClInclude Include="..\Include\CDE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

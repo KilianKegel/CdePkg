@@ -32,9 +32,6 @@
                     <TD>CDE000FF-BFBF-4590-AA1B-A1775E872026</td>
                     <TD>CDE000FF-941D-4C60-8B7B-31013A16EEAB</td>
                     <TD>CDE000FF-BA6D-4707-BC83-F22C71F6C700</td>
-                <tr>
-                    <th>parameter</th>
-                    <td colspan="3">/count <em>num</em> : test <em>num</em> ASCII characters</td></tr>
     </table>
 
 @subsection ref_sec References

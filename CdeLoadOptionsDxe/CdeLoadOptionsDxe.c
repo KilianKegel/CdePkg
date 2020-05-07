@@ -1,8 +1,4 @@
-﻿#pragma warning(disable:4113)
-#pragma warning(disable:4028)
-#pragma warning(disable:4029)
-#pragma warning(disable:4189)
-/*!
+﻿/*!
 @copyright
 	Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
 	SPDX-License-Identifier: BSD-2-Clause-Patent
@@ -32,6 +28,10 @@
 	<a href="https://msdn.microsoft.com/en-us/library/a1y7w461.aspx">C Command-Line Arguments</a>\n
 	@image html StdCLibCover.jpg
 */
+#pragma warning(disable:4113)
+#pragma warning(disable:4028)
+#pragma warning(disable:4029)
+#pragma warning(disable:4189)
 #include <uefi.h>
 #include <CDE.h>
 #include <library\debuglib.h>

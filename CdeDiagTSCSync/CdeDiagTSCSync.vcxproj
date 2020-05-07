@@ -28,9 +28,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{eca3a597-e510-49db-a52c-6a7b3fe63cd6}</ProjectGuid>
+    <ProjectGuid>{f0d3472a-e53a-44ac-bc00-0e588d0327b6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CdeDiagDemoDump</RootNamespace>
+    <RootNamespace>CdeDiagTSCSync</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectTypeGuids>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}</ProjectTypeGuids>
   </PropertyGroup>
@@ -329,7 +329,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
@@ -352,6 +352,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>EFI Boot Service Driver</SubSystem>
@@ -411,7 +412,7 @@
       <AssemblerOutput>NoListing</AssemblerOutput>
     </ClCompile>
     <Link>
-      <SubSystem>EFI Boot Service Driver</SubSystem>
+      <SubSystem>EFI Application</SubSystem>
       <EnableCOMDATFolding>
       </EnableCOMDATFolding>
       <OptimizeReferences>
@@ -446,7 +447,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
@@ -469,6 +470,7 @@
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>EFI Boot Service Driver</SubSystem>

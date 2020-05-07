@@ -6,14 +6,14 @@
 @file main.c
 
 @brief
-    This module implements <em>POST diagnostic for EFIVAR</em>
+    This module implements <em>POST diagnostic for EFI variables</em>
 @todo
 
 @mainpage
-    POST diagnostic for EFIVAR 
+    POST diagnostic for EFI variables
 
 @section intro_sec Introduction
-    POST diagnostic for EFIVAR for DXE services only, sample implementation
+    POST diagnostic for EFI variables
 
 @subsection Drv_sec Driver and Application matrix
     <table>
@@ -29,18 +29,15 @@
                     <TD>CdeDiagEFIVARDxe.efi</td>
                 </tr>
                 <tr><th>GUID</th>
-                    <TD>CDE000FF-9ADC-4C44-9646-76EE9374CACC</td>
+                    <TD>CDE000FF-EFD8-40D9-88EA-FA81F7D28732</td>
                     <TD>CDE000FF-1D13-4973-86E6-FDE74E151DFA</td>
-                    <TD>CDE000FF-686A-490B-B9C0-F6F1A832FB6B</td>
-                <tr>
-                    <th>parameter</th>
-                    <td colspan="3">/count <em>num</em> : test <em>num</em> ASCII characters</td></tr>
+                    <TD>CDE000FF-C263-48F3-BD6A-2E524D9AE131</td>
     </table>
 
 @subsection ref_sec References
-    <a href="https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf#page=302">UEFI variable service</a>\n
-    <a href="https://uefi.org/sites/default/files/resources/PI_Spec_1_7_final_Jan_2019.pdf#page=150">PI variable service</a>\n
+    <a href="https://uefi.org/sites/default/files/resources/UEFI_Spec_2_8_final.pdf#page=302">Variable Services</a>\n
     <a href="https://www.pdf-archive.com/2014/10/02/ansi-iso-9899-1990-1/ansi-iso-9899-1990-1.pdf">ANSI C Specification</a>\n
+
 @subsection Parm_sec Command line parameters
     n/a
 
@@ -125,10 +122,6 @@ int main(int argc, char** argv) {
             //    guid.Data2,
             //    guid.Data3,
             //    guid.Data4[0],
-            //    guid.Data4[1],
-            //    guid.Data4[2],
-            //    guid.Data4[3],
-            //    guid.Data4[4],
             //    guid.Data4[5],
             //    guid.Data4[6],
             //    guid.Data4[7],
@@ -152,11 +145,6 @@ int main(int argc, char** argv) {
 //before sorting            pVarList[x].guid.Data1,
 //before sorting            pVarList[x].guid.Data2,
 //before sorting            pVarList[x].guid.Data3,
-//before sorting            pVarList[x].guid.Data4[0],
-//before sorting            pVarList[x].guid.Data4[1],
-//before sorting            pVarList[x].guid.Data4[2],
-//before sorting            pVarList[x].guid.Data4[3],
-//before sorting            pVarList[x].guid.Data4[4],
 //before sorting            pVarList[x].guid.Data4[5],
 //before sorting            pVarList[x].guid.Data4[6],
 //before sorting            pVarList[x].guid.Data4[7],
