@@ -59,7 +59,7 @@ compatible sourcecode to run as UEFI POST driver.
 
 With the growing complexity of firmware due to the requirements for both security and trust and the
 need for speed in development, use of platform-independent sourcecode allows:
-* reuse of validated C sourcecode (from different origins, e.g. the open source community](<sup>1</sup>](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/footnote-1.md)
+* reuse of validated C sourcecode (from different origins, e.g. the open source community)[<sup>1</sup>](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/footnote-1.md)
 * crossdevelopment of complex firmware code on non-UEFI platforms with superb build and debug capabilities
 * use of static code analysis tools[<sup>2</sup>](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/footnote-2.md)
 * appraisal of the source code quality by human professionals[<sup>3</sup>](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/footnote-3.md)
