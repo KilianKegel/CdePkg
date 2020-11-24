@@ -223,7 +223,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 
 ## Revision history
 ### 20200507
-* add diagnostic driver CdeDiagTSCSync, that demonstrates syncrone timing of RTC and TSC-based <time.h> functions
+* add diagnostic driver CdeDiagTSCSync, that demonstrates synchronous  timing of RTC and TSC-based <time.h> functions
 * remove diagnostic driver CdeDiagPCI (PCI is available in BDS phase only)
 * improved build configurations for all solution projects
 * update all UEFI shell batch files to configure POST LoadOptions/command lines
