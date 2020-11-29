@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="DXE64(CdeLib)|Win32">
-      <Configuration>DXE64(CdeLib)</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="DXE64(CdeLib)|x64">
       <Configuration>DXE64(CdeLib)</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="POST|x64">
+      <Configuration>POST</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SHELL|x64">
+      <Configuration>SHELL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -19,13 +23,15 @@
     <ProjectTypeGuids>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}</ProjectTypeGuids>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|Win32'">
-    <PlatformToolset>v142</PlatformToolset>
-    <SpectreMitigation>false</SpectreMitigation>
-  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|x64'">
     <PlatformToolset>v142</PlatformToolset>
     <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='POST|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='SHELL|x64'">
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -35,11 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|x64'">
     <GenerateManifest>false</GenerateManifest>
+    <OutDir>$(SolutionDir)CdePkg\build\$(Platform)\$(Configuration)\</OutDir>
+    <TargetExt>.efi</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)CdePkg\Include\;$(SolutionDir)CdePkg\Include\VS2019;$(SolutionDir)Edk2\MdePkg\Include;$(SolutionDir)Edk2\MdePkg\Include\x64</AdditionalIncludeDirectories>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <Optimization>MinSpace</Optimization>
       <StringPooling>true</StringPooling>
@@ -60,6 +68,7 @@
       <ConformanceMode>false</ConformanceMode>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
@@ -81,61 +90,6 @@
       <OptimizeReferences>false</OptimizeReferences>
       <TypeLibraryResourceID />
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <SectionAlignment>32</SectionAlignment>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|Win32'">
-    <ClCompile>
-      <StringPooling>true</StringPooling>
-      <IntrinsicFunctions>false</IntrinsicFunctions>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ConformanceMode>false</ConformanceMode>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AssemblerOutput>NoListing</AssemblerOutput>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|Win32'">
-    <ClCompile>
-      <ExceptionHandling>false</ExceptionHandling>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|Win32'">
-    <ClCompile>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DXE64(CdeLib)|Win32'">
-    <ClCompile>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <DebugInformationFormat>None</DebugInformationFormat>
-      <DiagnosticsFormat />
-      <CompileAs>CompileAsC</CompileAs>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>false</SDLCheck>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <Optimization>MinSpace</Optimization>
-      <OmitFramePointers>true</OmitFramePointers>
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <PrecompiledHeaderFile />
-      <PrecompiledHeaderOutputFile />
-    </ClCompile>
-    <Link>
-      <ManifestFile />
-    </Link>
-    <Link>
-      <AllowIsolation />
-    </Link>
-    <Link>
-      <UACExecutionLevel />
-    </Link>
-    <Link>
-      <UACUIAccess />
-    </Link>
-    <Link>
-      <RandomizedBaseAddress />
-    </Link>
-    <Link>
       <SectionAlignment>32</SectionAlignment>
     </Link>
   </ItemDefinitionGroup>

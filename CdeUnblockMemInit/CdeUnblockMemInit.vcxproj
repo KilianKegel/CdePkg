@@ -9,6 +9,22 @@
       <Configuration>PEI32(CdeLib)</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="POST|Win32">
+      <Configuration>POST</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="POST|x64">
+      <Configuration>POST</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SHELL|Win32">
+      <Configuration>SHELL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SHELL|x64">
+      <Configuration>SHELL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -19,14 +35,6 @@
     <ProjectTypeGuids>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}</ProjectTypeGuids>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
-    <CharacterSet>NotSet</CharacterSet>
-    <SpectreMitigation>false</SpectreMitigation>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -35,26 +43,38 @@
     <CharacterSet>NotSet</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='POST|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='POST|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='SHELL|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='SHELL|Win32'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'">
-    <LinkIncremental />
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
-    <GenerateManifest />
-    <OutDir>$(SolutionDir)CdePkg\build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
-    <TargetExt>.efi</TargetExt>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'">
     <LinkIncremental />
     <TargetExt>.efi</TargetExt>
@@ -62,65 +82,13 @@
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <GenerateManifest />
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MinSpace</Optimization>
-      <FunctionLevelLinking>false</FunctionLevelLinking>
-      <IntrinsicFunctions>false</IntrinsicFunctions>
-      <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE</PreprocessorDefinitions>
-      <ConformanceMode>false</ConformanceMode>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <WholeProgramOptimization>false</WholeProgramOptimization>
-      <ExceptionHandling>false</ExceptionHandling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)CdePkg\Include\;$(SolutionDir)CdePkg\Include\VS2019;$(SolutionDir)Edk2\MdePkg\Include;$(SolutionDir)Edk2\MdePkg\Include\ia32</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <OmitFramePointers>true</OmitFramePointers>
-      <StringPooling>true</StringPooling>
-      <CompileAs>CompileAsC</CompileAs>
-      <DebugInformationFormat>None</DebugInformationFormat>
-      <DiagnosticsFormat />
-      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
-      <PrecompiledHeaderFile />
-      <PrecompiledHeaderOutputFile />
-      <AssemblerOutput>NoListing</AssemblerOutput>
-    </ClCompile>
-    <Link>
-      <SubSystem>EFI Boot Service Driver</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>
-      </OptimizeReferences>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
-      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
-      <AllowIsolation>
-      </AllowIsolation>
-      <EnableUAC>
-      </EnableUAC>
-      <UACExecutionLevel>
-      </UACExecutionLevel>
-      <UACUIAccess>
-      </UACUIAccess>
-      <GenerateMapFile>true</GenerateMapFile>
-      <LinkTimeCodeGeneration>
-      </LinkTimeCodeGeneration>
-      <EntryPointSymbol>_MainEntryPointPei</EntryPointSymbol>
-      <RandomizedBaseAddress>
-      </RandomizedBaseAddress>
-      <DataExecutionPrevention>
-      </DataExecutionPrevention>
-      <ImageHasSafeExceptionHandlers>
-      </ImageHasSafeExceptionHandlers>
-      <OutputFile>$(OutDir)$(TargetName).efi</OutputFile>
-      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
-      <ManifestFile />
-      <SectionAlignment>32</SectionAlignment>
-    </Link>
-  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'">
+    <LinkIncremental />
+    <TargetExt>.efi</TargetExt>
+    <OutDir>$(SolutionDir)CdePkg\build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <GenerateManifest />
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -177,6 +145,69 @@
       <OutputFile>$(OutDir)$(TargetName).efi</OutputFile>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <SectionAlignment>32</SectionAlignment>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_NO_CRT_STDIO_INLINE;_CRT_SECURE_NO_WARNINGS;CDE_DRIVER_NAME="$(TargetName)";CDE_CONFIGURATION_STRING="PEI32(CdeLib)";CDE_PLATFORM_STRING="x86-32"</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)CdePkg\Include\;$(SolutionDir)CdePkg\Include\VS2019;$(SolutionDir)Edk2\MdePkg\Include;$(SolutionDir)Edk2\MdePkg\Include\ia32</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <CompileAs>CompileAsC</CompileAs>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <ExceptionHandling>false</ExceptionHandling>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <OmitFramePointers>true</OmitFramePointers>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>EFI Boot Service Driver</SubSystem>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <UACExecutionLevel>
+      </UACExecutionLevel>
+      <UACUIAccess>
+      </UACUIAccess>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <MapExports>false</MapExports>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <TypeLibraryResourceID>
+      </TypeLibraryResourceID>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
+      <EntryPointSymbol>_MainEntryPointPei</EntryPointSymbol>
+      <EnableUAC>
+      </EnableUAC>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <OutputFile>$(OutDir)$(TargetName).efi</OutputFile>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <SectionAlignment>32</SectionAlignment>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <Driver>Driver</Driver>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

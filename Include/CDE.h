@@ -16,8 +16,6 @@
 //#TOCTRL NMOFINE
 //
 
-#pragma warning (disable:4456) //warning C4456: declaration of 'x' hides previous local declaration
-
 //
 // dump related definitions
 //
@@ -32,7 +30,7 @@ typedef union _XDUMPPARM {
                                             2 == "%04llX: "
                                             3 == "%02llX: "
                                             4 == ""                                                 */
-        unsigned ElmsPerLine : 7;/*!< nBytesPerLine minus one bytes per line - 0 == 16,   */
+        unsigned ElmsPerLine : 7;       /*!< nBytesPerLine minus one bytes per line - 0 == 16,   */
         unsigned NoAscii : 1;           /*!<append NO ASCII characters                              */
         unsigned BaseOfs : 1;           /*!<base and offset, offset only otherwise                  */
         unsigned NoDash : 1;            /*!<print dash "-" in between                               */
