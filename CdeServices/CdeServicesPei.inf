@@ -14,4 +14,6 @@
 
 [Binaries.IA32]
 	PE32|CdeServicesPei32.efi
-	PEI_DEPEX|CdeServicesPei.depex
+#	PEI_DEPEX|CdeServicesPei.depex
+[DEPEX]
+    TRUE

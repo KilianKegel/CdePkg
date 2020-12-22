@@ -41,7 +41,7 @@ typedef union _XDUMPPARM {
 //
 // externs
 //
-extern char* gEfiCallerBaseName;
+extern char *gEfiCallerBaseName;
 
 // CDE related library diagnostic extentions 
 extern int _CdeMofine(char* pszDriver, char* pszFile, int nLine, char* pszFunction, char* pszClass, int fTraceEn, char* pszFormat, ...);
