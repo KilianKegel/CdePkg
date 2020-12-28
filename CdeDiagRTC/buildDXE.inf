@@ -33,7 +33,7 @@
 [Pcd]
 
 [Depex]
-	gCdeDxeProtocolGuid
+	gCdeServicesDxeGuid
 
 [Pcd]
 	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine		## CONSUMES

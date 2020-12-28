@@ -4,9 +4,9 @@
 #
 [Defines]
   INF_VERSION                    = 1.26
-  BASE_NAME                      = CdeWelcomeDxe
-  MODULE_UNI_FILE                = CdeWelcomeDxe.uni
-  FILE_GUID                      = CDE000FF-0A15-41D7-9A7D-7111338CBD8B
+  BASE_NAME                      = CdeWelcomeSmm
+  MODULE_UNI_FILE                = CdeWelcomeSmm.uni
+  FILE_GUID                      = CDE000FF-FEE8-4AD8-BF05-6A4B181A8646
   MODULE_TYPE                    = DXE_DRIVER
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = _MainEntryPointDxe
@@ -18,8 +18,8 @@
 #
 
 [Sources]
-	CdeWelcomeDxe.c
-	CdeWelcomeDxe.uni
+	CdeWelcomeSmm.c
+	CdeWelcomeSmm.uni
 
 [Packages]
 	MdePkg/MdePkg.dec
@@ -39,7 +39,7 @@
 [Pcd]
 
 [Depex]
-	gCdeServicesDxeGuid
+	gCdeServicesSmmGuid
 
 [Pcd]
 	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine		## CONSUMES

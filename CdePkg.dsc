@@ -14,11 +14,14 @@
 
 [Components]
 	CdePkg/CdeServices/CdeServicesDxe.inf
+	CdePkg/CdeServices/CdeServicesSmm.inf
 	CdePkg/CdeServices/CdeServicesPei.inf
 	CdePkg/CdeWelcomeDxe/CdeWelcomeDxe.inf
+	CdePkg/CdeWelcomeDxe/CdeWelcomeSmm.inf
 	CdePkg/CdeWelcomeDxe/CdeWelcomePei.inf
-	CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsDxe.inf
-	CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsPei.inf
+	#CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsDxe.inf
+	#CdePkg/CdeLoadOptionsSmm/CdeLoadOptionsSmm.inf
+	#CdePkg/CdeLoadOptionsDxe/CdeLoadOptionsPei.inf
 
 [BuildOptions]
 	*_*_*_CC_FLAGS =

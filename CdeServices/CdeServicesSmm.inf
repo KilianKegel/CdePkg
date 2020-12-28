@@ -1,0 +1,21 @@
+[Defines]
+	INF_VERSION         = 0x0001001A
+	BASE_NAME           = CdeServiceSmm
+    FILE_GUID           = CDE00010-D187-4CCA-B12B-ECAF26026E39
+	MODULE_TYPE         = DXE_SMM_DRIVER
+	VERSION_STRING      = 0.5
+	PI_SPECIFICATION_VERSION       = 0x0001000A
+#	ENTRY_POINT			= CdeServicesSmmEntryPoint
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = IA32|X64
+#
+
+[Binaries]
+	SMM_DEPEX|SMM_TRUE.depex
+[Binaries.IA32]
+	PE32|CdeServicesSmm32.efi
+[Binaries.x64]
+	PE32|CdeServicesSmm64.efi

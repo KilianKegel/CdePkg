@@ -35,4 +35,4 @@
 [Pcd]
 
 [Depex]
-    gCdePeiProtocolGuid
+    gCdeServicesPeiGuid
