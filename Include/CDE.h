@@ -42,12 +42,19 @@ typedef union _XDUMPPARM {
 // externs
 //
 extern char* gEfiCallerBaseName;
+extern void* _CdeGetAppIf(void);
 
+//
+// ANSI C Library related extentions 
+//
+#define __CDEC_HOSTED__ (NULL != _CdeGetAppIf())	// replacement for __STDC_HOSTED__ 
+extern char* strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
+
+//
 // CDE related library diagnostic extentions 
+//
 extern int _CdeMofine(char* pszDriver, char* pszFile, int nLine, char* pszFunction, char* pszClass, int fTraceEn, char* pszFormat, ...);
 extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long startaddr, unsigned long long(*pfnGetElm)(unsigned long long qwAddr), unsigned (*pfnWriteStr)(char* szLine),char *pBuf, int bufsize);
-// ANSI C Library related extentions 
-extern char* strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 //
 // CDE MOdule FIle liNE (CDEMOFINE) trace support definitions

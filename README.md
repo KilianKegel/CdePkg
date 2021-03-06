@@ -222,6 +222,14 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210306/0
+* add native UEFI `Print` format flags compatibility
+    * %g - guid
+    * %r- status
+    * %t - time This is switched internally for traditional UEFI POST trace emulation. But not for the CDEMOFINE trace engine
+* created `__CDEC_HOSTED__` according to ```__STDC_HOSTED__``` in `CDE.H` for runtime test, whether full `CdeLib library support available or not (NOTE: Microsoft STDC_HOSTED is forced to 1 and can not be changed)
+* changed `CDE_APP_IF* _GetCdeAppIf()` to `void* _CdeGetAppIf()` to publish it in CDE.H
+
 ### 20200507
 * add diagnostic driver CdeDiagTSCSync, that demonstrates synchronous  timing of RTC and TSC-based <time.h> functions
 * remove diagnostic driver CdeDiagPCI (PCI is available in BDS phase only)
