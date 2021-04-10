@@ -26,5 +26,8 @@
     <ClCompile Include="CdeWelcomePei.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EfiCallerBaseName.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

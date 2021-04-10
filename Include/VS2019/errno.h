@@ -21,19 +21,20 @@
 #define EILSEQ  0x2A	/*C99 defined*/
 
 // Microsoft specific Error codes
+//https://docs.microsoft.com/en-us/cpp/c-runtime-library/errno-constants?view=msvc-160
 #define EPERM           1
 #define ENOENT          2
 #define ESRCH           3
 #define EINTR           4
 #define EIO             5
 #define ENXIO           6
-#define E2BIG           7
+#define E2BIG           7   //Argument list too long
 #define ENOEXEC         8
-#define EBADF           9
-#define ECHILD          10
-#define EAGAIN          11
-#define ENOMEM          12
-#define EACCES          13
+#define EBADF           9   //Bad file number.There are two possible causes : 1) The specified file descriptor is not a valid value or does not refer to an open file. 2) An attempt was made to write to a file or device opened for read - only access.
+#define ECHILD          10  //No spawned processes
+#define EAGAIN          11  //No more processes.An attempt to create a new process failed because there are no more process slots, or there is not enough memory, or the maximum nesting level has been reached.
+#define ENOMEM          12  //Not enough core.Not enough memory is available for the attempted operator. For example, this message can occur when insufficient memory is available to execute a child process, or when the allocation request in a _getcwd call cannot be satisfied.
+#define EACCES          13  //Permission denied.The file's permission setting does not allow the specified access. This error signifies that an attempt was made to access a file (or, in some cases, a directory) in a way that is incompatible with the file's attributes.
 #define EFAULT          14
 #define EBUSY           16
 #define EEXIST          17
@@ -56,7 +57,6 @@
 #define ENOLCK          39
 #define ENOSYS          40
 #define ENOTEMPTY       41
-
 // Error codes used in the Secure CRT functions
 #define _SECURECRT_ERRCODE_VALUES_DEFINED
 #define EINVAL          22

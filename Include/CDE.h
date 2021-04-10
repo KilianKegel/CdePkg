@@ -43,7 +43,7 @@ typedef union _XDUMPPARM {
 //
 extern char* gEfiCallerBaseName;
 extern void* _CdeGetAppIf(void);
-
+extern int _CdeTraceNumCharsTransmitted;
 //
 // ANSI C Library related extentions 
 //
@@ -71,6 +71,8 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 
 #define MOFINE_EXITONCOND   (1 << 10)
 #define MOFINE_DEADONCOND   (1 << 11)
+
+#define MOFINE_UEFIFMTSTR   (1 << 12)
 
 #ifndef MOFINE_CONFIG
 #   define MOFINE_CONFIG       0 /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
@@ -119,6 +121,14 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 #define CDEPOSTCODE(c,v)	if(c)outp(0x80,v)
 #define CDEDEADLOOP(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz);}
 #define CDEDEBUGBREAK(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
+#define CDEDBGMAGIC         0xCDEDB600                  // backdoor file pointer like stdin, stdout, stderr
+#define CDEDBGMAGICMASK     0xFFFFFF00                  // backdoor file pointer like stdin, stdout, stderr
+#define CDEDBG(x)           (void*)(CDEDBGMAGIC | x)    // backdoor file pointer like stdin, stdout, stderr
+#   define CDEDBG_EN        1
+#   define CDEDBG_EFIFMT    2
+
+#define CDETRACE(cond,msg)  _CdeTraceNumCharsTransmitted  = fprintf((void*)(CDEDBGMAGIC | cond),"%s`%s(%d)`%s()`%s> ",gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,"INFO"),\
+                            _CdeTraceNumCharsTransmitted += fprintf((void*)(CDEDBGMAGIC | cond),msg)
 
 //
 // CDE GUID definitions
@@ -162,5 +172,69 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
     GETLOADOPTIONS* pGetLoadOptions;
 
 }CDE_LOADOPTIONS_PROTOCOL;
+
+//
+// override the "DebugLib.h"
+//
+#ifdef CDEOVRMDEDGB
+#define __DEBUG_LIB_H__ /*block "DebugLib.h" entirely*/
+//
+// Declare bits for PcdDebugPrintErrorLevel and the ErrorLevel parameter of DebugPrint()
+//
+#define DEBUG_INIT      0x00000001  // Initialization
+#define DEBUG_WARN      0x00000002  // Warnings
+#define DEBUG_LOAD      0x00000004  // Load events
+#define DEBUG_FS        0x00000008  // EFI File system
+#define DEBUG_POOL      0x00000010  // Alloc & Free (pool)
+#define DEBUG_PAGE      0x00000020  // Alloc & Free (page)
+#define DEBUG_INFO      0x00000040  // Informational debug messages
+#define DEBUG_DISPATCH  0x00000080  // PEI/DXE/SMM Dispatchers
+#define DEBUG_VARIABLE  0x00000100  // Variable
+#define DEBUG_BM        0x00000400  // Boot Manager
+#define DEBUG_BLKIO     0x00001000  // BlkIo Driver
+#define DEBUG_NET       0x00004000  // Network Io Driver
+#define DEBUG_UNDI      0x00010000  // UNDI Driver
+#define DEBUG_LOADFILE  0x00020000  // LoadFile
+#define DEBUG_EVENT     0x00080000  // Event messages
+#define DEBUG_GCD       0x00100000  // Global Coherency Database changes
+#define DEBUG_CACHE     0x00200000  // Memory range cachability changes
+#define DEBUG_VERBOSE   0x00400000  // Detailed debug messages that may
+                                    // significantly impact boot performance
+#define DEBUG_ERROR     0x80000000  // Error
+
+//
+// Aliases of debug message mask bits
+//
+#define EFI_D_INIT      DEBUG_INIT
+#define EFI_D_WARN      DEBUG_WARN
+#define EFI_D_LOAD      DEBUG_LOAD
+#define EFI_D_FS        DEBUG_FS
+#define EFI_D_POOL      DEBUG_POOL
+#define EFI_D_PAGE      DEBUG_PAGE
+#define EFI_D_INFO      DEBUG_INFO
+#define EFI_D_DISPATCH  DEBUG_DISPATCH
+#define EFI_D_VARIABLE  DEBUG_VARIABLE
+#define EFI_D_BM        DEBUG_BM
+#define EFI_D_BLKIO     DEBUG_BLKIO
+#define EFI_D_NET       DEBUG_NET
+#define EFI_D_UNDI      DEBUG_UNDI
+#define EFI_D_LOADFILE  DEBUG_LOADFILE
+#define EFI_D_EVENT     DEBUG_EVENT
+#define EFI_D_VERBOSE   DEBUG_VERBOSE
+#define EFI_D_ERROR     DEBUG_ERROR
+
+#ifdef DEBUG
+#   undef DEBUG
+#endif//DEBUG
+
+#define DEBUG(Expression)   _CdeMofine(gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"TIANOCORE DEBUG> ", 	/*condition*/MOFINE_CONFIG | 1,""),\
+                            DebugPrint Expression
+
+#define ASSERT_RETURN_ERROR(StatusParameter)
+#define ASSERT_EFI_ERROR(StatusParameter)
+//
+extern void DebugPrint(size_t ErrorLevel, const char* pszFormat, ...);
+#else//CDEOVRMDEDGB
+#endif//CDEOVRMDEDGB
 
 #endif//_CDE_H_

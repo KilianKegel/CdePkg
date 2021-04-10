@@ -19,7 +19,12 @@
 
 [Sources]
     CdeLoadOptionsPei.c
-    CdeLoadOptionsPei.uni
+
+[Sources.ia32]
+    _CdeGetCurrentPrivilegeLevel32.asm
+
+[Sources.x64]
+    _CdeGetCurrentPrivilegeLevel64.asm
 
 [Packages]
     CdePkg/CdePkg.dec
@@ -28,8 +33,6 @@
 
 [LibraryClasses]
     PeimEntryPoint
-    CdeLib
-
 
 [Guids]
     gCdeEndOfDxeGuid
@@ -42,3 +45,7 @@
 
 [Depex]
     TRUE
+
+[BuildOptions] 
+   MSFT:*_*_IA32_CC_FLAGS   = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+   MSFT:*_*_X64_CC_FLAGS    = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""

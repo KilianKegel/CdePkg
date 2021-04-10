@@ -128,11 +128,11 @@
     </Link>
     <Link>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC32R.lib</AdditionalDependencies>
       <EnableUAC />
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
-      <EntryPointSymbol>_MainEntryPointPei</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiDxeCRT04NonEDK</EntryPointSymbol>
       <DataExecutionPrevention />
       <Driver>Driver</Driver>
       <ManifestFile />
@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CdeWelcomePei.c" />
+    <ClCompile Include="EfiCallerBaseName.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -89,7 +89,7 @@
       <OptimizeReferences>
       </OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC32R.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <AllowIsolation>
       </AllowIsolation>
@@ -117,8 +117,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="_CdeGetCurrentPrivilegeLevel64.asm" />
     <None Include="CdeLoadOptionsPei.inf" />
-    <None Include="CdeLoadOptionsPei.uni" />
+    <None Include="_CdeGetCurrentPrivilegeLevel32.asm" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h" />

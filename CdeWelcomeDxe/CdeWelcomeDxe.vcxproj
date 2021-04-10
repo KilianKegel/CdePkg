@@ -71,14 +71,14 @@
       <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
     </Link>
     <Link>
       <EnableUAC />
     </Link>
     <Link>
       <DataExecutionPrevention>false</DataExecutionPrevention>
-      <EntryPointSymbol>_MainEntryPointDxe</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiDxeCRT04NonEDK</EntryPointSymbol>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CdeWelcomeDxe.c" />
+    <ClCompile Include="EfiCallerBaseName.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CdeWelcomeDxe.inf" />

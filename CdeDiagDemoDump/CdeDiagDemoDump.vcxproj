@@ -226,9 +226,9 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
-      <EntryPointSymbol>_MainEntryPointDxe</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiDxeCRT04NonEDK</EntryPointSymbol>
       <EnableUAC>
       </EnableUAC>
       <DataExecutionPrevention>false</DataExecutionPrevention>
@@ -528,9 +528,9 @@
       </RandomizedBaseAddress>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC32R.lib</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
-      <EntryPointSymbol>_MainEntryPointPei</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiDxeCRT04NonEDK</EntryPointSymbol>
       <EnableUAC>
       </EnableUAC>
       <DataExecutionPrevention>

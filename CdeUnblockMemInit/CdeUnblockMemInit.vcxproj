@@ -196,9 +196,9 @@
       </RandomizedBaseAddress>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\ia32\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC32R.lib</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
-      <EntryPointSymbol>_MainEntryPointPei</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiDxeCRT04NonEDK</EntryPointSymbol>
       <EnableUAC>
       </EnableUAC>
       <DataExecutionPrevention>

@@ -16,7 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CdeLoadOptionsPei.inf" />
-    <None Include="CdeLoadOptionsPei.uni" />
+    <None Include="_CdeGetCurrentPrivilegeLevel32.asm">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="_CdeGetCurrentPrivilegeLevel64.asm">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h">

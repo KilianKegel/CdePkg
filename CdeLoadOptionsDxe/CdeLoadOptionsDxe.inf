@@ -5,7 +5,6 @@
 [Defines]
   INF_VERSION                    = 1.26
   BASE_NAME                      = CdeLoadOptionsDxe
-  MODULE_UNI_FILE                = CdeLoadOptionsDxe.uni
   FILE_GUID                      = CDE00011-E3A6-4B9A-AD76-1C0F23938A10
   MODULE_TYPE                    = DXE_DRIVER
   VERSION_STRING                 = 1.0
@@ -19,8 +18,10 @@
 
 [Sources]
 	CdeLoadOptionsDxe.c
-	CdeLoadOptionsDxe.uni
-
+[Sources.ia32]
+    _CdeGetCurrentPrivilegeLevel32.asm
+[Sources.x64]
+    _CdeGetCurrentPrivilegeLevel64.asm
 [Packages]
 	CdePkg/CdePkg.dec
 	MdePkg/MdePkg.dec
@@ -29,7 +30,6 @@
 [LibraryClasses]
 	UefiLib
 	UefiDriverEntryPoint
-	CdeLib
 
 [Guids]
 	gEfiConsoleOutDeviceGuid                      ## SOMETIMES_PRODUCES ## UNDEFINED # protocol GUID installed on device handle
@@ -41,3 +41,13 @@
 
 [Depex]
 	gEfiVariableArchProtocolGuid
+
+[Pcd]
+	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine		## CONSUMES
+
+[BuildOptions] 
+#to ENABLE  CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
+#to DISABLE CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
+   MSFT:*_*_IA32_CC_FLAGS   = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+   MSFT:*_*_X64_CC_FLAGS    = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
+   

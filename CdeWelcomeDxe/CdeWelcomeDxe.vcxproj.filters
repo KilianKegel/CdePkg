@@ -18,6 +18,9 @@
     <ClCompile Include="CdeWelcomeDxe.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EfiCallerBaseName.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="CdeWelcomeDxe.inf" />

@@ -101,7 +101,7 @@
       </RandomizedBaseAddress>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <EntryPointSymbol>_Main</EntryPointSymbol>
       <EnableUAC>
@@ -119,7 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CdeLoadOptionsDxe.inf" />
-    <None Include="CdeLoadOptionsDxe.uni" />
+    <None Include="_CdeGetCurrentPrivilegeLevel32.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='native(CdeLoadOptionsDxe)|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="_CdeGetCurrentPrivilegeLevel64.asm" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h" />
