@@ -42,12 +42,12 @@ typedef union _XDUMPPARM {
 // externs
 //
 extern char* gEfiCallerBaseName;
-extern void* _CdeGetAppIf(void);
+extern void* __cdeGetAppIf(void);
 extern int _CdeTraceNumCharsTransmitted;
 //
 // ANSI C Library related extentions 
 //
-#define __CDEC_HOSTED__ (NULL != _CdeGetAppIf())	// replacement for __STDC_HOSTED__ 
+#define __CDEC_HOSTED__ (NULL != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
 extern char* strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 //

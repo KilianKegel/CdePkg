@@ -27,7 +27,7 @@
 #endif
 typedef long long fpos_t;
 
-FILE* __cdecl __acrt_iob_func( unsigned _Ix );
+FILE* __cdecl __acrt_iob_func(unsigned);
 
 #define stdin  (__acrt_iob_func(0))
 #define stdout (__acrt_iob_func(1))

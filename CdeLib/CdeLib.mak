@@ -72,7 +72,7 @@ all: $(TARGET_FILES) $(STATIC_LIBRARY_FILES)
 
 $(OUTPUT_DIR)\CdeLib.lib:$(STATIC_LIBRARY_FILES)
     
-    @IF $(ARCH) == IA32  IF $(TARGET) == RELEASE    echo ###-- 1- ARCH TARGET X86REL & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(RELEASE_STATIC_LIBRARY_FILE) $(WORKSPACE)\CdePkg\CdeLib\toritoC32R.lib
-    @IF $(ARCH) == IA32  IF $(TARGET) == DEBUG      echo ###-- 2- ARCH TARGET X86DEB & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(DEBUG_STATIC_LIBRARY_FILE)   $(WORKSPACE)\CdePkg\CdeLib\toritoC32R.lib
-    @IF $(ARCH) == X64   IF $(TARGET) == RELEASE    echo ###-- 3- ARCH TARGET X64REL & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(RELEASE_STATIC_LIBRARY_FILE) $(WORKSPACE)\CdePkg\CdeLib\toritoC64R.lib
-    @IF $(ARCH) == X64   IF $(TARGET) == DEBUG      echo ###-- 4- ARCH TARGET X64DEB & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(DEBUG_STATIC_LIBRARY_FILE)   $(WORKSPACE)\CdePkg\CdeLib\toritoC64R.lib 
+    @IF $(ARCH) == IA32  IF $(TARGET) == RELEASE    echo ###-- 1- ARCH TARGET X86REL & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(RELEASE_STATIC_LIBRARY_FILE) $(WORKSPACE)\CdePkg\toritoC32R.lib
+    @IF $(ARCH) == IA32  IF $(TARGET) == DEBUG      echo ###-- 2- ARCH TARGET X86DEB & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(DEBUG_STATIC_LIBRARY_FILE)   $(WORKSPACE)\CdePkg\toritoC32R.lib
+    @IF $(ARCH) == X64   IF $(TARGET) == RELEASE    echo ###-- 3- ARCH TARGET X64REL & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(RELEASE_STATIC_LIBRARY_FILE) $(WORKSPACE)\CdePkg\toritoC64R.lib
+    @IF $(ARCH) == X64   IF $(TARGET) == DEBUG      echo ###-- 4- ARCH TARGET X64DEB & "$(SLINK)" $(SLINK_FLAGS) /nologo /out:$(OUTPUT_DIR)\CdeLib.lib $(DEBUG_STATIC_LIBRARY_FILE)   $(WORKSPACE)\CdePkg\toritoC64R.lib 
