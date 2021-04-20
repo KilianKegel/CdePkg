@@ -44,9 +44,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{f0d3472a-e53a-44ac-bc00-0e588d0327b6}</ProjectGuid>
+    <ProjectGuid>{ef239990-9a23-4107-87eb-99a2c5cc39d1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>CdeDiagTSCSync</RootNamespace>
+    <RootNamespace>CdeAppShell</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectTypeGuids>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}</ProjectTypeGuids>
   </PropertyGroup>
@@ -208,7 +208,6 @@
       <OmitFramePointers>true</OmitFramePointers>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
-      <TreatWarningAsError>false</TreatWarningAsError>
       <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -267,7 +266,6 @@
       <OmitFramePointers>true</OmitFramePointers>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
-      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>EFI Boot Service Driver</SubSystem>
@@ -394,7 +392,7 @@
       <AssemblerOutput>NoListing</AssemblerOutput>
     </ClCompile>
     <Link>
-      <SubSystem>EFI Application</SubSystem>
+      <SubSystem>EFI Boot Service Driver</SubSystem>
       <EnableCOMDATFolding>
       </EnableCOMDATFolding>
       <OptimizeReferences>
@@ -414,7 +412,7 @@
       </RandomizedBaseAddress>
       <AdditionalOptions>
       </AdditionalOptions>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <EntryPointSymbol>_MainEntryPointShell</EntryPointSymbol>
       <EnableUAC>
@@ -429,7 +427,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PEI32(CdeLib)|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
@@ -452,7 +450,6 @@
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>EFI Boot Service Driver</SubSystem>
@@ -511,7 +508,6 @@
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <AssemblerOutput>NoListing</AssemblerOutput>
-      <TreatWarningAsError>false</TreatWarningAsError>
       <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -550,6 +546,11 @@
       <ManifestFile />
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='POST|x64'">
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SHELL|x64'">
     <Link>
       <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
@@ -568,9 +569,7 @@
     <ClInclude Include="..\Include\CDE.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="buildDXE.inf" />
-    <None Include="buildPEI.inf" />
-    <None Include="buildPRE.inf" />
+    <None Include="buildShell.inf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

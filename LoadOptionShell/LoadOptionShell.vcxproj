@@ -58,6 +58,9 @@
     </GenerateManifest>
     <OutDir>$(SolutionDir)CdePkg\build\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SHELL|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='native(LoadOption for UEFI Shell)|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)CdePkg\Include\;$(SolutionDir)CdePkg\Include\VS2019;$(SolutionDir)Edk2\MdePkg\Include;$(SolutionDir)Edk2\MdePkg\Include\x64</AdditionalIncludeDirectories>
@@ -133,7 +136,7 @@
       <DisableSpecificWarnings>4005;4100;4101;4189;4456;4706;4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(SolutionDir)CdePkg\CdeLib\x64\CdeLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
       <OutputFile>$(SolutionDir)UEFIBinaries\LoadOption.efi</OutputFile>
       <ManifestFile>
@@ -144,7 +147,7 @@
       </UACUIAccess>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <EntryPointSymbol>_MainEntryPointShell</EntryPointSymbol>
+      <EntryPointSymbol>_osifUefiShellCRT04NonEDK</EntryPointSymbol>
       <EnableUAC>
       </EnableUAC>
       <CLRImageType>
@@ -160,6 +163,16 @@
       <MapExports />
       <TypeLibraryResourceID />
       <Driver>Driver</Driver>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SHELL|x64'">
+    <Link>
+      <AdditionalDependencies>$(SolutionDir)CdePkg\toritoC64R.lib</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>EFI Application</SubSystem>
+      <EnableUAC>false</EnableUAC>
+      <EntryPointSymbol>_osifUefiShellCRT04NonEDK</EntryPointSymbol>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
