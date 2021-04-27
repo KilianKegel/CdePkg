@@ -11,10 +11,10 @@
 #
 #  VALID_ARCHITECTURES           = IA32|X64
 #
-
-[Binaries]
-	DXE_DEPEX|CdeServicesDxe.depex
 [Binaries.IA32]
 	PE32|CdeServicesDxe32.efi
 [Binaries.x64]
 	PE32|CdeServicesDxe64.efi
+[Binaries]
+#	DXE_DEPEX|CdeServicesDxe_gEfiStatusCodeRuntimeProtocolGuid.depex
+	DXE_DEPEX|CdeServicesDxeTRUE.depex

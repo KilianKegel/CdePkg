@@ -10,7 +10,7 @@
   MODULE_TYPE                    = DXE_DRIVER
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = _MainEntryPointDxe
-  IMAGE_ENTRY_POINT              = _ovrdCdeImageEntryPointDxe
+  IMAGE_ENTRY_POINT              = __cdeImageEntryPointDxe
 
 #
 # The following information is for reference only and not required by the build tools.

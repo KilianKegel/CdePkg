@@ -558,6 +558,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EfiCallerBaseName.c" />
+    <ClCompile Include="EfiCallerGuid.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>

@@ -21,10 +21,10 @@
     CdeLoadOptionsPei.c
 
 [Sources.ia32]
-    _CdeGetCurrentPrivilegeLevel32.asm
+    __cdeGetCurrentPrivilegeLevel32.asm
 
 [Sources.x64]
-    _CdeGetCurrentPrivilegeLevel64.asm
+    __cdeGetCurrentPrivilegeLevel64.asm
 
 [Packages]
     CdePkg/CdePkg.dec
@@ -44,7 +44,7 @@
     gCdeConsoleOutDeviceGuid
 
 [Depex]
-    TRUE
+  gEfiPeiReadOnlyVariable2PpiGuid
 
 [BuildOptions] 
    MSFT:*_*_IA32_CC_FLAGS   = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""

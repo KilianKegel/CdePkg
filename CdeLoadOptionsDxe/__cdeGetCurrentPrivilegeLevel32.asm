@@ -15,11 +15,11 @@
 	.model flat,C
 	.code	
 
-_CdeGetCurrentPrivilegeLevel proc near public 
+__cdeGetCurrentPrivilegeLevel proc near public 
 
 	mov ax,cs
 	and ax,3
 	ret
 
-_CdeGetCurrentPrivilegeLevel endp
+__cdeGetCurrentPrivilegeLevel endp
 end

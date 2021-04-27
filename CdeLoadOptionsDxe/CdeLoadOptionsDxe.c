@@ -28,33 +28,19 @@
 	<a href="https://msdn.microsoft.com/en-us/library/a1y7w461.aspx">C Command-Line Arguments</a>\n
 	@image html StdCLibCover.jpg
 */
-#pragma warning(disable:4113)
-#pragma warning(disable:4028)
-#pragma warning(disable:4029)
-#pragma warning(disable:4189)
 #include <uefi.h>
 #include <CDE.h>
 #include <library\debuglib.h>
 
 extern char* strefierror(EFI_STATUS errcode);                           // Torito C extention according to strerror()
+extern char __cdeGetCurrentPrivilegeLevel(void);
 
 typedef struct _NVRAMCOMMANDLINE {
 	int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
 	char CommandLine[0];		/*  assigned command line includeing filename*/
 }NVRAMCOMMANDLINE;
 
-extern char _CdeGetCurrentPrivilegeLevel(void);
 
-//void sndstr(char* str) {
-//	while (*str) {
-//		while (0 == (0x60 & inp(0x3fd)))
-//			;
-//		outp(0x3f8, *str++);
-//	}
-//}
-//
-//
-//
 char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* pVarBuf);	//prototype
 CDE_LOADOPTIONS_PROTOCOL CdeLoadOptionsProtocol = { GetLoadOptions };
 
@@ -75,7 +61,7 @@ COMMANDLINE CommandLine[] = {
 
 char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* pVarBuf) {
 	EFI_SYSTEM_TABLE* SystemTable = PeiDxeInterface;
-	if (0 != _CdeGetCurrentPrivilegeLevel()) {                                      // running in EMULATION
+	if (0 != __cdeGetCurrentPrivilegeLevel()) {                                      // running in EMULATION
 		int i;
 		//__debugbreak();
 		for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
@@ -103,8 +89,6 @@ char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char* p
 		NVRAMCOMMANDLINE* pNvram = (NVRAMCOMMANDLINE*)pVarBuf;
 		UINTN Size = 128;
 
-#define DBGFILE __FILE__
-#define DBGLINE __LINE__
 
 		Status = SystemTable->RuntimeServices->GetVariable(L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
 		

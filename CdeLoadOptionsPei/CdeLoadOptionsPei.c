@@ -33,6 +33,8 @@
 #include <Library\PeiServicesLib.h>
 #include <CDE.h>
 
+extern char __cdeGetCurrentPrivilegeLevel(void);
+
 typedef struct _NVRAMCOMMANDLINE {
     int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
     char CommandLine[0];		/*  assigned command line includeing filename*/
@@ -46,11 +48,10 @@ COMMANDLINE CommandLine[] = {
     #include <CdeLoadOptions.h> 
 };
 
-extern char _CdeGetCurrentPrivilegeLevel(void);
 
 char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char *pVarBuf) {
 
-    if (0 != _CdeGetCurrentPrivilegeLevel()) {                                      // running in EMULATION
+    if (0 != __cdeGetCurrentPrivilegeLevel()) {                                      // running in EMULATION
         int i;
         //__debugbreak();
         for (i = 0; i < sizeof(CommandLine) / sizeof(CommandLine[0]); i++) {
@@ -80,24 +81,14 @@ char* GetLoadOptions(void* PeiDxeInterface, COMM_GUID* pEfiCallerIdGuid, char *p
         EFI_PEI_READ_ONLY_VARIABLE2_PPI* VariablePpi;
         EFI_PEI_SERVICES** pPeiServices = PeiDxeInterface;
         static EFI_GUID   EfiPeiReadOnlyVariable2PpiGuid = { 0x2ab86ef5, 0xecb5, 0x4134, { 0xb5, 0x56, 0x38, 0x54, 0xca, 0x1f, 0xe1, 0xb4 } };
-#define DBGFILE __FILE__
-#define DBGLINE __LINE__
-        //sndstr(DBGFILE "-->welcome...\r\n");
+
         Status = (*pPeiServices)->LocatePpi(pPeiServices, &EfiPeiReadOnlyVariable2PpiGuid, 0, NULL, (VOID**)&VariablePpi);
-        if (EFI_SUCCESS == Status) {
-            //sndstr(DBGFILE "-->Status1 EFI_SUCCESS\r\n");
-        }
-        else {
-            //sndstr(DBGFILE "-->Status1 EFI_FAIL\r\n");
-        }
-        Status = VariablePpi->GetVariable(VariablePpi, L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
-        if (EFI_SUCCESS == Status) {
-            //sndstr(DBGFILE "-->Status2 EFI_SUCCESS\r\n");
-        }
-        else {
-            //sndstr(DBGFILE "-->Status2 EFI_FAIL\r\n");
-        }
         
+        if (EFI_SUCCESS == Status)
+        {
+            Status = VariablePpi->GetVariable(VariablePpi, L"CdeLoadOption", (EFI_GUID*)pEfiCallerIdGuid, NULL, &Size, pNvram);
+        }
+
         return EFI_SUCCESS != Status ? "unknownCdeDriverPei" : (pNvram->rejectStart ? NULL : pNvram->CommandLine);
     }
 }
@@ -115,6 +106,8 @@ EFI_STATUS EFIAPI _Main(IN EFI_PEI_FILE_HANDLE* FfsHeader, IN const EFI_PEI_SERV
     // install the CdeProtocol for PEI
     //
     Status = (*pPeiServices)->InstallPpi(pPeiServices, &CdeLoadOptionsPpiList);
-
-    return Status;
+    
+//    sends(gEfiCallerBaseName), sends("\\"__FILE__"\\"__FUNCTION__"()\r\n");
+    
+        return Status;
 }

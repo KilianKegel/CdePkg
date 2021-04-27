@@ -19,9 +19,9 @@
 [Sources]
 	CdeLoadOptionsDxe.c
 [Sources.ia32]
-    _CdeGetCurrentPrivilegeLevel32.asm
+    __cdeGetCurrentPrivilegeLevel32.asm
 [Sources.x64]
-    _CdeGetCurrentPrivilegeLevel64.asm
+    __cdeGetCurrentPrivilegeLevel64.asm
 [Packages]
 	CdePkg/CdePkg.dec
 	MdePkg/MdePkg.dec

@@ -117,9 +117,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="_CdeGetCurrentPrivilegeLevel64.asm" />
+    <None Include="__cdeGetCurrentPrivilegeLevel64.asm" />
     <None Include="CdeLoadOptionsPei.inf" />
-    <None Include="_CdeGetCurrentPrivilegeLevel32.asm" />
+    <None Include="__cdeGetCurrentPrivilegeLevel32.asm" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h" />

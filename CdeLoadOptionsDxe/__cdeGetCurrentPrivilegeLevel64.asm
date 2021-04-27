@@ -11,11 +11,11 @@
 ; 
 ;*/
 	.code	
-_CdeGetCurrentPrivilegeLevel proc public
+__cdeGetCurrentPrivilegeLevel proc public
 
 	mov ax,cs
 	and ax,3
 	ret
 
-_CdeGetCurrentPrivilegeLevel endp
+__cdeGetCurrentPrivilegeLevel endp
 end

@@ -5,11 +5,11 @@
 [Defines]
   INF_VERSION                    = 1.26
   BASE_NAME                      = CdeWelcomeDxe
-  MODULE_UNI_FILE                = CdeWelcomeDxe.uni
   FILE_GUID                      = CDE000FF-0A15-41D7-9A7D-7111338CBD8B
   MODULE_TYPE                    = DXE_DRIVER
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = _MainEntryPointDxe
+  IMAGE_ENTRY_POINT              = __cdeImageEntryPointDxe
 
 #
 # The following information is for reference only and not required by the build tools.
@@ -19,7 +19,6 @@
 
 [Sources]
 	CdeWelcomeDxe.c
-	CdeWelcomeDxe.uni
 
 [Packages]
 	MdePkg/MdePkg.dec
@@ -27,24 +26,19 @@
 
 [LibraryClasses]
 	CdeLib
-	UefiLib
 
 [Guids]
-
-[Protocols]
-
-[Pcd]
-
-[Depex]
-	gCdeDxeProtocolGuid
-
-[Pcd]
-	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine		## CONSUMES
 
 [Protocols]
   gEfiLoadedImageProtocolGuid                   ## SOMETIMES_CONSUMES
 
 [Pcd]
+
+[Depex]
+    gCdeDxeProtocolGuid
+
+[Pcd]
+	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine		## CONSUMES
 
 [BuildOptions] 
 #to ENABLE  CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 

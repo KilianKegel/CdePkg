@@ -22,6 +22,9 @@ for /F "tokens=1-4 delims==," %%a in ('type CdePkg.sln ^| find ".vcxproj"') do (
         if exist %%~po\x64 rd /s /q %%~po\x64
         if exist %%~po\win32 rd /s /q %%~po\win32
         if exist %%~po\doxygen.tmp rd /s /q %%~po\doxygen.tmp
+        if exist %%~po\SHELL rd /s /q %%~po\SHELL
+        if exist %%~po\POST rd /s /q %%~po\POST
+
     )
 )
 popd

@@ -9,9 +9,10 @@
 #
 # The following information is for reference only and not required by the build tools.
 #
-#  VALID_ARCHITECTURES           = IA32|X64
+#  VALID_ARCHITECTURES           = IA32
 #
 
 [Binaries.IA32]
 	PE32|CdeServicesPei32.efi
-	PEI_DEPEX|CdeServicesPei.depex
+	PEI_DEPEX|CdeServicesPeiTRUE.depex
+#	PEI_DEPEX|CdeServicesPei.depex

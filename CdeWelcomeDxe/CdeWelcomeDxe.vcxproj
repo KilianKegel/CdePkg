@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="CdeWelcomeDxe.c" />
     <ClCompile Include="EfiCallerBaseName.c" />
+    <ClCompile Include="EfiCallerGuid.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CdeWelcomeDxe.inf" />
