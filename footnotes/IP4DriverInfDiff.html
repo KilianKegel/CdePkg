@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
@@ -21,271 +21,373 @@ td.TextItemInsigMod { color: #000000; background-color: #EEEEFF; }
 td.TextItemInsigOrphan { color: #000000; background-color: #FAEEFF; }
 td.TextItemNum { color: #696969; background-color: #F0F0F0; }
 td.TextItemSame { color: #000000; background-color: #FFFFFF; }
-td.TextItemSigMod { color: #000000; background-color: #FFE3E3; }
+td.TextItemSigMod { color: #000000; background-color: #FFECEC; }
 td.TextItemSigOrphan { color: #000000; background-color: #F1E3FF; }
 .TextSegInsigDiff { color: #0000FF; }
 .TextSegReplacedDiff { color: #0000FF; font-style: italic; }
 .TextSegSigDiff { color: #FF0000; }
 td.TextItemInsigAdd { color: #000000; background-color: #EEEEFF; }
 td.TextItemInsigDel { color: #000000; background-color: #EEEEFF; text-decoration: line-through; }
-td.TextItemSigAdd { color: #000000; background-color: #FFE3E3; }
-td.TextItemSigDel { color: #000000; background-color: #FFE3E3; text-decoration: line-through; }
-.TextSegElementComment { color: #786A41; }
+td.TextItemSigAdd { color: #000000; background-color: #FFECEC; }
+td.TextItemSigDel { color: #000000; background-color: #FFECEC; text-decoration: line-through; }
 </style>
 <title>Text Compare</title>
 </head>
 <body>
 Text Compare<br>
-Produced: 2020-02-12 05:50:31 AM<br>
+Produced: 2021-04-29 05:43:21 AM<br>
 &nbsp; &nbsp;
 <br>
-Mode:&nbsp; Differences, With Context &nbsp;
+Mode:&nbsp; Differences, With Context, Ignoring Unimportant &nbsp;
 <br>
-Left file: Z:\EDK2020-MinnowBoard.001\overrides\NetworkPkg\Ip4Dxe\Ip4Dxe.inf &nbsp;
+Left file: A:\EDK2020-MinnowBoard\overrides\NetworkPkg\Ip4Dxe\Ip4Dxe.inf &nbsp;
 <br>
-Right file: Z:\EDK2020-MinnowBoard.001\edk2\NetworkPkg\Ip4Dxe\Ip4Dxe.inf &nbsp;
+Right file: A:\EDK2020-MinnowBoard\edk2\NetworkPkg\Ip4Dxe\Ip4Dxe.inf &nbsp;
 <br>
 <table class="fc" cellspacing="0" cellpadding="0">
 <tbody><tr class="SectionBegin">
-<td class="TextItemSame">&nbsp; INF_VERSION&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0x00010005</td>
+<td class="TextItemNum AlignRight">16</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; INF_VERSION&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = 0x00010005</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">16</td>
 <td class="TextItemSame">&nbsp; INF_VERSION&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 0x00010005</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp; BASE_NAME&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = Ip4Dxe</td>
+<td class="TextItemNum AlignRight">17</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; BASE_NAME&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = Ip4Dxe</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">17</td>
 <td class="TextItemSame">&nbsp; BASE_NAME&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = Ip4Dxe</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp; MODULE_UNI_FILE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = Ip4Dxe.uni</td>
+<td class="TextItemNum AlignRight">18</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; MODULE_UNI_FILE&nbsp; &nbsp;&nbsp; = Ip4Dxe.uni</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">18</td>
 <td class="TextItemSame">&nbsp; MODULE_UNI_FILE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = Ip4Dxe.uni</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">19</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; FILE_GUID&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = 9FB1A1F3-3B71-4324-B39A-745CBB015FFF</td>
+<td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">19</td>
 <td class="TextItemSame">&nbsp; FILE_GUID&nbsp; &nbsp; &nbsp; &nbsp; 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 
 9FB1A1F3-3B71-4324-B39A-745CBB015FFF</td>
-<td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame">&nbsp; FILE_GUID&nbsp; &nbsp; &nbsp; &nbsp; 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 
-9FB1A1F3-3B71-4324-B39A-745CBB015FFF</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp; MODULE_TYPE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = UEFI_DRIVER</td>
+<td class="TextItemNum AlignRight">20</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; MODULE_TYPE&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = UEFI_DRIVER</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">20</td>
 <td class="TextItemSame">&nbsp; MODULE_TYPE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = UEFI_DRIVER</td>
 </tr>
 <tr class="SectionEnd">
-<td class="TextItemSame">&nbsp; VERSION_STRING&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = 1.0</td>
+<td class="TextItemNum AlignRight">21</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; VERSION_STRING&nbsp; &nbsp; &nbsp; = 1.0</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">21</td>
 <td class="TextItemSame">&nbsp; VERSION_STRING&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = 1.0</td>
 </tr>
-<tr class="SectionAll">
-<td class="TextItemSigMod">&nbsp; ENTRY_POINT&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = <span class="TextSegSigDiff">_Ma</span><span class="TextSegSigDiff">in</span>EntryPoint<span class="TextSegSigDiff">Dxe</span></td>
+<tr class="SectionBegin">
+<td class="TextItemNum AlignRight">22</td>
+<td class="TextItemSigMod">&nbsp;&nbsp;&nbsp; ENTRY_POINT&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = <span class="TextSegSigDiff">_Ma</span><span class="TextSegSigDiff">in</span>EntryPoint<span class="TextSegSigDiff">Dxe</span></td>
 <td class="AlignCenter">&lt;&gt;</td>
+<td class="TextItemNum AlignRight">22</td>
 <td class="TextItemSigMod">&nbsp; ENTRY_POINT&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = <span class="TextSegSigDiff">Ip4Driver</span>EntryPoint</td>
 </tr>
+<tr class="SectionEnd">
+<td class="TextItemNum AlignRight">23</td>
+<td class="TextItemSigMod">&nbsp;&nbsp;&nbsp; <span class="TextSegSigDiff">IMAGE_ENTRY_POINT</span>&nbsp;&nbsp; <span class="TextSegSigDiff">=</span> <span class="TextSegSigDiff">__cdeImageEntryPointDxe</span></td>
+<td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">&nbsp;</td>
+<td class="TextItemSame">&nbsp;</td>
+</tr>
 <tr class="SectionBegin">
-<td class="TextItemSame">&nbsp; UNLOAD_IMAGE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = NetLibDefaultUnload</td>
+<td class="TextItemNum AlignRight">24</td>
+<td class="TextItemSame">&nbsp;&nbsp;&nbsp; UNLOAD_IMAGE&nbsp; &nbsp; &nbsp; &nbsp; = NetLibDefaultUnload</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">23</td>
 <td class="TextItemSame">&nbsp; UNLOAD_IMAGE&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = NetLibDefaultUnload</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp;</td>
+<td class="TextItemNum AlignRight">25</td>
+<td class="TextItemSame">#</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame">&nbsp;</td>
+<td class="TextItemNum AlignRight">24</td>
+<td class="TextItemSame">#</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame"><span class="TextSegElementComment">#</span></td>
+<td class="TextItemNum AlignRight">26</td>
+<td class="TextItemSame"># The following information is for reference only and not required by the build tools.</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame"><span class="TextSegElementComment">#</span></td>
+<td class="TextItemNum AlignRight">25</td>
+<td class="TextItemSame"># The following information is for reference only and not required by the build tools.</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame"><span class="TextSegElementComment"># The following information is for reference only and not required by the build tools.</span></td>
+<td class="TextItemNum AlignRight">27</td>
+<td class="TextItemSame">#</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame"><span class="TextSegElementComment"># The following information is for reference only and not required by the build tools.</span></td>
+<td class="TextItemNum AlignRight">26</td>
+<td class="TextItemSame">#</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame"><span class="TextSegElementComment">#</span></td>
+<td class="TextItemNum AlignRight">28</td>
+<td class="TextItemSame">#&nbsp; VALID_ARCHITECTURES&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = IA32 X64 EBC</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame"><span class="TextSegElementComment">#</span></td>
+<td class="TextItemNum AlignRight">27</td>
+<td class="TextItemSame">#&nbsp; VALID_ARCHITECTURES&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = IA32 X64 EBC</td>
 </tr>
 <tr class="SectionEnd">
-<td class="TextItemSame"><span class="TextSegElementComment">#&nbsp; VALID_ARCHITECTURES&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = IA32 X64 EBC</span></td>
+<td class="TextItemNum AlignRight">29</td>
+<td class="TextItemSame">#</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame"><span class="TextSegElementComment">#&nbsp; VALID_ARCHITECTURES&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; = IA32 X64 EBC</span></td>
+<td class="TextItemNum AlignRight">28</td>
+<td class="TextItemSame">#</td>
 </tr>
-<tr class="SectionGap"><td colspan="3">&nbsp;</td></tr>
+<tr class="SectionGap"><td colspan="5">&nbsp;</td></tr>
 <tr class="SectionBegin">
+<td class="TextItemNum AlignRight">64</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">63</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">65</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">64</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">66</td>
 <td class="TextItemSame">[Packages]</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">65</td>
 <td class="TextItemSame">[Packages]</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">67</td>
 <td class="TextItemSame">&nbsp; MdePkg/MdePkg.dec</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">66</td>
 <td class="TextItemSame">&nbsp; MdePkg/MdePkg.dec</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">68</td>
 <td class="TextItemSame">&nbsp; MdeModulePkg/MdeModulePkg.dec</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">67</td>
 <td class="TextItemSame">&nbsp; MdeModulePkg/MdeModulePkg.dec</td>
 </tr>
 <tr class="SectionEnd">
+<td class="TextItemNum AlignRight">69</td>
 <td class="TextItemSame">&nbsp; NetworkPkg/NetworkPkg.dec</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">68</td>
 <td class="TextItemSame">&nbsp; NetworkPkg/NetworkPkg.dec</td>
 </tr>
 <tr class="SectionAll">
-<td class="TextItemSigMod"><span class="TextSegInsigDiff">&nbsp; </span><span class="TextSegSigDiff">CdePkg/CdePkg.dec</span></td>
+<td class="TextItemNum AlignRight">70</td>
+<td class="TextItemSigMod">&nbsp; <span class="TextSegSigDiff">CdePkg/CdePkg.dec</span></td>
 <td class="AlignCenter">+-</td>
+<td class="TextItemNum AlignRight">&nbsp;</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionBegin">
+<td class="TextItemNum AlignRight">71</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">69</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">72</td>
 <td class="TextItemSame">[LibraryClasses]</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">70</td>
 <td class="TextItemSame">[LibraryClasses]</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">73</td>
 <td class="TextItemSame">&nbsp; UefiLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">71</td>
 <td class="TextItemSame">&nbsp; UefiLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">74</td>
 <td class="TextItemSame">&nbsp; BaseLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">72</td>
 <td class="TextItemSame">&nbsp; BaseLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">75</td>
 <td class="TextItemSame">&nbsp; UefiBootServicesTableLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">73</td>
 <td class="TextItemSame">&nbsp; UefiBootServicesTableLib</td>
 </tr>
 <tr class="SectionEnd">
+<td class="TextItemNum AlignRight">76</td>
 <td class="TextItemSame">&nbsp; UefiDriverEntryPoint</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">74</td>
 <td class="TextItemSame">&nbsp; UefiDriverEntryPoint</td>
 </tr>
-<tr class="SectionGap"><td colspan="3">&nbsp;</td></tr>
+<tr class="SectionGap"><td colspan="5">&nbsp;</td></tr>
 <tr class="SectionBegin">
+<td class="TextItemNum AlignRight">79</td>
 <td class="TextItemSame">&nbsp; NetLib</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">77</td>
 <td class="TextItemSame">&nbsp; NetLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">80</td>
 <td class="TextItemSame">&nbsp; DpcLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">78</td>
 <td class="TextItemSame">&nbsp; DpcLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">81</td>
 <td class="TextItemSame">&nbsp; HiiLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">79</td>
 <td class="TextItemSame">&nbsp; HiiLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">82</td>
 <td class="TextItemSame">&nbsp; PrintLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">80</td>
 <td class="TextItemSame">&nbsp; PrintLib</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">83</td>
 <td class="TextItemSame">&nbsp; DevicePathLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">81</td>
 <td class="TextItemSame">&nbsp; DevicePathLib</td>
 </tr>
 <tr class="SectionEnd">
+<td class="TextItemNum AlignRight">84</td>
 <td class="TextItemSame">&nbsp; UefiHiiServicesLib</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">82</td>
 <td class="TextItemSame">&nbsp; UefiHiiServicesLib</td>
 </tr>
 <tr class="SectionAll">
-<td class="TextItemSigMod"><span class="TextSegInsigDiff">&nbsp; </span><span class="TextSegSigDiff">CdeLib</span></td>
+<td class="TextItemNum AlignRight">85</td>
+<td class="TextItemSigMod">&nbsp; <span class="TextSegSigDiff">CdeLib</span></td>
 <td class="AlignCenter">+-</td>
+<td class="TextItemNum AlignRight">&nbsp;</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionBegin">
+<td class="TextItemNum AlignRight">86</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">=</td>
+<td class="TextItemNum AlignRight">83</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">87</td>
 <td class="TextItemSame">[Protocols]</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">84</td>
 <td class="TextItemSame">[Protocols]</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## BY_START</span></td>
+<td class="TextItemNum AlignRight">88</td>
+<td class="TextItemSame">&nbsp; ## BY_START</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## BY_START</span></td>
+<td class="TextItemNum AlignRight">85</td>
+<td class="TextItemSame">&nbsp; ## BY_START</td>
 </tr>
 <tr class="SectionMiddle">
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## UNDEFINED # variable</span></td>
+<td class="TextItemNum AlignRight">89</td>
+<td class="TextItemSame">&nbsp; ## UNDEFINED # variable</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## UNDEFINED # variable</span></td>
+<td class="TextItemNum AlignRight">86</td>
+<td class="TextItemSame">&nbsp; ## UNDEFINED # variable</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">90</td>
 <td class="TextItemSame">&nbsp; gEfiIp4ServiceBindingProtocolGuid</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">87</td>
 <td class="TextItemSame">&nbsp; gEfiIp4ServiceBindingProtocolGuid</td>
 </tr>
 <tr class="SectionEnd">
-<td class="TextItemSame">&nbsp; gEfiIp4ProtocolGuid&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span class="TextSegElementComment">## BY_START</span></td>
+<td class="TextItemNum AlignRight">91</td>
+<td class="TextItemSame">&nbsp; gEfiIp4ProtocolGuid&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp;&nbsp; ## BY_START</td>
 <td class="AlignCenter">&nbsp;</td>
-<td class="TextItemSame">&nbsp; gEfiIp4ProtocolGuid&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span class="TextSegElementComment">## BY_START</span></td>
+<td class="TextItemNum AlignRight">88</td>
+<td class="TextItemSame">&nbsp; gEfiIp4ProtocolGuid&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp;&nbsp; ## BY_START</td>
 </tr>
-<tr class="SectionGap"><td colspan="3">&nbsp;</td></tr>
+<tr class="SectionGap"><td colspan="5">&nbsp;</td></tr>
 <tr class="SectionBegin">
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## SOMETIMES_CONSUMES ## HII</span></td>
+<td class="TextItemNum AlignRight">107</td>
+<td class="TextItemSame">&nbsp; ## SOMETIMES_CONSUMES ## HII</td>
 <td class="AlignCenter">=</td>
-<td class="TextItemSame">&nbsp; <span class="TextSegElementComment">## SOMETIMES_CONSUMES ## HII</span></td>
+<td class="TextItemNum AlignRight">104</td>
+<td class="TextItemSame">&nbsp; ## SOMETIMES_CONSUMES ## HII</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">108</td>
 <td class="TextItemSame">&nbsp; gIp4Config2NvDataGuid</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">105</td>
 <td class="TextItemSame">&nbsp; gIp4Config2NvDataGuid</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">109</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">106</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">110</td>
 <td class="TextItemSame">[UserExtensions.TianoCore."ExtraFiles"]</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">107</td>
 <td class="TextItemSame">[UserExtensions.TianoCore."ExtraFiles"]</td>
 </tr>
 <tr class="SectionMiddle">
+<td class="TextItemNum AlignRight">111</td>
 <td class="TextItemSame">&nbsp; Ip4DxeExtra.uni</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">108</td>
 <td class="TextItemSame">&nbsp; Ip4DxeExtra.uni</td>
 </tr>
 <tr class="SectionEnd">
+<td class="TextItemNum AlignRight">112</td>
 <td class="TextItemSame">&nbsp;</td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">109</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionBegin">
+<td class="TextItemNum AlignRight">113</td>
 <td class="TextItemSigMod"><span class="TextSegSigDiff">[Depex]</span></td>
 <td class="AlignCenter">+-</td>
+<td class="TextItemNum AlignRight">&nbsp;</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 <tr class="SectionEnd">
-<td class="TextItemSigMod"><span class="TextSegInsigDiff">&nbsp; </span><span class="TextSegSigDiff">gCdeDxeProtocolGuid</span></td>
+<td class="TextItemNum AlignRight">114</td>
+<td class="TextItemSigMod">&nbsp; <span class="TextSegSigDiff">gCdeDxeProtocolGuid</span></td>
 <td class="AlignCenter">&nbsp;</td>
+<td class="TextItemNum AlignRight">&nbsp;</td>
 <td class="TextItemSame">&nbsp;</td>
 </tr>
 </tbody></table>

@@ -222,6 +222,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210429
+* remove .xdata and .pdata sections ($unwind$ and $pdata$ symbols) from .OBJ before binding the library
+
 ### 20210427
 * source tree redesign
 * torito C library redesign to coexist with / replace EDK2 driver functions
