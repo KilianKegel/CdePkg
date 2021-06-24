@@ -47,7 +47,7 @@ extern int _CdeTraceNumCharsTransmitted;
 //
 // ANSI C Library related extentions 
 //
-#define __CDEC_HOSTED__ (NULL != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
+#define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
 extern char* strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 //
@@ -81,7 +81,7 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 //
 // MOFINE trace conficuration macro
 //
-#define MFNBAR(cond)/*  bare        */ NULL,                NULL,    0,       NULL,      /*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
+#define MFNBAR(cond)/*  bare        */ ((void *)0)/*NULL*/,                ((void *)0)/*NULL*/,    0,       ((void *)0)/*NULL*/,      /*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
 #define MFNNON(cond)/*  no class    */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
 #define MFNINF(cond)/*  INFO        */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"INFO>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
 #define MFNSUC(cond)/*  SUCCESS     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"SUCCESS>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
@@ -176,7 +176,7 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 //
 // override the "DebugLib.h"
 //
-#ifdef CDEOVRMDEDGB
+#ifndef NTIANOCORETRACE
 #define __DEBUG_LIB_H__ /*block "DebugLib.h" entirely*/
 //
 // Declare bits for PcdDebugPrintErrorLevel and the ErrorLevel parameter of DebugPrint()
@@ -227,14 +227,28 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 #   undef DEBUG
 #endif//DEBUG
 
-#define DEBUG(Expression)   _CdeMofine(gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"TIANOCORE DEBUG> ", 	/*condition*/MOFINE_CONFIG | 1,""),\
+extern void __cdeTianocoreDEBUGEna(void);
+extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char* Format, ...);
+#define DEBUG(Expression)   __cdeTianocoreDEBUGEna(),\
+                            _CdeMofine(gEfiCallerBaseName,\
+                                __FILE__,\
+                                __LINE__,\
+                                __FUNCTION__,\
+                                /*string*/__cdeTianocoreDebugPrintErrolevel2Str Expression,\
+                                /*condition*/MOFINE_CONFIG | 1,\
+                                ""),\
                             DebugPrint Expression
-
+#ifdef ASSERT_RETURN_ERROR
+#   undef ASSERT_RETURN_ERROR
+#endif//ASSERT_RETURN_ERROR
 #define ASSERT_RETURN_ERROR(StatusParameter)
+#ifdef ASSERT_EFI_ERROR
+#   undef ASSERT_EFI_ERROR
+#endif//ASSERT_EFI_ERROR
 #define ASSERT_EFI_ERROR(StatusParameter)
 //
 extern void DebugPrint(size_t ErrorLevel, const char* pszFormat, ...);
-#else//CDEOVRMDEDGB
-#endif//CDEOVRMDEDGB
+#else//NTIANOCORETRACE
+#endif//NTIANOCORETRACE
 
 #endif//_CDE_H_

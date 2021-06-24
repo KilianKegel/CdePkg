@@ -222,6 +222,13 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210624
+* enable Tianocore DEBUG macro for CDE-based/injected drivers to allow usage of
+  DEBUG traces with RELEASE BIOS versions
+* add support for BIOS vendor (A)
+    * adjust include path
+    * provide component description and configuration files
+
 ### 20210429
 * remove .xdata and .pdata sections ($unwind$ and $pdata$ symbols) from .OBJ before binding the library
 

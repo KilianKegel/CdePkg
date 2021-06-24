@@ -1,0 +1,55 @@
+TOKEN
+    Name  = "CdePkg_SUPPORT"
+    Value  = "1"
+    Help  = "Main switch to enable CdePkg support in Project"
+    TokenType = Boolean
+    TargetEQU = Yes
+    TargetMAK = Yes
+    Master = Yes
+End
+
+INFComponent
+    Name  = "CdeLib"
+    File  = "CdeLib/CdeLib.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "BASE"
+End
+
+INFComponent
+    Name  = "CdeServicesPei"
+    File  = "CdeServices/CdeServicesPei.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32"
+    ModuleTypes  = "PEIM"
+End
+
+INFComponent
+    Name  = "CdeServicesDxe"
+    File  = "CdeServices/CdeServicesDxe.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "DXE_DRIVER"
+End
+
+INFComponent
+    Name  = "CdeWelcomeDxe"
+    File  = "CdeWelcomeDxe/CdeWelcomeDxe.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "DXE_DRIVER"
+End
+
+INFComponent
+    Name  = "CdeWelcomePei"
+    File  = "CdeWelcomePei/CdeWelcomePei.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "PEIM"
+End
+
+LibraryMapping
+    Class  = "CdeLib"
+    Instance  = "CdePkg.CdeLib"
+    Arch  = "IA32 X64"
+End

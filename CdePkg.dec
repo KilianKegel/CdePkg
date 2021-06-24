@@ -5,7 +5,6 @@
 [Defines]
 	DEC_SPECIFICATION              = 0x0001001A
 	PACKAGE_NAME                   = CdePkg
-	PACKAGE_UNI_FILE               = CdePkg.uni
 	PACKAGE_GUID                   = CE6A88E7-1515-43DE-82CB-78FD2F81723C
 	PACKAGE_VERSION                = 1.0
 
@@ -27,11 +26,6 @@
 
 [PcdsDynamic, PcdsDynamicEx]
 	gCdePkgTokenSpaceGuid.CdeDefaultCommandLine|L""|VOID*|0
-	gCdePkgTokenSpaceGuid.CdeWelcomeDxeCommandLine0|L""|VOID*|1
-	gCdePkgTokenSpaceGuid.CdeWelcomeDxeCommandLine1|L"1 22 333"|VOID*|2
-	gCdePkgTokenSpaceGuid.CdeWelcomePeiCommandLine0|L""|VOID*|3
-	gCdePkgTokenSpaceGuid.CdeWelcomePeiCommandLine1|L"1 22 333"|VOID*|4
 
 [Protocols]
-#	gCdeDxeProtocolGuid         = { 0xCDE00000, 0xe988, 0x4697, { 0x8f, 0x36, 0x08, 0xf1, 0x3d, 0x8d, 0x3d, 0x39 }}
-#   gCdeCommandLineProtocolGuid = { 0xCDE00000, 0x2c09, 0x4284, { 0x90, 0xf9, 0x9a, 0x98, 0x8a, 0xbd, 0xf6, 0xfb }}
+    gCdeDxeProtocolGuid         = { 0xCDE00002, 0xe988, 0x4697, { 0x8f, 0x36, 0x08, 0xf1, 0x3d, 0x8d, 0x3d, 0x39 }}
