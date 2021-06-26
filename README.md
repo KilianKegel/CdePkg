@@ -222,10 +222,14 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210626
+* add dedicated FATAL ERROR message to DXE+PEI CRT0 if CdeServices protocol  fails to
+  be located, due to DEPEX or APRIORI issue
+
 ### 20210624
 * enable Tianocore DEBUG macro for CDE-based/injected drivers to allow usage of
   DEBUG traces with RELEASE BIOS versions
-* add support for BIOS vendor (A)
+* add support for BIOS vendor
     * adjust include path
     * provide component description and configuration files
 

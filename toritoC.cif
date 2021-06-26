@@ -1,0 +1,9 @@
+<component>
+    name = "torito C Library"
+    category = ModulePart
+    LocalRoot = "CdePkg\"
+    RefName = "toritoCLibrary"
+[files]
+"toritoC32R.lib"
+"toritoC64R.lib"
+<endComponent>

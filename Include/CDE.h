@@ -38,6 +38,9 @@ typedef union _XDUMPPARM {
     }bit;
 }XDUMPPARM;
 
+#define CDESTRINGIFY(x) #x
+#define CDENUM2STRING(x) CDESTRINGIFY(x)
+
 //
 // externs
 //

@@ -43,5 +43,19 @@
 [BuildOptions] 
 #to ENABLE  CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
 #to DISABLE CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
-   MSFT:*_*_IA32_CC_FLAGS   = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
-   MSFT:*_*_X64_CC_FLAGS    = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
+   MSFT:*_*_IA32_CC_FLAGS   = /GL- /wd4005 /wd4100 /wd4101 /wd4189 /wd4456 /wd4706 /wd4996 /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+   MSFT:*_*_X64_CC_FLAGS    = /GL- /wd4005 /wd4100 /wd4101 /wd4189 /wd4456 /wd4706 /wd4996 /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
+
+#C4005 //warning C4005: macro redefinition
+#C4100 //warning C4100: unreferenced formal parameter
+#C4101 //warning C4101: unreferenced local variable
+#C4127//warning C4127: conditional expression is constant
+#C4189 //warning C4189: local variable is initialized but not referenced
+#C4456 //warning C4456: declaration of 'nRet' hides previous local declaration
+#C4706 //warning C4706: assignment within conditional expression 
+#C4996 //warning C4996: This function or variable may be unsafe
+#C5045 //warning C5045: Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+#    --> if (TblLenAddr[idx].pTblAddr[i] == p->SubType)
+#    https://docs.microsoft.com/en-us/cpp/error-messages/compiler-warnings/c5045?view=msvc-160
+#    
+#   /wd4005 /wd4100 /wd4101 /wd4189 /wd4456 /wd4706 /wd4996

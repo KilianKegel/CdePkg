@@ -21,5 +21,3 @@
 [Sources]
     FeedTheBuildProcess.c
     CdeLib.mak
-    void32.lib
-    void64.lib

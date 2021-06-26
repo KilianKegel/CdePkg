@@ -53,3 +53,17 @@ LibraryMapping
     Instance  = "CdePkg.CdeLib"
     Arch  = "IA32 X64"
 End
+
+FFS_FILE
+    Name  = "CdeServicesPei"
+    FD_AREA  = "FV_BB"
+    INFComponent  = "CdePkg.CdeServicesPei"
+    Apriori_Index  = "2"
+End
+
+FFS_FILE
+    Name  = "CdeServicesDxe"
+    FD_AREA  = "FV_Main"
+    INFComponent  = "CdePkg.CdeServicesDxe"
+    Apriori_Index  = "2"
+End
