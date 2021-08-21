@@ -3,17 +3,18 @@
     category = eCore
     LocalRoot = "CdePkg\"
     RefName = "CdePkg"
-[INF]
-"CdeLib\CdeLib.inf"
-"CdeServices\CdeServicesDxe.inf"
-"CdeWelcomeDxe\CdeWelcomeDxe.inf"
-"CdeServices\CdeServicesPei.inf"
-"CdeWelcomePei\CdeWelcomePei.inf"
-[files]
-"CdePkg.sdl"	
-"CdePkg.dec"	
-"CdePkg.dsc"	
-[parts]
-"toritoCLibrary"
-"standardHeader"
+ [INF]
+    "CdeLib\CdeLib.inf"
+    "CdeLibNull\CdeLibNull.inf"
+    "CdeServices\CdeServicesDxe.inf"
+    "CdeWelcomeDxe\CdeWelcomeDxe.inf"
+    "CdeServices\CdeServicesPei.inf"
+    "CdeWelcomePei\CdeWelcomePei.inf"
+ [files]
+    "CdePkg.sdl"
+    "CdePkg.dec"
+    "CdePkg.dsc"
+ [parts]
+    "toroCLibrary"
+    "standardHeader"
 <endComponent>

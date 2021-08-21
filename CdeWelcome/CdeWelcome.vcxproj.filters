@@ -15,22 +15,36 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\CDE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EfiCallerBaseName.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EfiCallerGuid.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CdeUnblockMemInitPRE.inf" />
+    <ClInclude Include="..\Include\CDE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="buildAPP.inf">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="buildDXE.inf">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="buildPEI.inf">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="buildPRE.inf">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="buildSMM.inf">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

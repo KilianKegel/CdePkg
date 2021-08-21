@@ -17,6 +17,14 @@ INFComponent
 End
 
 INFComponent
+    Name  = "CdeLibNull"
+    File  = "CdeLibNull/CdeLibNull.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "BASE"
+End
+
+INFComponent
     Name  = "CdeServicesPei"
     File  = "CdeServices/CdeServicesPei.inf"
     Package  = "CdePkg"
@@ -54,16 +62,22 @@ LibraryMapping
     Arch  = "IA32 X64"
 End
 
+LibraryMapping
+    Class  = "CdeLibNull"
+    Instance  = "CdePkg.CdeLibNull"
+    Arch  = "IA32 X64"
+End
+
 FFS_FILE
     Name  = "CdeServicesPei"
     FD_AREA  = "FV_BB"
     INFComponent  = "CdePkg.CdeServicesPei"
-    Apriori_Index  = "2"
+    Apriori_Index  = "0"
 End
 
 FFS_FILE
     Name  = "CdeServicesDxe"
     FD_AREA  = "FV_Main"
     INFComponent  = "CdePkg.CdeServicesDxe"
-    Apriori_Index  = "2"
+    Apriori_Index  = "0"
 End

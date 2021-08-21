@@ -32,7 +32,7 @@
 #include <CDE.h>
 #include <library\debuglib.h>
 
-extern char* strefierror(EFI_STATUS errcode);                           // Torito C extention according to strerror()
+extern char* strefierror(EFI_STATUS errcode);                           // Toro C extention according to strerror()
 extern char __cdeGetCurrentPrivilegeLevel(void);
 
 typedef struct _NVRAMCOMMANDLINE {

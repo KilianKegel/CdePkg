@@ -1,0 +1,35 @@
+#  
+#   Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+#   SPDX-License-Identifier: BSD-2-Clause-Patent
+#  
+[Defines]
+    INF_VERSION                 = 1.26
+    BASE_NAME                   = cdeWelcomePre
+    FILE_GUID                   = CDE000FF-A1B4-455B-A681-D2F24E3CD7AD
+    #NOTE: CdeDrivers FILE_GUID always start with CDE000FF to ease finding them in the debug traces and in the FV directory
+    MODULE_TYPE                 = PEIM
+    VERSION_STRING              = 1.0
+    PI_SPECIFICATION_VERSION    = 0x0001000A
+    ENTRY_POINT                 = _MainEntryPointPei
+    IMAGE_ENTRY_POINT           = _cdeCRT0UefiPeiEDK
+
+[Sources]
+    main.c
+
+[Packages]
+    MdePkg/MdePkg.dec
+    CdePkg/CdePkg.dec
+
+[LibraryClasses]
+    PeimEntryPoint
+    CdeLib
+
+[Protocols]
+    gEfiLoadedImageProtocolGuid
+
+[Depex]
+    gCdePeiProtocolGuid
+
+[BuildOptions] 
+    MSFT:*_*_IA32_CC_FLAGS   =  /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI PRE\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+    MSFT:*_*_X64_CC_FLAGS    =  /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI PRE\"" /D "CDE_PLATFORM_STRING=\"x86-64\""

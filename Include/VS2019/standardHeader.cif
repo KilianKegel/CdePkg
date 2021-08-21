@@ -1,5 +1,5 @@
 <component>
-    name = "torito C Header Files"
+    name = "toro C Header Files"
     category = ModulePart
     LocalRoot = "CdePkg\Include\VS2019\"
     RefName = "standardHeader"

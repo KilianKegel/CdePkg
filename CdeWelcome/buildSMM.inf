@@ -1,0 +1,35 @@
+#  
+#   Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+#   SPDX-License-Identifier: BSD-2-Clause-Patent
+#  
+[Defines]
+    INF_VERSION                 = 1.26
+    BASE_NAME                   = cdeWelcomeSmm
+    FILE_GUID                   = CDE000FF-2231-4B15-B382-EA3800CA00DB
+    #NOTE: CdeDrivers FILE_GUID always start with CDE000FF to ease finding them in the debug traces and in the FV directory
+    MODULE_TYPE                 = DXE_SMM_DRIVER
+    VERSION_STRING              = 1.0
+    PI_SPECIFICATION_VERSION    = 0x0001000A
+    ENTRY_POINT                 = _MainEntryPointSmm
+    IMAGE_ENTRY_POINT           = _cdeCRT0UefiSmmEDK
+
+[Sources]
+    main.c
+
+[Packages]
+    MdePkg/MdePkg.dec
+    CdePkg/CdePkg.dec
+
+[LibraryClasses]
+    UefiDriverEntryPoint
+    CdeLib
+
+[Protocols]
+    gEfiLoadedImageProtocolGuid
+
+[Depex]
+    gCdeSmmProtocolGuid
+
+[BuildOptions] 
+    MSFT:*_*_IA32_CC_FLAGS   = /GL-   /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SMM\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+    MSFT:*_*_X64_CC_FLAGS    = /GL-   /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SMM\"" /D "CDE_PLATFORM_STRING=\"x86-64\""

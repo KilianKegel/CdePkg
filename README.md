@@ -222,6 +222,15 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210821
+* rename library file to `toro32R.lib` and `toro64R.lib`
+* add SMM support
+* introduce `CdeWelcome` component that runs native ANSI C only on PEI (pre/post memory), DXE and SMM ShellAPP
+  (Windows and Linux too, compiled externally)
+* remove components `CdeDiag...()`, `CdeWelcomeDxe`, `CdeWelcomePei`, `CdeWelcomePre`
+* simplify CdeLib.lib build, introduce `CdeLibNull` component
+* currently don't use `CdeValidationPkg`
+
 ### 20210626
 * add dedicated FATAL ERROR message to DXE+PEI CRT0 if CdeServices protocol  fails to
   be located, due to DEPEX or APRIORI issue

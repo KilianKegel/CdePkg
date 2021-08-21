@@ -31,7 +31,7 @@ For demonstration purpose only the MemoryInit.efi driver depex' on\n
 #undef NULL
 #include <uefi.h>
 
-extern char* strefierror(EFI_STATUS errcode);                           // Torito C extention according to strerror()
+extern char* strefierror(EFI_STATUS errcode);                           // Toro C extention according to strerror()
 
 #define BSIZE 4096
 

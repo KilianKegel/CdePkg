@@ -15,6 +15,7 @@
 	PE32|CdeServicesDxe32.efi
 [Binaries.x64]
 	PE32|CdeServicesDxe64.efi
-[Binaries]
-#	DXE_DEPEX|CdeServicesDxe_gEfiStatusCodeRuntimeProtocolGuid.depex
-	DXE_DEPEX|CdeServicesDxeTRUE.depex
+[Binaries.x64]
+    DXE_DEPEX|CdeServicesDxeTRUE.depex
+[Binaries.IA32]
+    DXE_DEPEX|CdeServicesDxe_gEfiStatusCodeRuntimeProtocolGuid.depex

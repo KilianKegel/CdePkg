@@ -10,7 +10,6 @@
 	standard C header file for CdePkg
 @todo
 */
-//#pragma warning( disable : 4996 4311 4312 4101)
 #ifndef _CDE_ASSERT_H_
 #define _CDE_ASSERT_H_
 #include <stddef.h>
