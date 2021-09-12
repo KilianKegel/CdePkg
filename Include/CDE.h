@@ -163,6 +163,10 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 
 #define MOFINE_UEFIFMTSTR   (1 << 12)
 
+#define MOFINE_STDOUT       (1 << 13)   /* trace to STDOUT */
+#define MOFINE_STDERR       (1 << 14)   /* trace to STDERR */
+#define MOFINE_STATUSCODE   (1 << 15)   /* trace to STATUSCODE */
+
 #ifndef MOFINE_CONFIG
 #   define MOFINE_CONFIG       0 /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
 #endif//MOFINE_CONFIG

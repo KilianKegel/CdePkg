@@ -222,8 +222,16 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20210912
+* initial version of *TORO C LIBRARY* (`toroC64.lib` and `toroC32.lib`)
+* *TORITO C LIBRARY* is _discontinued_ from now on
+* add Microsoft C Library functions for UEFIShell applications only
+  - `_findfirst()`
+  - `_findnext()`
+  - `_findclose()`
+
 ### 20210821
-* rename library file to `toro32R.lib` and `toro64R.lib`
+* rename library file to `toroC32.lib` and `toroC64.lib`
 * add SMM support
 * introduce `CdeWelcome` component that runs native ANSI C only on PEI (pre/post memory), DXE and SMM ShellAPP
   (Windows and Linux too, compiled externally)
