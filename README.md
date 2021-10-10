@@ -173,7 +173,7 @@ run on platforms without **CdeServices** protocol.)
 
 The functions below are already implemented and tested, every single one of them, except otherwise noted:
 
-[List of available functions](implemented.md)
+[List of available functions](https://github.com/KilianKegel/toro-C-Library/blob/master/implemented.md)
 
 
 [Torito C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
