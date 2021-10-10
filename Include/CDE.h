@@ -66,6 +66,9 @@
 #ifdef DEBUG
 #   undef DEBUG
 #endif//DEBUG
+#ifdef TRACE
+#   undef TRACE
+#endif//TRACE
 
 extern void __cdeTianocoreDEBUGEna(void);
 extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char* Format, ...);
@@ -78,6 +81,7 @@ extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char
                                 /*condition*/MOFINE_CONFIG | 1,\
                                 ""),\
                             DebugPrint Expression
+#define TRACE DEBUG
 #ifdef ASSERT_RETURN_ERROR
 #   undef ASSERT_RETURN_ERROR
 #endif//ASSERT_RETURN_ERROR
@@ -168,7 +172,7 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 #define MOFINE_STATUSCODE   (1 << 15)   /* trace to STATUSCODE */
 
 #ifndef MOFINE_CONFIG
-#   define MOFINE_CONFIG       0 /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
+#   define MOFINE_CONFIG    MOFINE_STATUSCODE /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
 #endif//MOFINE_CONFIG
 
 //

@@ -187,7 +187,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 * move CRT0 startup code to **CdeServices**
 * move local character tables to **CdeServices**
 * move buffered I/O core to **CdeServices**
-* validate functions in DXE, SMM and PEI [List of available functions](implemented.md#validation-status)
+* validate functions in DXE, SMM and PEI [List of available functions](https://github.com/KilianKegel/torito-C-Library/blob/master/implemented.md#validation-status)
 * complete library implementation
 
 ## Howto
@@ -222,10 +222,19 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20211010
+* add Microsoft C Library functions for UEFIShell 64Bit applications only
+  - `_mkdir()`
+  - `_stat64i32()` that is the Microsoft version of POSIX `stat()`
+
+  add POSIX C Library functions
+  - `strnlen()`, `wcsnlen()`
+
 ### 20210912
 * initial version of *TORO C LIBRARY* (`toroC64.lib` and `toroC32.lib`)
 * *TORITO C LIBRARY* is _discontinued_ from now on
 * add Microsoft C Library functions for UEFIShell applications only
+  - `getc()`
   - `_findfirst()`
   - `_findnext()`
   - `_findclose()`

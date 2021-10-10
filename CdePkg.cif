@@ -7,9 +7,9 @@
     "CdeLib\CdeLib.inf"
     "CdeLibNull\CdeLibNull.inf"
     "CdeServices\CdeServicesDxe.inf"
-    "CdeWelcomeDxe\CdeWelcomeDxe.inf"
+    "CdeWelcome\buildDXE.inf"
     "CdeServices\CdeServicesPei.inf"
-    "CdeWelcomePei\CdeWelcomePei.inf"
+    "CdeWelcome\buildPEI.inf"
  [files]
     "CdePkg.sdl"
     "CdePkg.dec"

@@ -42,7 +42,7 @@ End
 
 INFComponent
     Name  = "CdeWelcomeDxe"
-    File  = "CdeWelcomeDxe/CdeWelcomeDxe.inf"
+    File  = "CdeWelcome/buildDXE.inf"
     Package  = "CdePkg"
     Arch  = "IA32 X64"
     ModuleTypes  = "DXE_DRIVER"
@@ -50,7 +50,7 @@ End
 
 INFComponent
     Name  = "CdeWelcomePei"
-    File  = "CdeWelcomePei/CdeWelcomePei.inf"
+    File  = "CdeWelcome/buildPEI.inf"
     Package  = "CdePkg"
     Arch  = "IA32 X64"
     ModuleTypes  = "PEIM"

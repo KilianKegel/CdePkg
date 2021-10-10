@@ -13,7 +13,6 @@
 #ifndef _CDE_ERRNO_H_
 #define _CDE_ERRNO_H_
 
-//#pragma warning( disable : 4996 4311 4312 4101)
 #define errno (*_errno())
 
 #define EDOM	0x21

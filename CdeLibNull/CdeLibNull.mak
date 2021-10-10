@@ -12,20 +12,30 @@ TOROCLIBRARY=$(WORKSPACE)\CdePkg\toroC32.lib
                                 
 $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	@ECHO ### CdeLibNull ####################################################################################################
-	copy /y $(TOROCLIBRARY) $(STATIC_LIBRARY_FILES) 
+	copy /y $(TOROCLIBRARY) $(OUTPUT_DIR)\CdeLibNull.lib 
 #
 # remove all entry points /CRT0 that provides a real "application interface"
 #
 !IF "$(ARCH)" == "X64"
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiDxeEntryPoint.obj    $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiPeiEntryPoint.obj    $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPoint.obj  $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPoint.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiDxeEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiDxeEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiPeiEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiPeiEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPoint.obj       $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPointEDK.obj    $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiSmmEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
 !ELSE
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPoint.obj    $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiPeiEntryPoint.obj    $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPoint.obj      $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPoint.obj  $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiPeiEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiPeiEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPoint.obj       $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiSmmEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPointEDK.obj    $(OUTPUT_DIR)\CdeLibNull.lib
 #
 # remove additional object modules that conflict with alternate pseudo-implementations of C Library
 #
