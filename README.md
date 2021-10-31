@@ -222,6 +222,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20211031
+* add Microsoft C Library specific mode string modifier `t` for text mode
+  NOTE: `t` modifier is not defined by ANSI/ISO C
+* fix `fclose()` bug in UEFI shell returns an error, when closing a read only file
+
 ### 20211010
 * add Microsoft C Library functions for UEFIShell 64Bit applications only
   - `_mkdir()`
