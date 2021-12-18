@@ -59,6 +59,8 @@
       <FavorSizeOrSpeed />
       <BasicRuntimeChecks />
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_NO_CRT_STDIO_INLINE;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SolutionDir)CdePkg\toroC64.lib</AdditionalDependencies>

@@ -31,7 +31,7 @@ For demonstration purpose only the MemoryInit.efi driver depex' on\n
 #undef NULL
 #include <uefi.h>
 
-extern char* strefierror(EFI_STATUS errcode);                           // Toro C extention according to strerror()
+extern char* _strefierror(EFI_STATUS errcode);                           // Toro C extention according to strerror()
 
 #define BSIZE 4096
 
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
                 }
 
                 if ((Status != EFI_SUCCESS)) {
-                    fprintf(stdout, __FILE__"(%d): ""num %d -> %s\n", __LINE__, num, strefierror(Status));
+                    fprintf(stdout, __FILE__"(%d): ""num %d -> %s\n", __LINE__, num, _strefierror(Status));
                     break;
                 }
 
@@ -223,7 +223,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS)
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
             break;
         }
 
@@ -244,7 +244,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
                 break;
             }
 
@@ -258,7 +258,7 @@ int main(int argc, char** argv) {
                 pNvram              /* IN VOID* Data */
             );
             if (Status != EFI_SUCCESS) {
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
                 break;
             }
             printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully DISABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
@@ -283,7 +283,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
                 break;
             }
 
@@ -298,7 +298,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
                 break;
             }
             printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X successfully ENABLED\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
@@ -323,7 +323,7 @@ int main(int argc, char** argv) {
             );
 
             if (Status != EFI_SUCCESS) {
-                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""%s\n", __LINE__, _strefierror(Status));
                 break;
             }
 
@@ -337,10 +337,10 @@ int main(int argc, char** argv) {
                 pNvram              /* OUT VOID * Data OPTIONAL*/
             );
 
-            //fprintf(stdout, __FILE__"%d): ""%s\n", __LINE__, strefierror(Status));
+            //fprintf(stdout, __FILE__"%d): ""%s\n", __LINE__, _strefierror(Status));
 
             if (EFI_SUCCESS != Status) {
-                fprintf(stdout, __FILE__"(%d): ""fail to read NVRAM variable \"CdeLoadOption\" : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X -> %s\n", __LINE__, guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], strefierror(Status));
+                fprintf(stdout, __FILE__"(%d): ""fail to read NVRAM variable \"CdeLoadOption\" : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X -> %s\n", __LINE__, guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], _strefierror(Status));
                 break;
             }
             printf("LoadOption : %08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X command line \"%s\" successfully createdn\n", guid.Data1, guid.Data2, guid.Data3, guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3], guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7], pNvram->CommandLine);

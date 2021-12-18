@@ -1,19 +1,28 @@
-/*!
-@copyright
-    Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+/*++
+
+    CdePkg for UEFI
+    https://github.com/KilianKegel/CdePkg
+
+    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
-@file
-	stdlib.h
+Module Name:
 
-@brief
-	standard C header file for CdePkg
-@todo
-*/
+    stdlib.h
+
+Abstract:
+
+    Implementation of the Standard C header file for the Microsoft C Compiler VS2022
+    http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf#page=318
+
+Author:
+
+    Kilian Kegel
+
+--*/
 #ifndef _CDE_STDLIB_H_
 #define _CDE_STDLIB_H_
 #include <stddef.h>
-//#pragma warning( disable : 4996 4311 4312 4101)
 
 typedef struct _div_t
 {
@@ -65,7 +74,7 @@ ldiv_t ldiv( long int numer, long int denom );
 int mblen( const char *s, size_t n );
 int mbtowc( wchar_t * pwc, const char * s, size_t n );
 int wctomb( char *s, wchar_t wchar );
-//not yet implemented size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );
-//not yet implemented size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );
+size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );
+size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );
 
 #endif//_CDE_STDLIB_H_

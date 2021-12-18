@@ -1,15 +1,24 @@
-/*!
-@copyright
-    Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+/*++
+
+    CdePkg for UEFI
+    https://github.com/KilianKegel/CdePkg
+
+    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
-@file
-	io.h
+Module Name:
 
-@brief
-    Microsoft C header file for CdePkg
-@todo
-*/
+    io.h
+
+Abstract:
+
+    Partially implementation of the Microsoft C header file for the Microsoft C Compiler VS2022
+
+Author:
+
+    Kilian Kegel
+
+--*/
 #ifndef _CDE_IO_H_
 #define _CDE_IO_H_
 #include <stddef.h>

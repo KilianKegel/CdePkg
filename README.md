@@ -222,6 +222,19 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20211218
+* introduce `CDETRACE()` debug/trace macro that is parameter checked at build time
+* improve `wmain()` support; now selected at build time by choosing the CRT0 entry point name
+    * `_cdeCRT0UefiShellW()`
+    * `_cdeCRT0WinNTW()`<br>
+    NOTE: The `*env` pointer is not passed to `wmain()`
+* add missing prototypes in headerfiles
+    * `wchar.h`: `typedef unsigned short wint_t;`
+    * `wchar.h`: `int vfwprintf( FILE * stream, const wchar_t * format, va_list arg );`
+    * `wchar.h`: `int wctob( wint_t c );`
+    * `stdlib.h`: `size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );`
+    * `stdlib.h`: `size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );`
+
 ### 20211031
 * add Microsoft specific `fopen()` mode string modifier `"t"` for text mode
    * NOTE: `"t"` modifier is not defined by ANSI/ISO C, because binary/text mode differentiation is done by `"w"` modifier only. 
