@@ -1,7 +1,7 @@
 <component>
     name = "toro C Header Files"
     category = ModulePart
-    LocalRoot = "CdePkg\Include\VS2019\"
+    LocalRoot = "CdePkg\Include\VS2022\"
     RefName = "standardHeader"
 [files]
 "..\cde.h"

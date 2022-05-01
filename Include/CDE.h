@@ -25,6 +25,8 @@ Author:
 #include <stdlib.h>
 #include <stddef.h>
 #include <assert.h>
+#include <stdarg.h>
+#include <vadefs.h>
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // override the "DebugLib.h" ///////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -232,31 +234,85 @@ extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long start
 /////////////////////////////////////////////////////////////////////////////
 // NOTE: CDETRACE() is THE SUCCESSOR OF CDEMOFINE
 /////////////////////////////////////////////////////////////////////////////
+typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
+{
+    void* ptr;
+    struct {
+        size_t ptr : (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ ));
+        size_t Msg : 3;	    // highest (bit - 5)[0..2] 27..29/59..61 is the debug message encoding
+        size_t En : 1;	    // highest bit - 1 30/62 is the debug message enable
+    }CdeDbg;
+
+}CDEDBGFP;// CDE DEBUG FILE POINTER
+
+enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID: "", "INFO", "SUCCESS", "WARNING", "ERROR", "FATAL", "ASSERT"
+
+#ifndef CDEDBGMAGIC
+#   define CDEDBGMAGIC 0x00CDEDB6
+#endif
+#define CDEDBGMAGICMASK (1LL << (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ )))
 #define CDEPOSTCODE(c,v)	if(c)outp(0x80,v)
 #define CDEDEADLOOP(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz);}
 #define CDEDEBUGBREAK(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
-#define CDEDBGMAGIC         ((size_t)0xCDEDB600)    // backdoor CDEDBG file pointer like stdin, stdout, stderr
-#define CDEDBGMAGICMASK     0xFFFFFF00              // backdoor CDEDBG file pointer like stdin, stdout, stderr
-#define CDEDBG(x)           (CDEDBGMAGIC | x)       // backdoor CDEDBG file pointer like stdin, stdout, stderr
-#   define CDEDBG_EN        1
-#   define CDEDBG_EFIFMT    2
 
-#define TRCBAR(cond)/*  bare trace          */ (void*)(CDEDBG((0 << 2) | (0 != (cond)))),
-#define TRCINF(cond)/*  INFO                */ (void*)(CDEDBG((1 << 2) | (0 != (cond)))),
-#define TRCSUC(cond)/*  SUCCESS             */ (void*)(CDEDBG((2 << 2) | (0 != (cond)))),
-#define TRCWAR(cond)/*  WARNING             */ (void*)(CDEDBG((3 << 2) | (0 != (cond)))),
-#define TRCERR(cond)/*  ERROR               */ (void*)(CDEDBG((4 << 2) | (0 != (cond)))),
-#define TRCFAT(cond)/*  FATAL               */ (void*)(CDEDBG((5 << 2) | /*MOFINE_EXITONCOND | */(0 != (cond)))),
-#define TRCASS(cond)/*  ASSERT              */ (void*)(CDEDBG((6 << 2) | /*MOFINE_DEADONCOND | */(0 != (cond)))),
-#define TRCMSK      /*  trace ID bit mask   */ (7 << 2)
+#define TRCBAR(cond)    /* bare trace */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCINF(cond)    /* INFO       */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCSUC(cond)    /* SUCCESS    */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = SUC, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCWAR(cond)    /* WARNING    */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = WAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCERR(cond)    /* ERROR      */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = ERR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCFAT(cond)    /* FATAL      */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define TRCASS(cond)    /* ASSERT     */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
 
 extern void exit(int);
-static void __cdeFatAss(int val)
+
+#pragma warning(push)
+#pragma warning(disable:4211)
+
+/* fprintf()
+
+Synopsis
+    #include <cde.h>
+    static int fprintf(FILE* const stream, const char* const pszFormat, ...);
+Description
+    fprintf() default override for CDE usage.
+    It does exactly the same as the original Standard C fprintf(), except,
+    that it clears the upper most 4bits of the stream pointer before usage.
+Returns
+    number of bytes
+*/
+static int fprintf(FILE* const stream, const char* const pszFormat, ...)
 {
-    if ((5 << 2) == (TRCMSK & val))         // FATAL -> exit
+    int nRet = 0;
+    va_list ap;
+    CDEDBGFP __cdeDbgFp = { .ptr = stream };    // isolate file pointer 
+
+    va_start(ap, pszFormat);
+    
+    nRet = vfprintf((void*)__cdeDbgFp.CdeDbg.ptr, pszFormat, ap);
+
+    va_end(ap);
+    return nRet;
+}
+#pragma warning(pop)
+
+/* __cdeFatAss()
+
+Synopsis
+    #include <cde.h>
+    static void __cdeFatAss(CDEDBGFP __cdeDbgFp);
+Description
+    Function deals with CDE FATAL and ASSERT message types:
+    FATAL:  invoke exit() and terminate the process
+    ASSERT: dead loop
+Returns
+    
+*/
+static void __cdeFatAss(CDEDBGFP __cdeDbgFp)
+{
+    if (FAT == __cdeDbgFp.CdeDbg.Msg)           // FATAL -> exit
         exit(3);
 
-    if ((6 << 2) == (TRCMSK & val))         // ASSERT -> DEADLOOP
+    if (ASS == __cdeDbgFp.CdeDbg.Msg)           // ASSERT -> DEADLOOP
     {
         volatile int x = 0xCDE0DEAD;
         while (0xCDE0DEAD == x)
@@ -264,36 +320,46 @@ static void __cdeFatAss(int val)
     }
 }
 
-static size_t __cdeGetDbgSig(void* p, const char* str, ...)
+static CDEDBGFP __cdeGetDbgFp(void* p, const char* str, ...)
 {
-    return (size_t)p;
+    CDEDBGFP __cdeDbgFp = { .ptr = p };
+
+    return __cdeDbgFp;
+
 }
 
-static char* __cdeGetLevelString(size_t dbgsig)
+static char* __cdeGetSeverityString(CDEDBGFP __cdeDbgFp)
 {
-    return  ((0 << 2) == (TRCMSK & dbgsig)) ? "" : \
-            ((1 << 2) == (TRCMSK & dbgsig)) ? "INFO" : \
-            ((2 << 2) == (TRCMSK & dbgsig)) ? "SUCCESS" : \
-            ((3 << 2) == (TRCMSK & dbgsig)) ? "WARNING" : \
-            ((4 << 2) == (TRCMSK & dbgsig)) ? "ERROR" : \
-            ((5 << 2) == (TRCMSK & dbgsig)) ? "FATAL" : \
-            ((6 << 2) == (TRCMSK & dbgsig)) ? "ASSERT" : "UNKNOWN";
+    return  (BAR == __cdeDbgFp.CdeDbg.Msg) ? "" : \
+        (INF == __cdeDbgFp.CdeDbg.Msg) ? "INFO" : \
+        (SUC == __cdeDbgFp.CdeDbg.Msg) ? "SUCCESS" : \
+        (WAR == __cdeDbgFp.CdeDbg.Msg) ? "WARNING" : \
+        (ERR == __cdeDbgFp.CdeDbg.Msg) ? "ERROR" : \
+        (FAT == __cdeDbgFp.CdeDbg.Msg) ? "FATAL" : \
+        (ASS == __cdeDbgFp.CdeDbg.Msg) ? "ASSERT" : "UNKNOWN";
 }
 
+//
+// NOTE/WARNING: CDETRACE macro ARGUMENTS are evaluated multiple times
+//      DO NOT PLACE ++/-- operators or function calls in the parameter list!!!
+//
+#ifndef NCDETRACE
 #define CDETRACE(dbgsig_msg)  \
-do{\
-    size_t dbgsig = __cdeGetDbgSig dbgsig_msg;\
-    if(!(dbgsig & CDEDBG_EN))\
-        break;\
-    if((TRCMSK & dbgsig)){\
-        fprintf((void*)dbgsig,"%s`%s(%d)`%s()`%s> ",\
-            gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,__cdeGetLevelString(dbgsig)),\
-        fprintf dbgsig_msg,\
-        __cdeFatAss(TRCMSK & dbgsig);\
-    }\
-        else\
-            fprintf dbgsig_msg;\
-}while(0)
+do {\
+    CDEDBGFP __cdeDbgFp = __cdeGetDbgFp dbgsig_msg; \
+        if (0 == __cdeDbgFp.CdeDbg.En)\
+            break;\
+        if (BAR != __cdeDbgFp.CdeDbg.Msg) {\
+            fprintf(__cdeDbgFp.ptr, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeGetSeverityString(__cdeDbgFp)); \
+        }\
+        fprintf dbgsig_msg;\
+        __cdeFatAss(__cdeDbgFp);\
+} while (0)
+#else//NCDETRACE
+
+    #define CDETRACE(dbgsig_msg) ((void)0)
+
+#endif// NCDETRACE
 
 //
 // CDE GUID definitions
