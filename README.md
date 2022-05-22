@@ -222,6 +222,13 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20220522
+* add  C++ minimum support
+    - `void* operator new(size_t size)`
+    - `void* operator new[](size_t size)`
+    - `void operator delete[](void* ptr)`
+    - `void operator delete(void* ptr, unsigned __int64 size)`
+
 ### 20220501
 * simplify `CDETRACE()` implemantation, improve portability of that `CdePkg` specific debug macro
 * add Tor-C-Library version 20220501
