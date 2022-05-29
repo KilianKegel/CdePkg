@@ -222,6 +222,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20220529
+* fixed: `free()` and C++ operator `delete()`  crash to free `NULL` pointer
+
 ### 20220522
 * add  C++ minimum support
     - `void* operator new(size_t size)`
