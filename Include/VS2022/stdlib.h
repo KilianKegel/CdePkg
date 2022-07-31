@@ -77,4 +77,18 @@ int wctomb( char *s, wchar_t wchar );
 size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );
 size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );
 
+wchar_t* _ultow(unsigned long _Value, wchar_t* _Buffer, int _Radix);
+wchar_t* _ui64tow(unsigned long long _Value, wchar_t* _Buffer, int _Radix);
+char* _ultoa(unsigned long _Value, char* _Buffer, int _Radix);
+char* _ui64toa(unsigned long long _Value, char* _Buffer, int _Radix);
+wchar_t* _ltow(long _Value, wchar_t* _Buffer, int _Radix);
+char* _ltoa(long _Value, char* _Buffer, int _Radix);
+wchar_t* _itow(int _Value, wchar_t* _Buffer, int _Radix);
+char* _itoa(int _Value, char* _Buffer, int _Radix);
+wchar_t* _i64tow(long long _Value, wchar_t* _Buffer, int _Radix);
+char* _i64toa(long long _Value, char* _Buffer, int _Radix);
+
+long long int strtoll(const char* nptr, char** endptr, int base);
+unsigned long long int strtoull(const char* nptr,char** endptr,int base);
+
 #endif//_CDE_STDLIB_H_
