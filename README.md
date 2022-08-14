@@ -222,6 +222,8 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20220814
+* fixed str/wcs--pbrk/spn()-family malfunction on characters with highest bit set (sign extention error)
 ### 20220731
 * add Standard C90 Library functions: 
     - `wcstoul()`
