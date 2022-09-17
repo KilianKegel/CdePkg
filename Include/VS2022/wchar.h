@@ -54,7 +54,7 @@ int wprintf( const wchar_t * format, ... );
 int swprintf( wchar_t * s, size_t n, const wchar_t * format, ... );
 int swscanf( const wchar_t * s, const wchar_t * format, ... );
 int vfwprintf( FILE * stream, const wchar_t * format, va_list arg );
-int vfwscanf(FILE* stream, const wchar_t* pwcsFormat, va_list ap)
+int vfwscanf(FILE* stream, const wchar_t* pwcsFormat, va_list ap);
 int vwprintf( const wchar_t * format, va_list arg );
 int vswprintf( wchar_t * s, size_t n, const wchar_t * format, va_list arg );
 wint_t fgetwc( FILE *stream );
