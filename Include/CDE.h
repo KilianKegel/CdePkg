@@ -280,7 +280,7 @@ Description
 Returns
     number of bytes
 */
-static int fprintf(FILE* const stream, const char* const pszFormat, ...)
+static int fprintf(FILE* stream, const char* pszFormat, ...)
 {
     int nRet = 0;
     va_list ap;
