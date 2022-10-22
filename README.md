@@ -182,7 +182,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 
 ### todo
 * add simple UART based (COM1) CON I/O interface since consoles are not supported during POST
-* add SMM support
+* <del>add SMM support</del>
 * 20190714 <del>add PEI support</del>
 * move CRT0 startup code to **CdeServices**
 * move local character tables to **CdeServices**
@@ -222,6 +222,10 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20221022
+* add O_TEMPORARY support to Microsoft/POSIX _open()
+* fixed "fall time bug" (autumn). Broken time calculation on 
+  two digit month number (Oct, Nov, Dec).
 ### 20220814
 * fixed str/wcs--pbrk/spn()-family malfunction on characters with highest bit set (sign extention error)
 ### 20220731
