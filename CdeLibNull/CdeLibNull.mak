@@ -1,5 +1,5 @@
 # 
-#   Copyright (c) 2020, Kilian Kegel. All rights reserved.<BR>
+#   Copyright (c) 2020-2023, Kilian Kegel. All rights reserved.<BR>
 #   SPDX-License-Identifier: BSD-2-Clause-Patent
 # 
 TARGET_FILES = $(OUTPUT_DIR)\CdeLibNull.lib
@@ -23,19 +23,25 @@ $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiPeiEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPoint.obj       $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPointEDK.obj    $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPointEDKW.obj   $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiShellEntryPointW.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiSmmEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPointW.obj          $(OUTPUT_DIR)\CdeLibNull.lib
 !ELSE
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiPeiEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiPeiEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPoint.obj       $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPointEDK.obj    $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPointEDKW.obj   $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPointW.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiSmmEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiShellEntryPointEDK.obj    $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPointW.obj          $(OUTPUT_DIR)\CdeLibNull.lib
 #
 # remove additional object modules that conflict with alternate pseudo-implementations of C Library
 #
@@ -49,4 +55,3 @@ $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\strchr.obj  $(OUTPUT_DIR)\CdeLibNull.lib
 !ENDIF
 all: $(TARGET_FILES) $(STATIC_LIBRARY_FILES)
-

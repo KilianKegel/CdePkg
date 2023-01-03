@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -46,7 +46,7 @@ Author:
 #define ULLONG_MAX  18446744073709551615ULL
 
 #ifdef  _CHAR_UNSIGNED
-	#error _CHAR_UNSIGNED is not supported
+    #error _CHAR_UNSIGNED is not supported
 #endif//_CHAR_UNSIGNED
 
 #endif//_CDE_LIMITS_H_

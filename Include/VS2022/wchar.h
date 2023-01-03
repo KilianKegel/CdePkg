@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -29,21 +29,21 @@ typedef unsigned short wint_t;
 
 typedef struct _Mbstatet
 { // state of a multibyte translation
-	unsigned long _Wchar;
-	unsigned short _Byte, _State;
+    unsigned long _Wchar;
+    unsigned short _Byte, _State;
 } _Mbstatet;
 
 typedef _Mbstatet mbstate_t;
 
 #ifndef NULL
-	#define NULL ((void *)0)
+    #define NULL ((void *)0)
 #endif//NULL
 
 #define WCHAR_MIN 0x0000
 #define WCHAR_MAX 0xffff
 
 #ifndef WEOF
-	#define WEOF ((wint_t)(0xFFFF))
+    #define WEOF ((wint_t)(0xFFFF))
 #endif//WEOF
 
 

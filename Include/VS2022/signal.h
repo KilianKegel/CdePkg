@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -24,17 +24,17 @@ Author:
 
 typedef int sig_atomic_t;
 
-#define SIG_DFL		(void(*)(int))0
-#define SIG_IGN		(void(*)(int))1
-#define SIG_ERR		(void(*)(int))-1
+#define SIG_DFL     (void(*)(int))0
+#define SIG_IGN     (void(*)(int))1
+#define SIG_ERR     (void(*)(int))-1
 
-#define SIGABRT			22
-#define SIGFPE			8
-#define SIGILL			4
-#define SIGINT			2
-#define SIGSEGV			11
-#define SIGTERM			15
-#define SIGBREAK		21  // MSFT specific Ctrl-Break sequence
+#define SIGABRT         22
+#define SIGFPE          8
+#define SIGILL          4
+#define SIGINT          2
+#define SIGSEGV         11
+#define SIGTERM         15
+#define SIGBREAK        21  // MSFT specific Ctrl-Break sequence
 #define SIGABRT_COMPAT  6   // MSFT specific SIGABRT compatible with other platforms, same as SIGABRT
 
 void ( *signal( int sig, void ( *func )( int ) ) )( int );

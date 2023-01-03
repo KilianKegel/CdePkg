@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -27,9 +27,9 @@ Author:
 #undef jmp_buf
 #endif//ndef jmp_buf
 #if   defined(_M_AMD64)
-	#define JMPBUF_DWORD_SIZE (256/4)	// internal register symbols not provided on C level, as microsoft does
+    #define JMPBUF_DWORD_SIZE (256/4)	// internal register symbols not provided on C level, as microsoft does
 #else
-	#define JMPBUF_DWORD_SIZE (64/4)	// internal register symbols not provided on C level, as microsoft does
+    #define JMPBUF_DWORD_SIZE (64/4)	// internal register symbols not provided on C level, as microsoft does
 #endif
 
 typedef unsigned jmp_buf[JMPBUF_DWORD_SIZE];

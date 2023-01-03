@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -24,16 +24,16 @@ Author:
 #define _CDE_STDDEF_H_
 
 #ifndef NULL
-	#define NULL ((void *)0)
+    #define NULL ((void *)0)
 #endif//NULL
 
 #pragma warning( disable : 4142 )
 #if   defined(_M_AMD64)
-	typedef   signed long long ptrdiff_t;
-	typedef unsigned long long size_t;
+    typedef   signed long long ptrdiff_t;
+    typedef unsigned long long size_t;
 #else
-	typedef  signed  int ptrdiff_t;
-	typedef unsigned int size_t;
+    typedef  signed  int ptrdiff_t;
+    typedef unsigned int size_t;
 #endif
 
 typedef short wchar_t;

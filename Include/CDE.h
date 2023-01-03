@@ -405,4 +405,15 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 
 }CDE_LOADOPTIONS_PROTOCOL;
 
+//
+//  CDE helper macros
+//
+#define CDEELC/* CDE ELEMENT COUNT */(x) (sizeof(x)/sizeof(x[0]))
+#define ___WIDE2(x) L##x
+#define ___WIDE1(x) ___WIDE2(x)
+#define __CDEWCSFILE__ ___WIDE1(__FILE__)
+#define __CDEWCSFUNCTION__ ___WIDE1(__FUNCTION__)
+#define ___STRINGIFY(n) #n
+#define CDENUMTOSTR(n) ___STRINGIFY(n)
+#define CDENUMTOWCS(n) ___WIDE1(___STRINGIFY(n))
 #endif//_CDE_H_

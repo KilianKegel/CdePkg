@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -49,6 +49,7 @@ int _open(char const* _FileName,int _OpenFlag, ...);
 int _close(int fd) ;
 int _read(int const fd, void* const buffer, unsigned const buffer_size);
 int _write(int fd, const void* buffer, unsigned int count);
+int _isatty(int fd);
 #define _A_NORMAL (0 << 0) /* Normal file - No read/write restrictions */
 #define _A_RDONLY (1 << 0) /* Read only file                           */
 #define _A_HIDDEN (1 << 1) /* Hidden file                              */

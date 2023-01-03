@@ -222,6 +222,29 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230103
+* fixed **CdeLibNull.mak**: remove *all* *EntryPoint*--.OBJ from to avoid build conflicts with default UEFI libraries
+* add **CDE specific** helper macros:
+    - `__CDEWCSFILE__` -- wide character pendant of Standart C `__FILE__`
+    - `__CDEWCSFUNCTION__` -- wide character pendant of Standart C `__FUNCTION__`
+    - `CDEELC(array)` -- *element count* to get numbers of elements in an array
+    - `CDENUMTOSTR(num)` -- get narrow string representation of decimal `num`
+    - `CDENUMTOWCS(num)` -- get wide string representation of decimal `num`
+
+* add Microsoft/POSIX C Library functions: 
+    - `_isatty()`
+* imitate funny/buggy Microsoft behaviour for `fopen()` with `fmode` parameter `w+` or `a`:<br>
+  function terminates successfully with `errno` set to 22, `Invalid argument`
+* imitate funny/buggy Microsoft behaviour for `_fileno()` with invalid filepointer:<br>
+  MSFT: `_fileno(-1)` just crashes by an invalid memory access<br>
+  This behaviour is imitated by an `exit(3)` invocation
+* fixed application crash at termination when a redirected I/O stream `STDERR` is reopened with `reopen()`
+* improve existing invalidate parameter handling; enable file name string, function name string, line number string and expression string
+  at RELEASE runtime  
+  NOTE: Microsoft enables this feature only when using DEBUG version of LIBCMT.LIB.
+* internal: add **toro C Library** specific library extentions
+    - `wchar_t* _wcsefierror(EFI_STATUS Status)`, according to Standard C `char* strerror(int errnum)`
+    - `char* _strefierror(EFI_STATUS Status)`, according to Standard C `char* strerror(int errnum)`
 ### 20221022
 * add O_TEMPORARY support to Microsoft/POSIX _open()
 * fixed "fall time bug" (autumn). Broken time calculation on 

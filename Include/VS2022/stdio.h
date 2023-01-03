@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -56,12 +56,12 @@ FILE* __cdecl __acrt_iob_func(unsigned);
 
 #define FILENAME_MAX    260
 #define FOPEN_MAX       20
-#define TMP_MAX			2147483647
+#define TMP_MAX         2147483647
 
 #define BUFSIZ 512
 
 #ifndef NULL
-	#define NULL ((void *)0)
+    #define NULL ((void *)0)
 #endif//NULL
 
 int remove( const char *filename );

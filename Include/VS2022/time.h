@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -38,15 +38,15 @@ typedef long long time_t;// don't use _CRT_NO_TIME_T
 
 struct tm
 {
-	int tm_sec;      /* seconds after the minute — [0, 60]	*/
-	int tm_min;      /* minutes after the hour — [0, 59]	*/
-	int tm_hour;     /* hours since midnight — [0, 23]		*/
-	int tm_mday;     /* day of the month — [1, 31]			*/
-	int tm_mon;      /* months since January — [0, 11]		*/
-	int tm_year;     /* years since 1900					*/
-	int tm_wday;     /* days since Sunday — [0, 6]			*/
-	int tm_yday;     /* days since January 1 — [0, 365]		*/
-	int tm_isdst;    /* Daylight Saving Time flag			*/
+    int tm_sec;      /* seconds after the minute — [0, 60]	*/
+    int tm_min;      /* minutes after the hour — [0, 59]	*/
+    int tm_hour;     /* hours since midnight — [0, 23]		*/
+    int tm_mday;     /* day of the month — [1, 31]			*/
+    int tm_mon;      /* months since January — [0, 11]		*/
+    int tm_year;     /* years since 1900					*/
+    int tm_wday;     /* days since Sunday — [0, 6]			*/
+    int tm_yday;     /* days since January 1 — [0, 365]		*/
+    int tm_isdst;    /* Daylight Saving Time flag			*/
 };
 
 clock_t clock( void );
@@ -60,12 +60,12 @@ struct tm *gmtime( const time_t *timer );
 // MSFT specific - start
 struct tm* _localtime64( time_t const* const _Time );
 static __inline struct tm* /*__CRTDECL*/ localtime(
-	time_t const* const _Time
+    time_t const* const _Time
 )
 {
 #pragma warning(push)
 #pragma warning(disable: 4996)
-	return _localtime64( _Time );
+    return _localtime64( _Time );
 #pragma warning(pop)
 }
 // MSFT specific - end

@@ -3,7 +3,7 @@
     CdePkg for UEFI
     https://github.com/KilianKegel/CdePkg
 
-    Copyright (c) 2017-2021, Kilian Kegel. All rights reserved.
+    Copyright (c) 2017-2023, Kilian Kegel. All rights reserved.
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 Module Name:
@@ -52,6 +52,5 @@ int toupper( int );
 #define _ALPHA   (0x0100 | _UPPER | _LOWER) // alphabetic character
 
 // Microsoft - specific/end
-
 
 #endif//_CDE_CTYPE_H_
