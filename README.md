@@ -222,6 +222,8 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230104
+* fixed `strftime()` parameter: `%I`, `%m`, `%x`
 ### 20230103
 * fixed **CdeLibNull.mak**: remove *all* *EntryPoint*--.OBJ from to avoid build conflicts with default UEFI libraries
 * add **CDE specific** helper macros:
