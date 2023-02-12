@@ -22,6 +22,11 @@ Author:
 --*/
 #ifndef _CDE_WCTYPE_H_
 #define _CDE_WCTYPE_H_
+
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #include <stddef.h>
 
 typedef unsigned short wint_t;
@@ -31,19 +36,19 @@ typedef unsigned short wctrans_t;
 #define WEOF ((wint_t)(0xFFFF))
 
 
-int iswalnum( wint_t wc);
-int iswalpha( wint_t wc);
-int iswblank( wint_t wc );
-int iswctype( wint_t wc, wctype_t desc );
-int iswcntrl( wint_t wc);
-int iswdigit( wint_t wc);
-int iswgraph( wint_t wc);
-int iswlower( wint_t wc);
-int iswprint( wint_t wc);
-int iswpunct( wint_t wc);
-int iswspace( wint_t wc);
-int iswupper( wint_t wc);
-int iswxdigit( wint_t wc );
+CDEABI int iswalnum( wint_t wc);
+CDEABI int iswalpha( wint_t wc);
+CDEABI int iswblank( wint_t wc );
+CDEABI int iswctype( wint_t wc, wctype_t desc );
+CDEABI int iswcntrl( wint_t wc);
+CDEABI int iswdigit( wint_t wc);
+CDEABI int iswgraph( wint_t wc);
+CDEABI int iswlower( wint_t wc);
+CDEABI int iswprint( wint_t wc);
+CDEABI int iswpunct( wint_t wc);
+CDEABI int iswspace( wint_t wc);
+CDEABI int iswupper( wint_t wc);
+CDEABI int iswxdigit( wint_t wc );
 
 wctype_t wctype( const char *property );
 wctrans_t wctrans( const char *property );

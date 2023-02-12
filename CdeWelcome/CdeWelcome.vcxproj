@@ -304,6 +304,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\CDE.h" />
+    <ClInclude Include="..\Include\VS2022\assert.h" />
+    <ClInclude Include="..\Include\VS2022\ctype.h" />
+    <ClInclude Include="..\Include\VS2022\errno.h" />
+    <ClInclude Include="..\Include\VS2022\fcntl.h" />
+    <ClInclude Include="..\Include\VS2022\float.h" />
+    <ClInclude Include="..\Include\VS2022\inttypes.h" />
+    <ClInclude Include="..\Include\VS2022\io.h" />
+    <ClInclude Include="..\Include\VS2022\limits.h" />
+    <ClInclude Include="..\Include\VS2022\locale.h" />
+    <ClInclude Include="..\Include\VS2022\math.h" />
+    <ClInclude Include="..\Include\VS2022\setjmp.h" />
+    <ClInclude Include="..\Include\VS2022\signal.h" />
+    <ClInclude Include="..\Include\VS2022\stdarg.h" />
+    <ClInclude Include="..\Include\VS2022\stddef.h" />
+    <ClInclude Include="..\Include\VS2022\stdint.h" />
+    <ClInclude Include="..\Include\VS2022\stdio.h" />
+    <ClInclude Include="..\Include\VS2022\stdlib.h" />
+    <ClInclude Include="..\Include\VS2022\string.h" />
+    <ClInclude Include="..\Include\VS2022\sys\stat.h" />
+    <ClInclude Include="..\Include\VS2022\time.h" />
+    <ClInclude Include="..\Include\VS2022\wchar.h" />
+    <ClInclude Include="..\Include\VS2022\wctype.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="buildAPP.inf" />

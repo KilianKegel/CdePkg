@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_FCNTL_H_
 #define _CDE_FCNTL_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #define _O_RDONLY       0x0000  /* open for reading only */
 #define _O_WRONLY       0x0001  /* open for writing only */
 #define _O_RDWR         0x0002  /* open for reading and writing */

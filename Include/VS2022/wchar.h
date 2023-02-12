@@ -22,6 +22,11 @@ Author:
 --*/
 #ifndef _CDE_WCHAR_H_
 #define _CDE_WCHAR_H_
+
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #include <stddef.h>
 #include <stdarg.h>
 
@@ -47,55 +52,55 @@ typedef _Mbstatet mbstate_t;
 #endif//WEOF
 
 
-int fwprintf( FILE * stream, const wchar_t * format, ... );
-int fwscanf( FILE * stream, const wchar_t * format, ... );
-int wprintf( const wchar_t * format, ... );
+CDEABI int fwprintf( FILE * stream, const wchar_t * format, ... );
+CDEABI int fwscanf( FILE * stream, const wchar_t * format, ... );
+CDEABI int wprintf( const wchar_t * format, ... );
 //not yet implemented int wscanf( const wchar_t * format, ... );
-int swprintf( wchar_t * s, size_t n, const wchar_t * format, ... );
-int swscanf( const wchar_t * s, const wchar_t * format, ... );
-int vfwprintf( FILE * stream, const wchar_t * format, va_list arg );
-int vfwscanf(FILE* stream, const wchar_t* pwcsFormat, va_list ap);
-int vwprintf( const wchar_t * format, va_list arg );
-int vswprintf( wchar_t * s, size_t n, const wchar_t * format, va_list arg );
-wint_t fgetwc( FILE *stream );
-wchar_t *fgetws( wchar_t * s, int n, FILE * stream );
-wint_t fputwc( wchar_t c, FILE *stream );
-int fputws( const wchar_t * s, FILE * stream );
-wint_t getwc( FILE *stream );
-wint_t getwchar( void );
-wint_t putwc( wchar_t c, FILE *stream );
-wint_t putwchar( wchar_t c );
-wint_t ungetwc( wint_t c, FILE *stream );
-int fwide( FILE *stream, int mode );
+CDEABI int swprintf( wchar_t * s, size_t n, const wchar_t * format, ... );
+CDEABI int swscanf( const wchar_t * s, const wchar_t * format, ... );
+CDEABI int vfwprintf( FILE * stream, const wchar_t * format, va_list arg );
+CDEABI int vfwscanf(FILE* stream, const wchar_t* pwcsFormat, va_list ap);
+CDEABI int vwprintf( const wchar_t * format, va_list arg );
+CDEABI int vswprintf( wchar_t * s, size_t n, const wchar_t * format, va_list arg );
+CDEABI wint_t fgetwc( FILE *stream );
+CDEABI wchar_t *fgetws( wchar_t * s, int n, FILE * stream );
+CDEABI wint_t fputwc( wchar_t c, FILE *stream );
+CDEABI int fputws( const wchar_t * s, FILE * stream );
+CDEABI wint_t getwc( FILE *stream );
+CDEABI wint_t getwchar( void );
+CDEABI wint_t putwc( wchar_t c, FILE *stream );
+CDEABI wint_t putwchar( wchar_t c );
+CDEABI wint_t ungetwc( wint_t c, FILE *stream );
+CDEABI int fwide( FILE *stream, int mode );
 //not yet implemented double wcstod( const wchar_t * nptr, wchar_t ** endptr );
-long wcstol( const wchar_t * nptr, wchar_t ** endptr, int base );
-unsigned long wcstoul( const wchar_t * nptr, wchar_t ** endptr, int base );
-long long wcstoll(const wchar_t* strSource,wchar_t** endptr,int base);
-unsigned long long wcstoull(const wchar_t* s, wchar_t** endptr, int base);
-wchar_t *wcscpy( wchar_t * s1, const wchar_t * s2 );
-wchar_t *wcsncpy( wchar_t * s1, const wchar_t * s2, size_t n );
-wchar_t *wcscat( wchar_t * s1, const wchar_t * s2 );
-wchar_t *wcsncat( wchar_t * s1, const wchar_t * s2, size_t n );
-int wcscmp( const wchar_t *s1, const wchar_t *s2 );
-int wcscoll( const wchar_t *s1, const wchar_t *s2 );
-int wcsncmp( const wchar_t *s1, const wchar_t *s2, size_t n );
-size_t wcsxfrm( wchar_t * s1, const wchar_t * s2, size_t n );
-wchar_t *wcschr( const wchar_t *s, wchar_t c );
-size_t wcscspn( const wchar_t *s1, const wchar_t *s2 );
-wchar_t *wcspbrk( const wchar_t *s1, const wchar_t *s2 );
-wchar_t *wcsrchr( const wchar_t *s, wchar_t c );
-size_t wcsspn( const wchar_t *s1, const wchar_t *s2 );
-wchar_t *wcsstr( const wchar_t *s1, const wchar_t *s2 );
-wchar_t *wcstok( wchar_t * s1, const wchar_t * s2, wchar_t ** ptr );
-size_t wcslen( const wchar_t *s );
-wchar_t *wmemchr( const wchar_t *s, wchar_t c, size_t n );
-int wmemcmp( const wchar_t *s1, const wchar_t *s2, size_t n );
-wchar_t *wmemcpy( wchar_t * s1, const wchar_t * s2, size_t n );
-wchar_t *wmemmove( wchar_t *s1, const wchar_t *s2, size_t n );
-wchar_t *wmemset( wchar_t *s, wchar_t c, size_t n );
+CDEABI long wcstol( const wchar_t * nptr, wchar_t ** endptr, int base );
+CDEABI unsigned long wcstoul( const wchar_t * nptr, wchar_t ** endptr, int base );
+CDEABI long long wcstoll(const wchar_t* strSource,wchar_t** endptr,int base);
+CDEABI unsigned long long wcstoull(const wchar_t* s, wchar_t** endptr, int base);
+CDEABI wchar_t *wcscpy( wchar_t * s1, const wchar_t * s2 );
+CDEABI wchar_t *wcsncpy( wchar_t * s1, const wchar_t * s2, size_t n );
+CDEABI wchar_t *wcscat( wchar_t * s1, const wchar_t * s2 );
+CDEABI wchar_t *wcsncat( wchar_t * s1, const wchar_t * s2, size_t n );
+CDEABI int wcscmp( const wchar_t *s1, const wchar_t *s2 );
+CDEABI int wcscoll( const wchar_t *s1, const wchar_t *s2 );
+CDEABI int wcsncmp( const wchar_t *s1, const wchar_t *s2, size_t n );
+CDEABI size_t wcsxfrm( wchar_t * s1, const wchar_t * s2, size_t n );
+CDEABI wchar_t *wcschr( const wchar_t *s, wchar_t c );
+CDEABI size_t wcscspn( const wchar_t *s1, const wchar_t *s2 );
+CDEABI wchar_t *wcspbrk( const wchar_t *s1, const wchar_t *s2 );
+CDEABI wchar_t *wcsrchr( const wchar_t *s, wchar_t c );
+CDEABI size_t wcsspn( const wchar_t *s1, const wchar_t *s2 );
+CDEABI wchar_t *wcsstr( const wchar_t *s1, const wchar_t *s2 );
+CDEABI wchar_t *wcstok( wchar_t * s1, const wchar_t * s2, wchar_t ** ptr );
+CDEABI size_t wcslen( const wchar_t *s );
+CDEABI wchar_t *wmemchr( const wchar_t *s, wchar_t c, size_t n );
+CDEABI int wmemcmp( const wchar_t *s1, const wchar_t *s2, size_t n );
+CDEABI wchar_t *wmemcpy( wchar_t * s1, const wchar_t * s2, size_t n );
+CDEABI wchar_t *wmemmove( wchar_t *s1, const wchar_t *s2, size_t n );
+CDEABI wchar_t *wmemset( wchar_t *s, wchar_t c, size_t n );
 //not yet implemented size_t wcsftime( wchar_t * s, size_t maxsize, const wchar_t * format, const struct tm * timeptr );
-wint_t btowc( int c );
-int wctob( wint_t c );
+CDEABI wint_t btowc( int c );
+CDEABI int wctob( wint_t c );
 //not yet implemented int mbsinit( const mbstate_t *ps );
 //not yet implemented size_t mbrlen( const char * s, size_t n, mbstate_t * ps );
 //not yet implemented size_t mbrtowc( wchar_t * pwc, const char * s, size_t n, mbstate_t * ps );

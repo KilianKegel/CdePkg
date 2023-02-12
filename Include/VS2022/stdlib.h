@@ -22,6 +22,11 @@ Author:
 --*/
 #ifndef _CDE_STDLIB_H_
 #define _CDE_STDLIB_H_
+
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #include <stddef.h>
 
 typedef struct _div_t
@@ -48,47 +53,47 @@ typedef struct _lldiv_t
 #define RAND_MAX 0x7fff
 #define MB_CUR_MAX 1 /* C locale only */
 
-double atof( const char *nptr );
-int atoi( const char *nptr );
-long int atol( const char *nptr );
-double strtod( const char * nptr, char ** endptr );
-long int strtol( const char * nptr, char ** endptr, int base );
-unsigned long int strtoul( const char * nptr, char ** endptr, int base );
-int rand( void );
-void srand( unsigned int seed );
-void *calloc( size_t nmemb, size_t size );
-void free( void *ptr );
-void *malloc( size_t size );
-void *realloc( void *ptr, size_t size );
-void abort( void );
-int atexit( void ( *func )( void ) );
-void exit( int status );
-char *getenv( const char *name );
-int system( const char *string );
-void *bsearch( const void *key, const void *base, size_t nmemb, size_t size, int ( *compar )( const void *, const void * ) );
-void qsort( void *base, size_t nmemb, size_t size, int ( *compar )( const void *, const void * ) );
-int abs( int j );
-long int labs( long int j );
-div_t div( int numer, int denom );
-ldiv_t ldiv( long int numer, long int denom );
-int mblen( const char *s, size_t n );
-int mbtowc( wchar_t * pwc, const char * s, size_t n );
-int wctomb( char *s, wchar_t wchar );
-size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );
-size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );
+CDEABI double atof( const char *nptr );
+CDEABI int atoi( const char *nptr );
+CDEABI long int atol( const char *nptr );
+CDEABI double strtod( const char * nptr, char ** endptr );
+CDEABI long int strtol( const char * nptr, char ** endptr, int base );
+CDEABI unsigned long int strtoul( const char * nptr, char ** endptr, int base );
+CDEABI int rand( void );
+CDEABI void srand( unsigned int seed );
+CDEABI void *calloc( size_t nmemb, size_t size );
+CDEABI void free( void *ptr );
+CDEABI void *malloc( size_t size );
+CDEABI void *realloc( void *ptr, size_t size );
+CDEABI void abort( void );
+CDEABI int atexit( void ( *func )( void ) );
+CDEABI void exit( int status );
+CDEABI char *getenv( const char *name );
+CDEABI int system( const char *string );
+CDEABI void *bsearch( const void *key, const void *base, size_t nmemb, size_t size, int ( *compar )( const void *, const void * ) );
+CDEABI void qsort( void *base, size_t nmemb, size_t size, int ( *compar )( const void *, const void * ) );
+CDEABI int abs( int j );
+CDEABI long int labs( long int j );
+CDEABI div_t div( int numer, int denom );
+CDEABI ldiv_t ldiv( long int numer, long int denom );
+CDEABI int mblen( const char *s, size_t n );
+CDEABI int mbtowc( wchar_t * pwc, const char * s, size_t n );
+CDEABI int wctomb( char *s, wchar_t wchar );
+CDEABI size_t mbstowcs( wchar_t * pwcs, const char * s, size_t n );
+CDEABI size_t wcstombs( char * s, const wchar_t * pwcs, size_t n );
 
-wchar_t* _ultow(unsigned long _Value, wchar_t* _Buffer, int _Radix);
-wchar_t* _ui64tow(unsigned long long _Value, wchar_t* _Buffer, int _Radix);
-char* _ultoa(unsigned long _Value, char* _Buffer, int _Radix);
-char* _ui64toa(unsigned long long _Value, char* _Buffer, int _Radix);
-wchar_t* _ltow(long _Value, wchar_t* _Buffer, int _Radix);
-char* _ltoa(long _Value, char* _Buffer, int _Radix);
-wchar_t* _itow(int _Value, wchar_t* _Buffer, int _Radix);
-char* _itoa(int _Value, char* _Buffer, int _Radix);
-wchar_t* _i64tow(long long _Value, wchar_t* _Buffer, int _Radix);
-char* _i64toa(long long _Value, char* _Buffer, int _Radix);
+CDEABI wchar_t* _ultow(unsigned long _Value, wchar_t* _Buffer, int _Radix);
+CDEABI wchar_t* _ui64tow(unsigned long long _Value, wchar_t* _Buffer, int _Radix);
+CDEABI char* _ultoa(unsigned long _Value, char* _Buffer, int _Radix);
+CDEABI char* _ui64toa(unsigned long long _Value, char* _Buffer, int _Radix);
+CDEABI wchar_t* _ltow(long _Value, wchar_t* _Buffer, int _Radix);
+CDEABI char* _ltoa(long _Value, char* _Buffer, int _Radix);
+CDEABI wchar_t* _itow(int _Value, wchar_t* _Buffer, int _Radix);
+CDEABI char* _itoa(int _Value, char* _Buffer, int _Radix);
+CDEABI wchar_t* _i64tow(long long _Value, wchar_t* _Buffer, int _Radix);
+CDEABI char* _i64toa(long long _Value, char* _Buffer, int _Radix);
 
-long long int strtoll(const char* nptr, char** endptr, int base);
-unsigned long long int strtoull(const char* nptr,char** endptr,int base);
+CDEABI long long int strtoll(const char* nptr, char** endptr, int base);
+CDEABI unsigned long long int strtoull(const char* nptr,char** endptr,int base);
 
 #endif//_CDE_STDLIB_H_

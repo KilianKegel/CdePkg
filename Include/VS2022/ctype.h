@@ -22,20 +22,25 @@ Author:
 --*/
 #ifndef _CDE_CTYPE_H_
 #define _CDE_CTYPE_H_
+
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 //#pragma warning( disable : 4996 4311 4312 4101)
-int isalnum( int );
-int isalpha( int );
-int iscntrl( int );
-int isdigit( int );
-int isgraph( int );
-int islower( int );
-int isprint( int );
-int ispunct( int );
-int isspace( int );
-int isupper( int );
-int isxdigit( int );
-int tolower( int );
-int toupper( int );
+CDEABI int isalnum( int );
+CDEABI int isalpha( int );
+CDEABI int iscntrl( int );
+CDEABI int isdigit( int );
+CDEABI int isgraph( int );
+CDEABI int islower( int );
+CDEABI int isprint( int );
+CDEABI int ispunct( int );
+CDEABI int isspace( int );
+CDEABI int isupper( int );
+CDEABI int isxdigit( int );
+CDEABI int tolower( int );
+CDEABI int toupper( int );
 
 // Microsoft - specific/start
 // Bit masks for the possible character types

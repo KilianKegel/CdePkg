@@ -23,9 +23,13 @@ Author:
 #ifndef _CDE_INTTYPES_H_
 #define _CDE_INTTYPES_H_
 
-intmax_t strtoimax(const char* strSource,char** endptr,int base);
-intmax_t wcstoimax(const wchar_t* strSource,wchar_t** endptr,int base);
-uintmax_t strtoumax(const char* strSource, char** endptr, int base);
-uintmax_t wcstoumax(const wchar_t* strSource, wchar_t** endptr, int base);
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
+CDEABI intmax_t strtoimax(const char* strSource,char** endptr,int base);
+CDEABI intmax_t wcstoimax(const wchar_t* strSource,wchar_t** endptr,int base);
+CDEABI uintmax_t strtoumax(const char* strSource, char** endptr, int base);
+CDEABI uintmax_t wcstoumax(const wchar_t* strSource, wchar_t** endptr, int base);
 
 #endif//_CDE_INTTYPES_H_

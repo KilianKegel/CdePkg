@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_TIME_H_
 #define _CDE_TIME_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #include <stddef.h>
 
 //#pragma warning( disable : 4996 4311 4312 4101)
@@ -49,16 +53,17 @@ struct tm
     int tm_isdst;    /* Daylight Saving Time flag			*/
 };
 
-clock_t clock( void );
-double difftime( time_t time1, time_t time0 );
-time_t mktime( struct tm *timeptr );
-time_t time( time_t *timer );
-char *asctime( const struct tm *timeptr );
-char *ctime( const time_t *timer );
-struct tm *gmtime( const time_t *timer );
+CDEABI clock_t clock( void );
+CDEABI double difftime( time_t time1, time_t time0 );
+CDEABI time_t mktime( struct tm *timeptr );
+CDEABI time_t time( time_t *timer );
+CDEABI char *asctime( const struct tm *timeptr );
+CDEABI char *ctime( const time_t *timer );
+CDEABI struct tm *gmtime( const time_t *timer );
 //struct tm *localtime( const time_t *timer );
 // MSFT specific - start
-struct tm* _localtime64( time_t const* const _Time );
+CDEABI struct tm* _localtime64( time_t const* const _Time );
+
 static __inline struct tm* /*__CRTDECL*/ localtime(
     time_t const* const _Time
 )
@@ -69,6 +74,6 @@ static __inline struct tm* /*__CRTDECL*/ localtime(
 #pragma warning(pop)
 }
 // MSFT specific - end
-size_t strftime( char * s, size_t maxsize, const char * format, const struct tm * timeptr );
+CDEABI size_t strftime( char * s, size_t maxsize, const char * format, const struct tm * timeptr );
 
 #endif//_CDE_TIME_H_

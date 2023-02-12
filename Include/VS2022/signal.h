@@ -22,6 +22,10 @@ Author:
 #ifndef _CDE_SIGNAL_H_
 #define _CDE_SIGNAL_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 typedef int sig_atomic_t;
 
 #define SIG_DFL     (void(*)(int))0
@@ -37,7 +41,7 @@ typedef int sig_atomic_t;
 #define SIGBREAK        21  // MSFT specific Ctrl-Break sequence
 #define SIGABRT_COMPAT  6   // MSFT specific SIGABRT compatible with other platforms, same as SIGABRT
 
-void ( *signal( int sig, void ( *func )( int ) ) )( int );
-int raise( int sig );
+CDEABI void ( *signal( int sig, void ( *func )( int ) ) )( int );
+CDEABI int raise( int sig );
 
 #endif//_CDE_SIGNAL_H_

@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_ERRNO_H_
 #define _CDE_ERRNO_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #define errno (*_errno())
 
 #define EDOM	0x21
@@ -73,6 +77,6 @@ Author:
 //#define EILSEQ          42
 #define STRUNCATE       80
 
-int* _errno( void );
+CDEABI int* _errno( void );
 
 #endif//_CDE_ERRNO_H_

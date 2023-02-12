@@ -8,6 +8,8 @@
     "CdeLibNull\CdeLibNull.inf"
     "CdeServices\CdeServicesDxe.inf"
     "CdeWelcome\buildDXE.inf"
+    "CdeServices\CdeServicesSmm.inf"
+    "CdeWelcome\buildSMM.inf"
     "CdeServices\CdeServicesPei.inf"
     "CdeWelcome\buildPEI.inf"
  [files]

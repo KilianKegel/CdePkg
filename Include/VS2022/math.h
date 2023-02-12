@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_MATH_H_
 #define _CDE_MATH_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 //#pragma warning( disable : 4996 4311 4312 4101)
 
 #error FLOATING POINT SUPPORT STILL MISSING

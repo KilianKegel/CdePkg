@@ -222,6 +222,14 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230212
+* introduce `CDEABI`, an additional application binary interface ABI to ease coexistance of `CdePkg` based BIOS 
+    drivers with incomplete (tianocore EDK2)[https://github.com/tianocore/edk2] `C Library` 
+    (fragments)[https://github.com/tianocore/edk2/blob/master/CryptoPkg/Library/BaseCryptLib/SysCall/CrtWrapper.c#L603]
+
+    NOTE: `CDEABI` uses the Microsoft DLL interface (`__declspec(dllimport)`)[https://learn.microsoft.com/en-us/cpp/build/importing-into-an-application-using-declspec-dllimport?view=msvc-170] for EDK2-built drivers .
+    Technically this uses *indirect function calls* on machine code level.
+* promote `CDETRACE()`, remove former, alternate trace method (`CDEMOFINE()`) completely
 ### 20230104
 * fixed `strftime()` parameter: `%I`, `%m`, `%x`
 ### 20230103

@@ -49,6 +49,22 @@ INFComponent
 End
 
 INFComponent
+    Name  = "CdeServicesSmm"
+    File  = "CdeServices/CdeServicesSmm.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "DXE_SMM_DRIVER"
+End
+
+INFComponent
+    Name  = "CdeWelcomeSmm"
+    File  = "CdeWelcome/buildSMM.inf"
+    Package  = "CdePkg"
+    Arch  = "IA32 X64"
+    ModuleTypes  = "DXE_SMM_DRIVER"
+End
+
+INFComponent
     Name  = "CdeWelcomePei"
     File  = "CdeWelcome/buildPEI.inf"
     Package  = "CdePkg"

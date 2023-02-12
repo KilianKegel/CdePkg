@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_STDIO_H_
 #define _CDE_STDIO_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #include <stdarg.h>
 #include <stddef.h>
 
@@ -64,51 +68,54 @@ FILE* __cdecl __acrt_iob_func(unsigned);
     #define NULL ((void *)0)
 #endif//NULL
 
-int remove( const char *filename );
-int rename( const char *old, const char *new );
-FILE *tmpfile( void );
-char *tmpnam( char *s );
-int fclose( FILE *stream );
-int fflush( FILE *stream );
-FILE *fopen( const char * filename, const char * mode );
-FILE *freopen( const char * filename, const char * mode, FILE * stream );
-void setbuf( FILE * stream, char * buf );
-int setvbuf( FILE * stream, char * buf, int mode, size_t size );
-int fprintf( FILE * stream, const char * format, ... );
-int fscanf( FILE * stream, const char * format, ... );
-int printf( const char * format, ... );
-int scanf( const char * format, ... );
-int snprintf( char * s, size_t n, const char * format, ... );		// C99, function is implemented
-int sprintf( char * s, const char * format, ... );
-int sscanf( const char * s, const char * format, ... );
-int vfprintf( FILE * stream, const char * format, va_list arg );
-int vprintf( const char * format, va_list arg );
-int vsprintf( char * s, const char * format, va_list arg ) ;
-int vfscanf( FILE * stream, const char * format, va_list arg );			// C99, function is implemented
-int vscanf( const char * format, va_list arg );							// C99, function is implemented
-int vsnprintf( char * s, size_t n, const char * format, va_list arg );	// C99, function is implemented
-int vsscanf( const char * s, const char * format, va_list arg );		// C99, function is implemented
-int fgetc( FILE *stream );
-char *fgets( char * s, int n, FILE * stream );
-int fputc( int c, FILE *stream );
-int fputs( const char * s, FILE * stream );
-int getc( FILE *stream );
-int getchar( void );
-char *gets( char *s );
-int putc( int c, FILE *stream );
-int putchar( int c );
-int puts( const char *s );
-int ungetc( int c, FILE *stream );
-size_t fread( void * ptr, size_t size, size_t nmemb, FILE * stream );
-size_t fwrite( const void * ptr, size_t size, size_t nmemb, FILE * stream );
-int fgetpos( FILE * stream, fpos_t * pos );
-int fseek( FILE *stream, long int offset, int whence );
-int fsetpos( FILE *stream, const fpos_t *pos );
-long int ftell( FILE *stream );
-void rewind( FILE *stream );
-void clearerr( FILE *stream );
-int feof( FILE *stream );
-int ferror( FILE *stream );
-void perror( const char *s );
+CDEABI int remove( const char *filename );
+CDEABI int rename( const char *old, const char *new );
+CDEABI FILE *tmpfile( void );
+CDEABI char *tmpnam( char *s );
+CDEABI int fclose( FILE *stream );
+CDEABI int fflush( FILE *stream );
+CDEABI FILE *fopen( const char * filename, const char * mode );
+CDEABI FILE *freopen( const char * filename, const char * mode, FILE * stream );
+CDEABI void setbuf( FILE * stream, char * buf );
+CDEABI int setvbuf( FILE * stream, char * buf, int mode, size_t size );
+CDEABI int fscanf( FILE * stream, const char * format, ... );
+CDEABI int printf( const char * format, ... );
+CDEABI int scanf( const char * format, ... );
+CDEABI int snprintf( char * s, size_t n, const char * format, ... );		// C99, function is implemented
+CDEABI int sprintf( char * s, const char * format, ... );
+CDEABI int sscanf( const char * s, const char * format, ... );
+CDEABI int vfprintf( FILE * stream, const char * format, va_list arg );
+CDEABI int vprintf( const char * format, va_list arg );
+CDEABI int vsprintf( char * s, const char * format, va_list arg ) ;
+CDEABI int vfscanf( FILE * stream, const char * format, va_list arg );			// C99, function is implemented
+CDEABI int vscanf( const char * format, va_list arg );							// C99, function is implemented
+CDEABI int vsnprintf( char * s, size_t n, const char * format, va_list arg );	// C99, function is implemented
+CDEABI int vsscanf( const char * s, const char * format, va_list arg );		// C99, function is implemented
+CDEABI int fgetc( FILE *stream );
+CDEABI char *fgets( char * s, int n, FILE * stream );
+CDEABI int fputc( int c, FILE *stream );
+CDEABI int fputs( const char * s, FILE * stream );
+CDEABI int getc( FILE *stream );
+CDEABI int getchar( void );
+CDEABI char *gets( char *s );
+CDEABI int putc( int c, FILE *stream );
+CDEABI int putchar( int c );
+CDEABI int puts( const char *s );
+CDEABI int ungetc( int c, FILE *stream );
+CDEABI size_t fread( void * ptr, size_t size, size_t nmemb, FILE * stream );
+CDEABI size_t fwrite( const void * ptr, size_t size, size_t nmemb, FILE * stream );
+CDEABI int fgetpos( FILE * stream, fpos_t * pos );
+CDEABI int fseek( FILE *stream, long int offset, int whence );
+CDEABI int fsetpos( FILE *stream, const fpos_t *pos );
+CDEABI long int ftell( FILE *stream );
+CDEABI void rewind( FILE *stream );
+CDEABI void clearerr( FILE *stream );
+CDEABI int feof( FILE *stream );
+CDEABI int ferror( FILE *stream );
+CDEABI void perror( const char *s );
+
+#ifndef _CDE_INLINE_FPRINTF_DEFINED
+    CDEABI int fprintf(FILE* stream, const char* format, ...);
+#endif//_CDE_INLINE_FPRINTF_DEFINED
 
 #endif//_CDE_STDIO_H_

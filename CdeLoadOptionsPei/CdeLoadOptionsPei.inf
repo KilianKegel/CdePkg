@@ -10,6 +10,7 @@
   MODULE_TYPE                    = PEIM
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = _Main
+  IMAGE_ENTRY_POINT              = _Main
 
 #
 # The following information is for reference only and not required by the build tools.
@@ -33,6 +34,7 @@
 
 [LibraryClasses]
     PeimEntryPoint
+    CdeLib
 
 [Guids]
     gCdeEndOfDxeGuid
@@ -47,5 +49,5 @@
   gEfiPeiReadOnlyVariable2PpiGuid
 
 [BuildOptions] 
-   MSFT:*_*_IA32_CC_FLAGS   = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
-   MSFT:*_*_X64_CC_FLAGS    = /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
+   MSFT:*_*_IA32_CC_FLAGS   = /D "CDEABI=__declspec(dllimport)" /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+   MSFT:*_*_X64_CC_FLAGS    = /D "CDEABI=__declspec(dllimport)" /GL-  /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI DXE(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""

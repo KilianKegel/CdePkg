@@ -21,12 +21,45 @@ Author:
 --*/
 #ifndef _CDE_H_
 #define _CDE_H_
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <assert.h>
 #include <stdarg.h>
-//#include <vadefs.h>
+#include <stddef.h>
+
+//#define NCDETRACE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// provide import library interface for exit() and vfprintf() for internal usage, it works with original MSFT Library
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  NOTE: To simplify a unified DLLIMPORT interface generation, the interface type is void*
+//          except for vfprintf(), that is already declared in CDE.H a full interface type
+//          is needed.
+// 
+#if   defined(_M_AMD64)
+    extern void (*__imp_exit)(int);
+#   define CDEABI_EXIT(s) (*__imp_exit)(s)
+    extern int (*__imp_vfprintf)(void* stream, const char* pszFormat, char* ap);
+#   define CDEABI_VFPRINTF(s) (*__imp_vfprintf) s
+#else//   defined(_M_AMD64)
+    extern void (*_imp__exit)(int);
+#   define CDEABI_EXIT(s) (*_imp__exit)(s)
+    extern int (*_imp__vfprintf)(void* stream, const char* pszFormat, char* ap);
+#   define CDEABI_VFPRINTF(s) (*_imp__vfprintf) s
+#endif//  defined(_M_AMD64)
+
+#ifndef _FILE_DEFINED
+    #define _FILE_DEFINED
+    typedef struct _iobuf
+    {
+        void* _empty;
+    } FILE;
+#endif
+
+extern FILE* __acrt_iob_func(unsigned);
+
+#ifndef stdout
+#   define stdout (__acrt_iob_func(1))
+#endif//stdout
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // override the "DebugLib.h" ///////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,19 +120,15 @@ Author:
 extern void __cdeTianocoreDEBUGEna(void);
 extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char* Format, ...);
 #define DEBUG(Expression)   __cdeTianocoreDEBUGEna(),\
-                            _CdeMofine(gEfiCallerBaseName,\
-                                __FILE__,\
-                                __LINE__,\
-                                __FUNCTION__,\
-                                /*string*/__cdeTianocoreDebugPrintErrolevel2Str Expression,\
-                                /*condition*/MOFINE_CONFIG | 1,\
-                                ""),\
+                                fprintf(stdout, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeTianocoreDebugPrintErrolevel2Str Expression), \
                             DebugPrint Expression
 #define TRACE DEBUG
 #ifdef ASSERT_RETURN_ERROR
 #   undef ASSERT_RETURN_ERROR
 #endif//ASSERT_RETURN_ERROR
+
 #define ASSERT_RETURN_ERROR(StatusParameter)
+
 #ifdef ASSERT_EFI_ERROR
 #   undef ASSERT_EFI_ERROR
 #endif//ASSERT_EFI_ERROR
@@ -111,39 +140,10 @@ extern void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
 #ifdef ASSERT
 #   undef ASSERT
 #endif//ASSERT
-#define ASSERT(Expression)  assert(Expression)
+#define ASSERT(Expression)  /*assert(Expression)*/
 
 #else   //CDE_DONT_OVERRIDE_DEBUG_TRACE
 #endif  //CDE_DONT_OVERRIDE_DEBUG_TRACE
-
-//
-//#TOCTRL NMOFINE
-//
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-// dump related definitions ////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-typedef union _XDUMPPARM {
-    unsigned reg;
-    struct {
-        unsigned ElmSizeMin1 : 3;       /*!<element size minus one, only 0,1,3,7                    */
-        unsigned AddrSize : 3;          /*!<0,1,2,3,4 with:
-                                            0 == "%016llX: "
-                                            1 == "%08llX: "
-                                            2 == "%04llX: "
-                                            3 == "%02llX: "
-                                            4 == ""                                                 */
-        unsigned ElmsPerLine : 7;       /*!< nBytesPerLine minus one bytes per line - 0 == 16,   */
-        unsigned NoAscii : 1;           /*!<append NO ASCII characters                              */
-        unsigned BaseOfs : 1;           /*!<base and offset, offset only otherwise                  */
-        unsigned NoDash : 1;            /*!<print dash "-" in between                               */
-        unsigned Pitch : 8;             /*!<pitch between two consecutive elements fo size elmsize  */
-    }bit;
-}XDUMPPARM;
-
-#define CDESTRINGIFY(x) #x
-#define CDENUM2STRING(x) CDESTRINGIFY(x)
 
 //
 // externs
@@ -156,80 +156,6 @@ extern void* __cdeGetAppIf(void);
 #define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
 extern char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
-//
-// CDE related library diagnostic extentions 
-//
-extern int _CdeMofine(char* pszDriver, char* pszFile, int nLine, char* pszFunction, char* pszClass, int fTraceEn, char* pszFormat, ...);
-extern int _CdeXDump(XDUMPPARM ctrl, unsigned elmcount, unsigned long long startaddr, unsigned long long(*pfnGetElm)(unsigned long long qwAddr), unsigned (*pfnWriteStr)(char* szLine),char *pBuf, int bufsize);
-
-//
-// CDE MOdule FIle liNE (CDEMOFINE) trace support definitions
-//
-#define MOFINE_NDRIVER      (1 << 1)
-#define MOFINE_NFILE        (1 << 2)
-#define MOFINE_NLINE        (1 << 3)
-#define MOFINE_NFUNCTION    (1 << 4)
-#define MOFINE_NCLOCK       (1 << 5)
-#define MOFINE_NSTDOUT      (1 << 6)/* stderr instead */
-#define MOFINE_NCLASS       (1 << 7)/* stderr instead */
-#define MOFINE_RAWFORMAT    (1 << 8)
-#define MOFINE_STRIPPATH    (1 << 9)/* remove path from filename at runtime */
-
-#define MOFINE_EXITONCOND   (1 << 10)
-#define MOFINE_DEADONCOND   (1 << 11)
-
-#define MOFINE_UEFIFMTSTR   (1 << 12)
-
-#define MOFINE_STDOUT       (1 << 13)   /* trace to STDOUT */
-#define MOFINE_STDERR       (1 << 14)   /* trace to STDERR */
-#define MOFINE_STATUSCODE   (1 << 15)   /* trace to STATUSCODE */
-
-#ifndef MOFINE_CONFIG
-#   define MOFINE_CONFIG    MOFINE_STATUSCODE /* | MOFINE_NDRIVER | MOFINE_NFILE | MOFINE_NLINE | MOFINE_NFUNCTION | MOFINE_NCLOCK | MOFINE_NSTDOUT | MOFINE_NCLASS | MOFINE_RAWFORMAT */
-#endif//MOFINE_CONFIG
-
-/////////////////////////////////////////////////////////////////////////////
-// NOTE: CDEMOFINE() is DEPRICATED
-/////////////////////////////////////////////////////////////////////////////
-//
-// MOFINE trace conficuration macro
-//
-#define MFNBAR(cond)/*  bare        */ ((void *)0)/*NULL*/,                ((void *)0)/*NULL*/,    0,       ((void *)0)/*NULL*/,      /*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNNON(cond)/*  no class    */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNINF(cond)/*  INFO        */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"INFO>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNSUC(cond)/*  SUCCESS     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"SUCCESS>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNWAR(cond)/*  WARNING     */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"WARNING>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNERR(cond)/*  ERROR       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ERROR>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-#define MFNFAT(cond)/*  FATAL       */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"FATAL>", 	/*condition*/MOFINE_CONFIG | MOFINE_EXITONCOND | (0 != (cond)),
-#define MFNASS(cond)/*  ASSERT      */ gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ASSERT>", 	/*condition*/MOFINE_CONFIG | MOFINE_DEADONCOND | (0 != (cond)),
-
-#ifndef NMOFINE
-#define CDEMOFINE(cond_msg) _CdeMofine cond_msg /*MOdule-FIle-liNE COndition msg*/
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-// CDE MOdule FIle liNE (CDEMOFINE) trace macro
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    NOTE: there is no comma placed between the MOFINE configuration macro MFNXXX() and the format string:
-//
-//        CDEMOFINE((MFNERR(1) /* <<<<<< NO COMMA HERE >>>>>> */ "##### Welcome to the jungle #####\n")); // ERROR
-//
-//      This is done to ease porting to core trace functions with different parameter layout.
-//
-//      For core trace functions w/o file/line/function etc. parameter, only the MFNXXX() needs to be modified,
-//      not the signature of CDEMOFINE() in the sourcecode.
-//
-//      E.g. the UEFI DEBUG() macro is forced to pass a DebugLevel before the format string.
-//
-//    CDEMOFINE((MFNINF(1) "##### Welcome to the jungle #####\n"));                             // INFO
-//    CDEMOFINE((MFNFAT(Status != EFI_SUCCESS)  "##### Welcome to the jungle #####\n"\n"));     // FATAL, only if Status != EFI_SUCCESS
-//    CDEMOFINE((MFNSUC(Status == EFI_SUCCESS)  "##### Welcome to the jungle #####\n"\n"));     // SUCCESS, only if Status == EFI_SUCCESS
-//    CDEMOFINE((MFNWAR(WARNLEVEL) "##### Welcome to the jungle #####\n"));                     // WARNING, if WARNLEVEL is enabled
-//
-//
-#else// NMOFINE
-
-#define CDEMOFINE(fineonerrcond_msg) ((void)0)
-
-#endif//ndef NMOFINE
 
 /////////////////////////////////////////////////////////////////////////////
 // NOTE: CDETRACE() is THE SUCCESSOR OF CDEMOFINE
@@ -263,38 +189,6 @@ enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID:
 #define TRCFAT(cond)    /* FATAL      */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
 #define TRCASS(cond)    /* ASSERT     */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
 
-extern void exit(int);
-
-#pragma warning(push)
-#pragma warning(disable:4211)
-
-/* fprintf()
-
-Synopsis
-    #include <cde.h>
-    static int fprintf(FILE* const stream, const char* const pszFormat, ...);
-Description
-    fprintf() default override for CDE usage.
-    It does exactly the same as the original Standard C fprintf(), except,
-    that it clears the upper most 4bits of the stream pointer before usage.
-Returns
-    number of bytes
-*/
-static int fprintf(FILE* stream, const char* pszFormat, ...)
-{
-    int nRet = 0;
-    va_list ap;
-    CDEDBGFP __cdeDbgFp = { .ptr = stream };    // isolate file pointer 
-
-    va_start(ap, pszFormat);
-    
-    nRet = vfprintf((void*)__cdeDbgFp.CdeDbg.ptr, pszFormat, ap);
-
-    va_end(ap);
-    return nRet;
-}
-#pragma warning(pop)
-
 /* __cdeFatAss()
 
 Synopsis
@@ -310,7 +204,7 @@ Returns
 static void __cdeFatAss(CDEDBGFP __cdeDbgFp)
 {
     if (FAT == __cdeDbgFp.CdeDbg.Msg)           // FATAL -> exit
-        exit(3);
+        CDEABI_EXIT(3);
 
     if (ASS == __cdeDbgFp.CdeDbg.Msg)           // ASSERT -> DEADLOOP
     {
@@ -322,7 +216,9 @@ static void __cdeFatAss(CDEDBGFP __cdeDbgFp)
 
 static CDEDBGFP __cdeGetDbgFp(void* p, const char* str, ...)
 {
-    CDEDBGFP __cdeDbgFp = { .ptr = p };
+    CDEDBGFP __cdeDbgFp;
+
+    __cdeDbgFp.ptr = p;
 
     return __cdeDbgFp;
 
@@ -350,7 +246,7 @@ do {\
         if (0 == __cdeDbgFp.CdeDbg.En)\
             break;\
         if (BAR != __cdeDbgFp.CdeDbg.Msg) {\
-            fprintf(__cdeDbgFp.ptr, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeGetSeverityString(__cdeDbgFp)); \
+            fprintf(__cdeDbgFp.ptr, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeGetSeverityString(__cdeDbgFp));\
         }\
         fprintf dbgsig_msg;\
         __cdeFatAss(__cdeDbgFp);\
@@ -405,15 +301,64 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 
 }CDE_LOADOPTIONS_PROTOCOL;
 
+#ifndef NCDETRACE
+static int fprintfCDE_H(void* stream, const char* pszFormat, ...);//prototype
+
+/* fprintf()
+
+Synopsis
+    #include <cde.h>
+    static int fprintf(FILE* const stream, const char* const pszFormat, ...);
+Description
+    fprintf() default override for CDE usage.
+    It does exactly the same as the original Standard C fprintf(), except,
+    that it clears the upper most 4bits of the stream pointer before usage.
+Returns
+    number of bytes
+*/
+#define _CDE_INLINE_FPRINTF_DEFINED
+static int fprintf(FILE* stream, const char* pszFormat, ...)
+{
+    int nRet = 0;
+    va_list ap;
+    CDEDBGFP __cdeDbgFp;
+
+    __cdeDbgFp.ptr = stream;
+
+    va_start(ap, pszFormat);
+
+    nRet = CDEABI_VFPRINTF(((void*)__cdeDbgFp.CdeDbg.ptr, pszFormat, ap));
+
+    va_end(ap);
+    return nRet;
+}
+#endif//ifndef NCDETRACE
 //
 //  CDE helper macros
 //
-#define CDEELC/* CDE ELEMENT COUNT */(x) (sizeof(x)/sizeof(x[0]))
-#define ___WIDE2(x) L##x
-#define ___WIDE1(x) ___WIDE2(x)
-#define __CDEWCSFILE__ ___WIDE1(__FILE__)
-#define __CDEWCSFUNCTION__ ___WIDE1(__FUNCTION__)
-#define ___STRINGIFY(n) #n
-#define CDENUMTOSTR(n) ___STRINGIFY(n)
-#define CDENUMTOWCS(n) ___WIDE1(___STRINGIFY(n))
+#ifndef CDEELC
+#   define CDEELC/* CDE ELEMENT COUNT */(x) (sizeof(x)/sizeof(x[0]))
+#endif//CDEELC
+#ifndef ___WIDE2
+#   define ___WIDE2(x) L##x
+#endif//___WIDE2
+#ifndef ___WIDE1
+#   define ___WIDE1(x) ___WIDE2(x)
+#endif//___WIDE1
+#ifndef __CDEWCSFILE__
+#   define __CDEWCSFILE__ ___WIDE1(__FILE__)
+#endif//__CDEWCSFILE__
+#ifndef __CDEWCSFUNCTION__
+#   define __CDEWCSFUNCTION__ ___WIDE1(__FUNCTION__)
+#endif//__CDEWCSFUNCTION__
+#ifndef CDESTRINGIFY
+#   define CDESTRINGIFY(n) #n
+#endif//___STRINGIFY
+#ifndef CDENUMTOSTR
+#   define CDENUMTOSTR(n) CDESTRINGIFY(n)
+#endif//CDENUMTOSTR
+#ifndef CDENUMTOWCS
+#   define CDENUMTOWCS(n) ___WIDE1(CDESTRINGIFY(n))
+#endif//CDENUMTOWCS
+
 #endif//_CDE_H_

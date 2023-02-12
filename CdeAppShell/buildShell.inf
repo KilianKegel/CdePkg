@@ -50,8 +50,8 @@
 [BuildOptions] 
 #to ENABLE  CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
 #to DISABLE CDEMOFINE MOdule FIle liNE traces: /DNMOFINE 
-    MSFT:*_*_IA32_CC_FLAGS   = /GL-  /Od /Zi /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SHELL(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
-    MSFT:*_*_X64_CC_FLAGS    = /GL-  /Od /Zi /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SHELL(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
-    MSFT:*_*_*_DLINK_FLAGS   = /DEBUG:FULL /verbose
+    MSFT:*_*_IA32_CC_FLAGS   = /D "CDEABI=__declspec(dllimport)" /GL-  /O1 /Zi /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SHELL(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+    MSFT:*_*_X64_CC_FLAGS    = /D "CDEABI=__declspec(dllimport)" /GL-  /O1 /Zi /D_invalid_switch_NMOFINE /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI SHELL(CdeLib)\"" /D "CDE_PLATFORM_STRING=\"x86-64\""
+#    MSFT:*_*_*_DLINK_FLAGS   = /DEBUG:FULL
 #    MSFT:*_*_*_CC_FLAGS               == /nologo /W4 /WX /Gy /c /D UNICODE /Od /Oy- /FIAutoGen.h /EHs-c- /GF /Gs8192 /Zi /Gm /D _CRT_SECURE_NO_WARNINGS /D _CRT_SECURE_NO_DEPRECATE
 #    MSFT:*_*_*_PP_FLAGS               == /nologo /E /TC /FIAutoGen.h

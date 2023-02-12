@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_SETJMP_H_
 #define _CDE_SETJMP_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 #ifdef jmp_buf
 #undef jmp_buf
 #endif//ndef jmp_buf
@@ -34,8 +38,8 @@ Author:
 
 typedef unsigned jmp_buf[JMPBUF_DWORD_SIZE];
 
-int _setjmp( jmp_buf env );
-void longjmp( jmp_buf env, int val );
+CDEABI int _setjmp( jmp_buf env );
+CDEABI void longjmp( jmp_buf env, int val );
 
 #define setjmp(env) _setjmp(env)
 

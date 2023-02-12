@@ -23,6 +23,10 @@ Author:
 #ifndef _CDE_LOCALE_H_
 #define _CDE_LOCALE_H_
 
+#ifndef CDEABI
+#   define CDEABI __declspec(dllimport)
+#endif//CDEABI
+
 //#pragma warning( disable : 4996 4311 4312 4101)
 
 // Locale categories
@@ -65,7 +69,7 @@ struct lconv {
     wchar_t* _W_negative_sign;
 };
 
-struct lconv* localeconv( void );
-char* setlocale( int category, char const* locale );
+CDEABI struct lconv* localeconv( void );
+CDEABI char* setlocale( int category, char const* locale );
 
 #endif//_CDE_LOCALE_H_
