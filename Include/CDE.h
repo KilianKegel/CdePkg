@@ -119,8 +119,9 @@ extern FILE* __acrt_iob_func(unsigned);
 
 extern void __cdeTianocoreDEBUGEna(void);
 extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char* Format, ...);
-#define DEBUG(Expression)   __cdeTianocoreDEBUGEna(),\
-                                fprintf(stdout, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeTianocoreDebugPrintErrolevel2Str Expression), \
+#define DEBUG(Expression)   if(__CDEC_HOSTED__)\
+                            __cdeTianocoreDEBUGEna(),\
+                            fprintf(stdout, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeTianocoreDebugPrintErrolevel2Str Expression), \
                             DebugPrint Expression
 #define TRACE DEBUG
 #ifdef ASSERT_RETURN_ERROR
@@ -241,7 +242,7 @@ static char* __cdeGetSeverityString(CDEDBGFP __cdeDbgFp)
 //
 #ifndef NCDETRACE
 #define CDETRACE(dbgsig_msg)  \
-do {\
+if(__CDEC_HOSTED__) do {\
     CDEDBGFP __cdeDbgFp = __cdeGetDbgFp dbgsig_msg; \
         if (0 == __cdeDbgFp.CdeDbg.En)\
             break;\
@@ -302,7 +303,6 @@ typedef struct _CDE_LOADOPTIONS_PROTOCOL {
 }CDE_LOADOPTIONS_PROTOCOL;
 
 #ifndef NCDETRACE
-static int fprintfCDE_H(void* stream, const char* pszFormat, ...);//prototype
 
 /* fprintf()
 

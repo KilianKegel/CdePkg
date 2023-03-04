@@ -222,6 +222,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230304
+* update to TORO C Library 20230304
+* improve `CDETRACE()` macro, `CdePkg-based DEBUG` macro in a mixed/heterogeneous UEFI BIOS build and POST environment
 ### 20230212
 * introduce `CDEABI`, an additional application binary interface ABI to ease coexistance of `CdePkg` based BIOS 
     drivers with incomplete [tianocore EDK2](https://github.com/tianocore/edk2) `C Library` 

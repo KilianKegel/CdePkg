@@ -29,6 +29,12 @@ $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\osifWinNTEntryPointW.obj          $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\Vfprintf.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\Fprintf.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\abort.obj							$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\abort.obj							$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\Fwrite.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x64\Release\StrError.obj						$(OUTPUT_DIR)\CdeLibNull.lib
 !ELSE
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPoint.obj         $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiDxeEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
@@ -42,6 +48,11 @@ $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifUefiSmmEntryPointEDK.obj      $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPoint.obj           $(OUTPUT_DIR)\CdeLibNull.lib
 	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\osifWinNTEntryPointW.obj          $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\Vfprintf.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\Fprintf.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\abort.obj							$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\Fwrite.obj						$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) /REMOVE:x86\Release\StrError.obj						$(OUTPUT_DIR)\CdeLibNull.lib
 #
 # remove additional object modules that conflict with alternate pseudo-implementations of C Library
 #
