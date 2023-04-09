@@ -26,4 +26,6 @@
 "time.h"
 "wchar.h"
 "wctype.h"
+"sys\stat.h"
+"..\CdeServices.h"	
 <endComponent>

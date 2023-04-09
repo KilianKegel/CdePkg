@@ -13,6 +13,11 @@ TOROCLIBRARY=$(WORKSPACE)\CdePkg\toroC32.lib
 $(OUTPUT_DIR)\CdeLib.lib: $(TOROCLIBRARY)
 	@ECHO ### CdeLib ####################################################################################################
 	copy /y $(TOROCLIBRARY) $(OUTPUT_DIR)\CdeLib.lib 
+!IF "$(ARCH)" == "X64"
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeNONCDEABI64MSFT.lst	$(OUTPUT_DIR)\CdeLib.lib | find "LNK4006" > NUL
+!ELSE
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeNONCDEABI32MSFT.lst	$(OUTPUT_DIR)\CdeLib.lib | find "LNK4006" > NUL
+!ENDIF
 
 all: $(TARGET_FILES)
 

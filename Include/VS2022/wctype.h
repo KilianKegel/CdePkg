@@ -50,13 +50,13 @@ CDEABI int iswspace( wint_t wc);
 CDEABI int iswupper( wint_t wc);
 CDEABI int iswxdigit( wint_t wc );
 
-wctype_t wctype( const char *property );
-wctrans_t wctrans( const char *property );
+CDEABI wctype_t wctype( const char *property );
+CDEABI wctrans_t wctrans( const char *property );
 
-wint_t  towlower( wint_t wc );
-wint_t  towupper( wint_t wc );
+CDEABI wint_t  towlower( wint_t wc );
+CDEABI wint_t  towupper( wint_t wc );
 
-wint_t towctrans(wint_t c, wctrans_t value);
+CDEABI wint_t towctrans(wint_t c, wctrans_t value);
 
 // Microsoft specific - start
 // Bit masks for the possible character types

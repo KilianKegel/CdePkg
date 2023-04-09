@@ -3,28 +3,26 @@
 	BASE_NAME           = CdeServicesSmm
 	FILE_GUID           = CDE00010-69FA-4532-8823-C465EF36E667
 	MODULE_TYPE         = DXE_SMM_DRIVER
-    PI_SPECIFICATION_VERSION       = 0x0001000A
-    VERSION_STRING      = 0.5
-#	ENTRY_POINT	= CdeServicesDxeEntryPoint
+	VERSION_STRING      = 0.5
+    PI_SPECIFICATION_VERSION    = 0x0001000A
+#	ENTRY_POINT			= CdeServicesDxeEntryPoint
+    ENTRY_POINT                 = _Main
+    IMAGE_ENTRY_POINT           = _Main
 
-#
-# The following information is for reference only and not required by the build tools.
-#
-#  VALID_ARCHITECTURES           = IA32|X64
-#
+[Sources]
+    CdeServicesSmm.c
+
 [Packages]
-	MdePkg/MdePkg.dec
-#[Guid]
-#    gEfiSmmStatusCodeProtocolGuid   = { 0x6afd2b77, 0x98c1, 0x4acd, { 0xa6, 0xf9, 0x8a, 0x94, 0x39, 0xde, 0xf, 0xb1}}
+    MdePkg/MdePkg.dec
+    CdePkg/CdePkg.dec
 
-[Binaries.IA32]
-	PE32|CdeServicesSmm32.efi
-[Binaries.x64]
-	PE32|CdeServicesSmm64.efi
-[Binaries]
-##  DXE_DEPEX|CdeServicesDxe_gEfiStatusCodeRuntimeProtocolGuid.depex
-   SMM_DEPEX|CdeServicesSmmTRUE.depex
-#    SMM_DEPEX|CdeWelcomeSmm.depex
+[LibraryClasses]
+    CdeLib
 
-#[Depex]
-#    gEfiSmmStatusCodeProtocolGuid
+[Depex]
+    TRUE
+#    gCdeDxeProtocolGuid
+
+[BuildOptions] 
+    MSFT:*_*_IA32_CC_FLAGS   = /GL- /Ob1 /Oi- /D "CDEABI=__declspec(dllimport)" /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI PEI\"" /D "CDE_PLATFORM_STRING=\"x86-32\""
+    MSFT:*_*_X64_CC_FLAGS    = /GL- /Ob1 /Oi- /D "CDEABI=__declspec(dllimport)" /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI PEI\"" /D "CDE_PLATFORM_STRING=\"x86-64\""

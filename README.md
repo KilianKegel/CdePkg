@@ -222,6 +222,12 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230409
+* update to TORO C Library 20230409
+* add *CdeServicesPEI/DXE/SMM driver* source code representation
+* remove *CdeServicesPEI/DXE/SMM driver* binary representation
+* modify *CdeLib* and *CdeLibNull* build strategy
+    * script-based removal of superfluous .OBJ from **toro-C-library**
 ### 20230304
 * update to TORO C Library 20230304
 * improve `CDETRACE()` macro, `CdePkg-based DEBUG` macro in a mixed/heterogeneous UEFI BIOS build and POST environment

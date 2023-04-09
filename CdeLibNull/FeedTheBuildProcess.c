@@ -1,1 +1,0 @@
-#pragma warning (disable:4206/*translation unit is empty*/)

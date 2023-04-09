@@ -18,7 +18,7 @@ End
 
 INFComponent
     Name  = "CdeLibNull"
-    File  = "CdeLibNull/CdeLibNull.inf"
+    File  = "CdeLib/CdeLibNull.inf"
     Package  = "CdePkg"
     Arch  = "IA32 X64"
     ModuleTypes  = "BASE"
