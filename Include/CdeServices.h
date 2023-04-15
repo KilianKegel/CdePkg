@@ -411,20 +411,12 @@ typedef int         OSIFCMDEXEC(IN CDE_APP_IF* pCdeAppIf, const char* szCommand)
 typedef char*       OSIFGETENV(IN CDE_APP_IF* pCdeAppIf, const char* szEnvar);
 typedef char*       OSIFGETDCWD(IN CDE_APP_IF* pCdeAppIf, IN OUT char* pstrDrvCwdBuf); // get drive current working directory
 
-//// ----- CORE DIAG - diagnostic support
-//#define COREBAR(cond)/*  bare        */ pCdeAppIf, NULL,                NULL,    0,       NULL,      /*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define CORENON(cond)/*  no class    */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/ 0,          /*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define COREINF(cond)/*  INFO        */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"INFO>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define CORESUC(cond)/*  SUCCESS     */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"SUCCESS>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define COREWAR(cond)/*  WARNING     */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"WARNING>",	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define COREERR(cond)/*  ERROR       */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ERROR>", 	/*condition*/MOFINE_CONFIG | (0 != (cond)),
-//#define COREFAT(cond)/*  FATAL       */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"FATAL>", 	/*condition*/MOFINE_CONFIG | MOFINE_EXITONCOND | (0 != (cond)),
-//#define COREASS(cond)/*  ASSERT      */ pCdeAppIf, gEfiCallerBaseName,__FILE__,__LINE__,__FUNCTION__,/*string*/"ASSERT>", 	/*condition*/MOFINE_CONFIG | MOFINE_DEADONCOND | (0 != (cond)),
-//#ifndef NMOFINE
-//#   define COREMOFINE(cond_msg) _cdeCoreMofine cond_msg /*MOdule-FIle-liNE COndition msg*/
-//#else// NMOFINE
-//#   define COREMOFINE(cond_msg) ((void)0)
-//#endif//ndef NMOFINE
+struct _CDE_LCONV_LANGUAGE
+{
+    char* szLanguageCountry;
+    struct lconv* pLconv;
+    struct lconv* pCopy;    // copy returned for localeconv()
+};
 
 typedef struct _CDE_APP_IF
 {
@@ -463,7 +455,7 @@ typedef struct _CDE_APP_IF
     //
     // locale relateted
     //
-    struct _CDE_LCONV_LANGUAGE* pActiveLocale;
+    struct _CDE_LCONV_LANGUAGE ActiveLocale;
 
     //
     // errno

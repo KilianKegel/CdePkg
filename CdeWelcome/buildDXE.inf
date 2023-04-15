@@ -21,7 +21,6 @@
     CdePkg/CdePkg.dec
 
 [LibraryClasses]
-    UefiDriverEntryPoint
     CdeLib
 
 [Protocols]

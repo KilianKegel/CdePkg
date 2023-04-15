@@ -222,6 +222,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230415
+* fixed: in the pre-Memory-Discovered PEI (Pre Efi Initialization) POST x86-32
+  Standard C function `localeconv()` crashed the platform.<br>
+  NOTE: All x86-64 operation modes (UEFI Shell, UEFI SMM, UEFI DXE, Windows NT)
+  and post-Memory-Discovered PEI (Pre Efi Initialization) x86-32 was not affected by that bug.
 ### 20230409
 * update to TORO C Library 20230409
 * add *CdeServicesPEI/DXE/SMM driver* source code representation
