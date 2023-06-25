@@ -51,11 +51,10 @@ typedef _Mbstatet mbstate_t;
     #define WEOF ((wint_t)(0xFFFF))
 #endif//WEOF
 
-
 CDEABI int fwprintf( FILE * stream, const wchar_t * format, ... );
 CDEABI int fwscanf( FILE * stream, const wchar_t * format, ... );
 CDEABI int wprintf( const wchar_t * format, ... );
-//not yet implemented int wscanf( const wchar_t * format, ... );
+CDEABI int wscanf( const wchar_t * format, ... );
 CDEABI int swprintf( wchar_t * s, size_t n, const wchar_t * format, ... );
 CDEABI int swscanf( const wchar_t * s, const wchar_t * format, ... );
 CDEABI int vfwprintf( FILE * stream, const wchar_t * format, va_list arg );
@@ -98,14 +97,14 @@ CDEABI int wmemcmp( const wchar_t *s1, const wchar_t *s2, size_t n );
 CDEABI wchar_t *wmemcpy( wchar_t * s1, const wchar_t * s2, size_t n );
 CDEABI wchar_t *wmemmove( wchar_t *s1, const wchar_t *s2, size_t n );
 CDEABI wchar_t *wmemset( wchar_t *s, wchar_t c, size_t n );
-//not yet implemented size_t wcsftime( wchar_t * s, size_t maxsize, const wchar_t * format, const struct tm * timeptr );
+CDEABI size_t wcsftime( wchar_t * s, size_t maxsize, const wchar_t * format, const struct tm * timeptr );
 CDEABI wint_t btowc( int c );
 CDEABI int wctob( wint_t c );
-//not yet implemented int mbsinit( const mbstate_t *ps );
-//not yet implemented size_t mbrlen( const char * s, size_t n, mbstate_t * ps );
-//not yet implemented size_t mbrtowc( wchar_t * pwc, const char * s, size_t n, mbstate_t * ps );
-//not yet implemented size_t wcrtomb( char * s, wchar_t wc, mbstate_t * ps );
-//not yet implemented size_t mbsrtowcs( wchar_t * dst, const char ** src, size_t len, mbstate_t * ps );
-//not yet implemented size_t wcsrtombs( char * dst, const wchar_t ** src, size_t len, mbstate_t * ps );
+CDEABI int mbsinit( const mbstate_t *ps );
+CDEABI size_t mbrlen(const char* s, size_t n, mbstate_t* ps);
+CDEABI size_t mbrtowc( wchar_t * s1, const char * s2, size_t n, mbstate_t * ps );
+CDEABI size_t wcrtomb(char* s1, wchar_t wc, mbstate_t* ps);
+CDEABI size_t mbsrtowcs(wchar_t* s1, const char** s2, size_t n, mbstate_t* ps);
+CDEABI size_t wcsrtombs( char * dst, const wchar_t ** src, size_t len, mbstate_t * ps );
 
 #endif//_CDE_WCHAR_H_

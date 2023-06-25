@@ -22,6 +22,8 @@
 /REMOVE:x64\Release\wcstoumax.obj
 /REMOVE:x64\Release\localeconv.obj
 /REMOVE:x64\Release\setlocale.obj
+/REMOVE:x64\Release\_getmbcp.obj
+/REMOVE:x64\Release\_setmbcp.obj
 /REMOVE:x64\Release\raise.obj
 /REMOVE:x64\Release\signal.obj
 /REMOVE:x64\Release\clearerr.obj
@@ -151,6 +153,10 @@
 /REMOVE:x64\Release\Fwscanf.obj
 /REMOVE:x64\Release\Getwc.obj
 /REMOVE:x64\Release\Getwchar.obj
+/REMOVE:x64\Release\mbrlen.obj
+/REMOVE:x64\Release\mbrtowc.obj
+/REMOVE:x64\Release\mbsinit.obj
+/REMOVE:x64\Release\mbsrtowcs.obj
 /REMOVE:x64\Release\Putwc.obj
 /REMOVE:x64\Release\Putwchar.obj
 /REMOVE:x64\Release\Swprintf.obj
@@ -161,12 +167,14 @@
 /REMOVE:x64\Release\Vswprintf.obj
 /REMOVE:x64\Release\Vswscanf.obj
 /REMOVE:x64\Release\Vwprintf.obj
+/REMOVE:x64\Release\wcrtomb.obj
 /REMOVE:x64\Release\WcsCat.obj
 /REMOVE:x64\Release\WcsChr.obj
 /REMOVE:x64\Release\WcsCmp.obj
 /REMOVE:x64\Release\WcsColl.obj
 /REMOVE:x64\Release\WcsCpy.obj
 /REMOVE:x64\Release\WcsCSpn.obj
+/REMOVE:x64\Release\wcsftime.obj
 /REMOVE:x64\Release\WcsLen.obj
 /REMOVE:x64\Release\WcsNCat.obj
 /REMOVE:x64\Release\WcsNCmp.obj
@@ -174,6 +182,7 @@
 /REMOVE:x64\Release\WcsNLen.obj
 /REMOVE:x64\Release\WcsPbrk.obj
 /REMOVE:x64\Release\WcsRChr.obj
+/REMOVE:x64\Release\wcsrtombs.obj
 /REMOVE:x64\Release\WcsSpn.obj
 /REMOVE:x64\Release\WcsStr.obj
 /REMOVE:x64\Release\WcsTok.obj
@@ -189,6 +198,7 @@
 /REMOVE:x64\Release\WMemMove.obj
 /REMOVE:x64\Release\WMemSet.obj
 /REMOVE:x64\Release\Wprintf.obj
+/REMOVE:x64\Release\wscanf.obj
 /REMOVE:x64\Release\_WcsDup.obj
 /REMOVE:x64\Release\_WcsEfiError.obj
 /REMOVE:x64\Release\_WcsICmp.obj
