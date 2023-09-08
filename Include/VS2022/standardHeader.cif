@@ -15,6 +15,7 @@
 "limits.h"
 "locale.h"
 "math.h"
+"mbctype.h"
 "setjmp.h"
 "signal.h"
 "stdarg.h"

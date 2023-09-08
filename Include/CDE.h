@@ -123,7 +123,9 @@ extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char
                             __cdeTianocoreDEBUGEna(),\
                             fprintf(stdout, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeTianocoreDebugPrintErrolevel2Str Expression), \
                             DebugPrint Expression
-#define TRACE DEBUG
+#ifndef TRACE
+//#   define TRACE DEBUG
+#endif//TRACE
 #ifdef ASSERT_RETURN_ERROR
 #   undef ASSERT_RETURN_ERROR
 #endif//ASSERT_RETURN_ERROR
@@ -152,7 +154,7 @@ extern void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
 extern char* gEfiCallerBaseName;
 extern void* __cdeGetAppIf(void);
 //
-// ANSI C Library related extentions 
+// ANSI C Library related extensions 
 //
 #define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
 extern char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
@@ -266,9 +268,10 @@ if(__CDEC_HOSTED__) do {\
 //
 #define CDE_PEI_TMPTEST0_GUID           {0xCDE00055, 0xb0ff, 0x498b, { 0xb1, 0x7c, 0xed, 0xb3, 0xa0, 0x2e, 0x7f, 0x6e }}
 #define CDE_LOAD_OPTIONS_PROTOCOL_GUID  {0xCDE00000, 0x2c09, 0x4284, { 0x90, 0xf9, 0x9a, 0x98, 0x8a, 0xbd, 0xf6, 0xfb }}
-#define CDE_PEI_PROTOCOL_GUID           {0xCDE00001, 0xb0ff, 0x498b, { 0xb1, 0x7c, 0xed, 0xb3, 0xa0, 0x2e, 0x7f, 0x6e }}
-#define CDE_DXE_PROTOCOL_GUID           {0xCDE00002, 0xe988, 0x4697, { 0x8f, 0x36, 0x08, 0xf1, 0x3d, 0x8d, 0x3d, 0x39 }}
-#define CDE_SMM_PROTOCOL_GUID           {0xCDE00003, 0xee5c, 0x4079, { 0xac, 0x93, 0xee, 0x48, 0xe2, 0x1d, 0x2a, 0x99 }}
+#define CDE_PEI_PROTOCOL_GUID           {0xCDE00001, 0xb0ff, 0x498b, { 0xb1, 0x7c, 0xed, 0xb3, 0xa0, 0x2e, 0x7f, 0x6e }}    // ANSI C Support for UEFI PEI
+#define CDE_DXE_PROTOCOL_GUID           {0xCDE00002, 0xe988, 0x4697, { 0x8f, 0x36, 0x08, 0xf1, 0x3d, 0x8d, 0x3d, 0x39 }}    // ANSI C Support for UEFI DXE
+#define CDE_SMM_PROTOCOL_GUID           {0xCDE00003, 0xee5c, 0x4079, { 0xac, 0x93, 0xee, 0x48, 0xe2, 0x1d, 0x2a, 0x99 }}    // ANSI C Support for UEFI SMM
+#define CDE_SHELL_PROTOCOL_GUID         {0xCDE00009, 0x5dbb, 0x47c1, { 0xa6, 0xba, 0x15, 0x0a, 0x6a, 0xb4, 0x05, 0x9b }}    // ANSI C Support for "CDE UEFI SHELL"
 #define CDE_HOB_GUID                    {0xCDE00004, 0x8801, 0x4cfb, { 0xb1, 0xca, 0xdc, 0x63, 0xde, 0xaa, 0x52, 0xdd }}
 #define CDEPKG_TOKEN_SPACE_GUID         {0xCDE00005, 0x31d3, 0x40f5, { 0xb1, 0x0c, 0x53, 0x9b, 0x2d, 0xb9, 0x40, 0xcd }}
 #define CDE_END_OF_DXE_GUID             {0xCDE00006, 0x0c2a, 0x4cb4, { 0x82, 0xe4, 0x5a, 0x0b, 0x6f, 0x2f, 0x5e, 0xf2 }}

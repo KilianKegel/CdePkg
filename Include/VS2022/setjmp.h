@@ -41,7 +41,9 @@ typedef unsigned jmp_buf[JMPBUF_DWORD_SIZE];
 CDEABI int _setjmp( jmp_buf env );
 CDEABI void longjmp( jmp_buf env, int val );
 
-#define setjmp(env) _setjmp(env)
+#ifndef _INC_SETJMPEX/* Microsoft */
+#   define setjmp _setjmp
+#endif
 
 #endif//_CDE_SETJMP_H_
 

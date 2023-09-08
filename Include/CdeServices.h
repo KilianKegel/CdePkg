@@ -42,9 +42,21 @@ Author:
 
 #include <stdarg.h>
 #include <stddef.h>
+
 #include <stdint.h>
+
+#define _INC_SETJMPEX           /* prevent Microsoft specific definition of setjmp macro                            */
+#define setjmp  msft_setjmp     /* rename original  setjmp() to establish my own "__declspec(dllimport)  setjmp()"  */
+#define longjmp msft_longjmp    /* rename original longjmp() to establish my own "__declspec(dllimport) longjmp()"  */
 #include <setjmp.h>
+#undef longjmp
+#undef setjmp
+
 #include <fcntl.h>
+
+#ifndef fpos_t
+typedef long long fpos_t;
+#endif//fpos_t
 
 extern void* __cdeGetIOBuffer(unsigned i);
 
@@ -110,6 +122,10 @@ typedef enum _OSIF {
     PEIIF, DXEIF, SMMIF, SHELLIF, WINNTIF, LINUXIF
 }OSIF;
 typedef struct _CDE_APP_IF CDE_APP_IF;
+//#ifdef OS_EFI
+typedef struct tagCDESYSTEMVOLUMES CDESYSTEMVOLUMES;
+//#endif//def OS_EFI
+
 //----------------------------------------------------------------------------
 // Definition of helper structs CDE protocol
 //----------------------------------------------------------------------------
@@ -383,6 +399,21 @@ typedef int _GETCHAR(
     void** ppSrc
     );
 
+#ifdef OS_EFI 
+    typedef EFI_STATUS CRT0SERVICE(
+
+        IN CDE_APP_IF* pCdeAppIf,
+
+        ///IN EFI_STATUS(*pMainEntryPoint)                 (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable),
+
+        IN void (*pProcessLibraryConstructorList)       (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable),
+        IN EFI_STATUS(*pProcessModuleEntryPointList)    (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable),
+        IN void (*pProcessLibraryDestructorList)        (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable)
+    );
+#else   //OS_EFI 
+    typedef void CRT0SERVICE(void);
+#endif  //OS_EFI 
+
 // ----- OSIf - operating system interface
 typedef struct tagCDEFILE CDEFILE;          //prototype
 typedef struct tagCDEFILEINFO CDEFILEINFO;  //prototype
@@ -393,8 +424,8 @@ typedef long long           OSIFSETTIME(IN CDE_APP_IF* pCdeAppIf, long long);
 typedef unsigned long long  OSIFGETTSCPERSEC(IN CDE_APP_IF* pCdeAppIf);
 typedef unsigned long long  OSIFGETTSC(IN CDE_APP_IF* pCdeAppIf);
 
-typedef HEAPDESC* OSIFMEMALLOC(IN CDE_APP_IF* pCdeAppIf, IN unsigned long Pages);
-typedef void        OSIFMEMFREE(IN CDE_APP_IF* pCdeAppIf, IN unsigned long long /*EFI_PHYSICAL_ADDRESS*/ Memory, IN unsigned long Pages);
+typedef HEAPDESC*   OSIFMEMALLOC(IN CDE_APP_IF* pCdeAppIf, IN size_t Pages);
+typedef void        OSIFMEMFREE(IN CDE_APP_IF* pCdeAppIf, IN unsigned long long /*EFI_PHYSICAL_ADDRESS*/ Memory, IN size_t Pages);
 
 typedef CDEFILE*    OSIFFOPEN(IN CDE_APP_IF* pCdeAppIf, const wchar_t* filename, const char* mode, int fFileExists/*0 no, 1 yes, -1 unk */, CDEFILE* pCdeFile);
 typedef int         OSIFFCLOSE(IN CDE_APP_IF* pCdeAppIf, CDEFILE* pCdeFile);
@@ -410,6 +441,10 @@ typedef int         OSIFDIRREMOVE(IN CDE_APP_IF* pCdeAppIf, IN wchar_t* pwcsDirN
 typedef int         OSIFCMDEXEC(IN CDE_APP_IF* pCdeAppIf, const char* szCommand);
 typedef char*       OSIFGETENV(IN CDE_APP_IF* pCdeAppIf, const char* szEnvar);
 typedef char*       OSIFGETDCWD(IN CDE_APP_IF* pCdeAppIf, IN OUT char* pstrDrvCwdBuf); // get drive current working directory
+
+typedef size_t  COREFILERW(CDE_APP_IF* pCdeAppIf, const void* ptr, size_t size, size_t nelem, CDEFILE* stream);     // complete core fread(), complete core fwrite()
+typedef int     CORESETPOS(CDE_APP_IF* pCdeAppIf, CDEFILE* stream, const fpos_t* pos);;                             // complete core fsetpos()
+typedef int     COREFFLUSH(CDE_APP_IF* pCdeAppIf, CDEFILE* stream);
 
 struct _CDE_LCONV_LANGUAGE
 {
@@ -428,24 +463,28 @@ typedef struct _CDE_APP_IF
     // the stuff below is present per App
     //
     DRIVERPARM DriverParm;                      // FileHandle,**PeiServices / ImageHandle,*pSystemTable
-//KG20160191_1  CPUIOXYZ CpuIoXyz;              // *pCpuIoPei/*pCpuIoSmm/*pCpuIoDxe;
 
 //
 // r/w space for C library internal usage
 //
-    void* pStrtokStaticInternal;                // scratch buffer for strtok()
-    int nNextRandStaticInternal;               // scratch buffer for rand()
-    jmp_buf exit_buf;                           // jmp_buf for exit
-    int     exit_status;                        // status returned by main in case of exit()
+    void* pStrtokStaticInternal;                            // scratch buffer for strtok()
+    int nNextRandStaticInternal;                            // scratch buffer for rand()
+    jmp_buf exit_buf;                                       // jmp_buf for exit
+    int     exit_status;                                    // status returned by main in case of exit()
     void (*rgcbAtexit[CDE_ATEXIT_REGISTRATION_NUM])(void);
-    char szAscTimeStaticInternal[26];           // static duration for asctime()
-    int  StructTmLocalTimeStaticInternal[9];    // static duration for localtime() == sizeof struct tm
-    int  StructTmGmTimeStaticInternal[9];       // static duration for localtime() == sizeof struct tm
+    char szAscTimeStaticInternal[26];                       // static duration for asctime()
+    int  StructTmLocalTimeStaticInternal[9];                // static duration for localtime() == sizeof struct tm
+    int  StructTmGmTimeStaticInternal[9];                   // static duration for localtime() == sizeof struct tm
     char szTmpBuf[CDE_TMPBUF_WCHAR_LEN * sizeof(wchar_t)/*NOTE: extend szTmpBuf to 512 byte to expand buffer for scanf scanset %[] too *//*260/*L_tmpnam*/];
     int lTmpNamNum;
     void (*rgfnSignal[CDE_SIGNAL_NUM])(int);
-    CDEFILE* pIob;                              // pointer to _iob[0]
-    int  cIob;                                  // number of _iob
+    CDEFILE* pIob;                                          // pointer to _iob[0]
+    int  cIob;                                              // count _iob
+    char STDOUT816BitMode;                                  // CDE internal:    1 : force character size conversion to 8Bit for STDOUT and STDERR, 
+                                                            //                  0 : leave UEFI Shell default 16Bit
+    void* pArgvEx[CDE_ARGV_MAX + 2];                        // pointer to +2extended argv[]
+    int cArgvEx;                                            // count argv-ex, that is -2 and -1 extendet argv[argc]
+
     enum RUNTIMEFLAGS{  TIANOCOREDEBUG = 1,         /* enable/disable DebugLib CDE override at runtime */
         CASESENSITIVEFILENAME = 2,                  /* */
         MALLOCFAILISFATAL = 4                       /* memory allocation error is fatal and terminates the program*/
@@ -468,10 +507,6 @@ typedef struct _CDE_APP_IF
 typedef struct _CDE_SERVICES {
     unsigned short wVerMajor;
     unsigned short wVerMinor;
-    //KGtest remove    CDE_SERVICES **ppThis;
-    //    unsigned char fInSmm;
-    ////todo filedate??? __TIMESTAMP__
-    //    unsigned short wPtclSize;
     unsigned char fx64Opcode;
     unsigned char fMemoryDiscovered;        // flag EfiPeiMemoryDiscovered, always true for DXE, SMM
     HEAPDESC HeapStart;
@@ -480,33 +515,34 @@ typedef struct _CDE_SERVICES {
     unsigned long long TSClocksAtCdeTrace;
     unsigned long long TSClocksPerSec;
 
-    long long TimeAtSystemStart;    // epoch time / UNIX time / POSIX time at systemstart
-
+    long long TimeAtSystemStart;            // epoch time / UNIX time / POSIX time at systemstart
 
     REPORT_STATUS_CODE ReportStatusCode;
-    //EFI_STATUS_CODE_PROTOCOL *pEfiStatusCodeProtocol;
-//KGtest remove    DRIVERPARM DriverParm;
-    CPUIOXYZ CpuIoXyz;                      //KG20160191_1
-//    FNDECL_MAINSTART(*pmainstart);        // the fjMainDxeEntryPoint/fjMainSmmEntryPoint loader
-//    FNDECL_SMMSTART(*psmmstart);          // wrapper for fjLoadDriverToSmm
+    void* pvEfiShellProtocol;
+    CDESYSTEMVOLUMES* pCdeSystemVolumes;    // system volumes for CdePkg
+    CRT0SERVICE* pCRT0Service;
+
     _GETCHAR* pGetConIn;                    // FNDECL_GETSTDIN(*pgetstdin);            // STDIN  - COM1
     _PUTCHAR* pPutConOut;                   // FNDECL_PUTSTDOUT(*pputstdout);          // STDOUT - COM1
-//    FNDECL_PUTSTDERR(*pputstderr);        // STDERR - COM1
-//    FNDECL_GETDBGIN(*pgetdbgin);          // DBGIN  - COM1
-    _PUTCHAR* pPutDebug;                    //    FNDECL_PUTDBGOUT(*pputdbgout);          // DBGOUT - COM1
+    _PUTCHAR* pPutDebug;                    // FNDECL_PUTDBGOUT(*pputdbgout);          // DBGOUT - COM1
     VWXPRINTF* pVwxPrintf;                  // protocol function 0
     VWXSCANF* pVwxScanf;                    // protocol function 1
     MEMREALLOC* pMemRealloc;
     MEMSTRXCPY* pMemStrxCpy;                //    FNDECL_MEMSTRXNCPY(*pmemstrxncpy);
     MEMSTRXCMP* pMemStrxCmp;                //    FNDECL_MEMSTRXNCMP(*pmemstrxncmp);
-//    FNDECL_IOREADX(*pioreadx);
-//    FNDECL_IOWRITEX(*piowritex);
-//    FNDECL_MEMREADX(*pmemreadx);
-//    FNDECL_MEMWRITEX(*pmemwritex);
-//    //@ToDo: Add additional functions and/or data types to this protocol
-//// ----- string processing functions
+//
+// string processing functions
+//
     WCSSTRPBRKSPN* pWcsStrPbrkSpn;//    FNDECL_MEMSTRXPBRK(*pmemstrxpbrk);
     WCSSTRTOK* pWcsStrTok;//    FNDECL_MEMSTRXTOK(*pmemstrxtok);
+
+    // ----- core C functions, running on driver side
+
+    COREFILERW* pFReadCORE;                 // core fread()
+    COREFILERW* pFWriteCORE;                // core fwrite()
+    CORESETPOS* pFSetPosCORE;               // core fsetpos()
+    COREFFLUSH* pFFlushCORE;                // core fflush()    int _coreFflush(CDE_APP_IF* pCdeAppIf, FILE* stream)
+
 //
 // OSIF - operating system interface
 //
@@ -514,10 +550,14 @@ typedef struct _CDE_SERVICES {
     OSIFSETTIME* pSetRtcTime;
     OSIFGETTSCPERSEC* pGetTscPerSec;
     OSIFGETTSC* pGetTsc;
-    // ----- memory
+//
+// memory
+//
     OSIFMEMALLOC* pMemAlloc;
     OSIFMEMFREE* pMemFree;
-    // ----- file
+//
+// file
+//
     OSIFFOPEN* pFopen;
     OSIFFCLOSE* pFclose;
     OSIFFREAD* pFread;
@@ -537,18 +577,18 @@ typedef struct _CDE_SERVICES {
     // ----- get drive current working directory
     OSIFGETDCWD* pGetDrvCwd;
     // 
-    //void* pOSIFR4FX0; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX1; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX2; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX3; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX4; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX5; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX6; // R4FX: reserved for future extentions
-    //void* pOSIFR4FX7; // R4FX: reserved for future extentions
-    //void* pDIAGR4FX0; // R4FX: reserved for future extentions
-    //void* pDIAGR4FX1; // R4FX: reserved for future extentions
-    //void* pDIAGR4FX2; // R4FX: reserved for future extentions
-    //void* pDIAGR4FX3; // R4FX: reserved for future extentions
+    //void* pOSIFR4FX0; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX1; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX2; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX3; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX4; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX5; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX6; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX7; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX0; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX1; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX2; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX3; // R4FX: reserved for future extensions
 
 }CDE_SERVICES;
 
@@ -575,9 +615,6 @@ extern void* __cdeGetAppIf(void);
 #define O_CDEWIDTH16    (1 << 22)/* width of the stream 0 = 8 Bit, 1 = 16 Bit */
 #define O_CDEDETECTED   (1 << 23)/* stream width detected */
 
-#ifndef fpos_t
-typedef long long fpos_t;
-#endif//fpos_t
 //#define CDE_FPOS_SEEKEND (1LL << 63)
 
 typedef struct tagCDEFILE {
@@ -634,9 +671,9 @@ typedef struct tagCDEFSVOLUME {
 }CDEFSVOLUME;
 
 typedef struct tagCDESYSTEMVOLUMES {
-    INTN nVolumeCount;
-    const unsigned short* pwcsAppPath;
-    const unsigned short* pwcsAppName;
+    UINTN nVolumeCount;
+    //const unsigned short* pwcsAppPath;
+    //const unsigned short* pwcsAppName;
     CDEFSVOLUME rgFsVolume[CDE_VOLV_MAX];
 }CDESYSTEMVOLUMES;
 #endif//def OS_EFI

@@ -222,8 +222,19 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230909
+* update to TORO C Library 20230909
+* modify `CdePkg` (`CdeServicesPei.c`, `CdeServicesDxe.c`, `CdeServicesSmm.c`) for **WDK 7.1.0** tool chain and old **EDK2** (2017) versions
+    * C99-style structure initialization (*designator*) changed to C90-style (*initializer-list*)
+* remove warning suppression for `CdeLib.mak` and `CdeLibNull.mak` that breaks build with **WDK 7.1.0** tool chain
+* add EntryPoints to all `[LibraryClasses]`
+* add signal handling demonstration to WELCOME.C using **signal()** and **raise()** 
+* provide `CDE_SHELL_PROTOCOL_GUID` for future/upcoming code size reduced shell application type
+* minor improvements
 ### 20230625
 * add Standard C95 Library functions: 
+	- [`wcstoul()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/wcstoul.c)
+	- [`wcstol()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/wcstol.c)
 	- [`mbrlen()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/mbrlen.c)
 	- [`mbrtowc()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/mbrtowc.c)
 	- [`mbsinit()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/mbsinit.c)

@@ -1,3 +1,5 @@
+/REMOVE:x64\Release\osifUefiShellDrvEntryPoint.obj
+/REMOVE:x64\Release\osifUefiShellDrvEntryPointEDK.obj
 /REMOVE:x64\Release\osifUefiDxeEntryPoint.obj
 /REMOVE:x64\Release\osifUefiDxeEntryPointEDK.obj
 /REMOVE:x64\Release\osifUefiDxeMemAlloc.obj

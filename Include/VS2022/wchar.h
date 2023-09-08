@@ -29,6 +29,7 @@ Author:
 
 #include <stddef.h>
 #include <stdarg.h>
+#include <time.h>
 
 typedef unsigned short wint_t;
 
@@ -50,6 +51,7 @@ typedef _Mbstatet mbstate_t;
 #ifndef WEOF
     #define WEOF ((wint_t)(0xFFFF))
 #endif//WEOF
+
 
 CDEABI int fwprintf( FILE * stream, const wchar_t * format, ... );
 CDEABI int fwscanf( FILE * stream, const wchar_t * format, ... );

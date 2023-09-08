@@ -21,6 +21,7 @@
     CdePkg/CdePkg.dec
 
 [LibraryClasses]
+    PeimEntryPoint
     CdeLib
 
 [Protocols]

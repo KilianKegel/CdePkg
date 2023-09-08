@@ -4,6 +4,7 @@
 #include <time.h>
 #include <wchar.h>
 #include <ctype.h>
+#include <signal.h>
 
 #define BSIZE   256
 #define NUMSEC  3/* number of seconds to wait*/
@@ -48,6 +49,10 @@ void help(int argc, char** argv)
 }
 
 char* gpszModule;
+
+void myCtrlCHandler (int signum) {
+    printf("You invoked CTRL+C by 'raise(SIGINT)' during POST, but I don't care\n");
+}
 
 int main(int argc, char** argv) {
     clock_t clk = 0;
@@ -94,9 +99,14 @@ int main(int argc, char** argv) {
         pBuffer[i] = (char)i;
 
     //
+    // install CTRL-C Handler to demonstrate signal handling during post (CTRL-C is "raised()" below)
+    //
+    signal(SIGINT, myCtrlCHandler);
+
+    //
     // print the pBuffer to the console/stdout in "dump"-format
     //
-    wprintf(L"Printing %d bytes of initilaized memory in a \"dump\"-format:\n", BSIZE);
+    wprintf(L"Printing %d bytes of initialized memory in a \"dump\"-format:\n", BSIZE);
     for (i = 0; i < BSIZE/TYPESIZE; i++)
     {
         
@@ -108,12 +118,13 @@ int main(int argc, char** argv) {
             ENDOFLINE ? "\n" : (MIDOFLINE ? " - " : " "));
     }
 
-    for (i = NUMSEC; i > -1; i--) 
+    wprintf(L"\nIf it counts too slow, \"8254/Timer Clock Gating\" is enabled in BIOS Setup.\nDisable setup item!!!\n");
+
+    for (i = NUMSEC; i > -1; i--)
     {
         clk = CLOCKS_PER_SEC + clock();
         sprintf(pBuffer, "%ds...      ", i);
         printf("%s", pBuffer);
-        fflush(stdout);
 
         while (clk > clock())                   // wait a second
             ;
@@ -126,6 +137,15 @@ int main(int argc, char** argv) {
         printf(" ");
     printf("\n");
 
+    //
+    // simple demonstration of signal handling CTRL-C
+    //
+    printf("### raise(SIGINT)\" directly: Invoke signal handler\n");
+    raise(SIGINT);
+    printf("### raise(SIGINT)\" directly: This will terminate the process\n");
+    raise(SIGINT);
+    printf("### THIS LINE IS NEVER REACHED ###\n");
+    
     //
     // no need to free() malloced memory. This is automatically done by CRT0
     //
