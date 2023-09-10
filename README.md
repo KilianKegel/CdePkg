@@ -1,5 +1,5 @@
 # CdePkg
-C Development Environment Package for EDK2. <del>This is a SubModule for the EDK2020-MinnowBoard project only.</del> 
+C Development Environment Package for EDK2 and derived BIOS products.
 * [Preface](README.md#preface)
 * [Introduction](README.md#introduction)
 * [Intention](README.md#intention)
