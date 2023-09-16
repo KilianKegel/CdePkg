@@ -166,7 +166,7 @@ The Boot flow sequence consists of:
 
 ## Status
 The **CdeLib** and **CdeServices** are derived from their companion project 
-[Torito C Library](https://github.com/KilianKegel/torito-C-Library) but
+[Toro C Library](https://github.com/KilianKegel/torito-C-Library) but
 split into *wrapper*/*worker* architecture. (Internally [Torito C Library](https://github.com/KilianKegel/torito-C-Library)
 was designed from the very beginning for that split architecture, but  library and driver were merged into one executable, to
 run on platforms without **CdeServices** protocol.)
@@ -176,7 +176,7 @@ The functions below are already implemented and tested, every single one of them
 [List of available functions](https://github.com/KilianKegel/toro-C-Library/blob/master/implemented.md)
 
 
-[Torito C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
+[Toro C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
 tests to verify Microsoft's C Library compatibility and is also approved in various real world applications.
 Therefore the **CdePkg**'s C library will be validated by simple tests only, in the [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg), for DXE, SMM and PEI respectively.
 
@@ -222,6 +222,13 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230916
+* improve debug trace CDETRACE() configuration switches
+    * `#define CDEDBG STDOUT` – traces directed to stdout
+    * `#define CDEDBG STDERR` – traces directed to stderr
+    * `#define CDEDBG STDDBG` – traces directed to CDE debug channel, normally COM1, I/O 0x3F8 115200,8,n,1
+    * `CDEDBG` undefined – UEFI Shell/post DRIVERS: STDDBG, Windows NT: STDOUT
+
 ### 20230909
 * update to TORO C Library 20230909
 * modify `CdePkg` (`CdeServicesPei.c`, `CdeServicesDxe.c`, `CdeServicesSmm.c`) for **WDK 7.1.0** tool chain and old **EDK2** (2017) versions

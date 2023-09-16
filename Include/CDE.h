@@ -23,8 +23,49 @@ Author:
 #define _CDE_H_
 #include <stdarg.h>
 #include <stddef.h>
-
-//#define NCDETRACE
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// CONFIGURATION SWITCHES /////////////////////////////////////////                                             
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+// 1. NCDETRACE
+// 
+//      enable/disable DEBUG TRACES
+// 
+//          defined: "#define NCDETRACE"                NO DEBUG TRACES
+//      NOT defined: "//#define NCDETRACE"              DEBUG TRACES
+//
+// 2. CDEDBG
+// 
+//      Select debug traces output channel
+//      
+//      NOTE: If the selected trace channel is STDDBG, a function 
+//          
+//           "void _CdeDbgPutChar(short c, void** ppDest)"
+// 
+//          is internally invoked to transmit the trace data.
+//          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//          !!! OVERRIDING the function "_CdeDbgPutChar()" in the local driver binary allows to
+//          !!! send trace data to an arbitrary trace target.
+//          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// 
+//          defined: "#define CDEDBG STDOUT"                    traces directed to stdout
+//          defined: "#define CDEDBG STDERR"                    traces directed to stderr
+//          defined: "#define CDEDBG STDDBG"                    traces directed to CDE debug channel, normally COM1, I/O 0x3F8 115200,8,n,1
+//      NOT defined:                                            UEFI Shell/post DRIVERS: STDDBG, Windows NT: STDOUT
+// 
+// 3. CDEABI
+// 
+//      Select application binary interface to invoke ANSI-C-functions from
+//      TOROC64.LIB, TOROC32.LIB, CDELIB.LIB and CDELIBNULL.LIB
+//      
+//      NOTE: TOROC64.LIB, TOROC32.LIB provides entire ANSI-C-functionset in both variants.
+//      NOTE: CDEABI is _not_ available with VS2022 default include files, but with CDEPKG specific 
+//            header files https://github.com/KilianKegel/CdePkg/tree/master/Include/VS2022
+// 
+//      NOT defined:                                            Microsoft .DLL style indirect function calls
+//          defined: "#define CDEABI __declspec(dllimport)"     Microsoft .DLL style indirect function calls
+//          defined: "#define CDEABI __declspec(noinline)"      direct function calls
+//
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // provide import library interface for exit() and vfprintf() for internal usage, it works with original MSFT Library
@@ -159,38 +200,45 @@ extern void* __cdeGetAppIf(void);
 #define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
 extern char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
-
-/////////////////////////////////////////////////////////////////////////////
-// NOTE: CDETRACE() is THE SUCCESSOR OF CDEMOFINE
-/////////////////////////////////////////////////////////////////////////////
 typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
 {
     void* ptr;
     struct {
         size_t ptr : (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ ));
-        size_t Msg : 3;	    // highest (bit - 5)[0..2] 27..29/59..61 is the debug message encoding
-        size_t En : 1;	    // highest bit - 1 30/62 is the debug message enable
+        size_t Msg : 3;	    // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
+        size_t En : 1;	    // highest bit - 1 31/63 is the debug message enable
     }CdeDbg;
 
 }CDEDBGFP;// CDE DEBUG FILE POINTER
 
 enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID: "", "INFO", "SUCCESS", "WARNING", "ERROR", "FATAL", "ASSERT"
 
-#ifndef CDEDBGMAGIC
-#   define CDEDBGMAGIC 0x00CDEDB6
+#define CDEDBGMAGIC 0x00CDEDB6
+#define STDDBG CDEDBGMAGIC
+#define STDOUT stdout
+#define STDERR stderr
+#ifndef CDEDBG
+#   define CDEDBG STDOUT
 #endif
-#define CDEDBGMAGICMASK (1LL << (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ )))
+
 #define CDEPOSTCODE(c,v)	if(c)outp(0x80,v)
 #define CDEDEADLOOP(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz);}
 #define CDEDEBUGBREAK(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
 
-#define TRCBAR(cond)    /* bare trace */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCINF(cond)    /* INFO       */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCSUC(cond)    /* SUCCESS    */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = SUC, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCWAR(cond)    /* WARNING    */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = WAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCERR(cond)    /* ERROR      */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = ERR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCFAT(cond)    /* FATAL      */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
-#define TRCASS(cond)    /* ASSERT     */    (__cdeDbgFp.ptr = stdout, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),
+#define CDEBAR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* bare trace   */
+#define CDEINF(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* INFO trace   */
+#define CDESUC(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = SUC, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* SUCCESS trace*/
+#define CDEWAR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = WAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* WARNING trace*/
+#define CDEERR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ERR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ERROR trace  */
+#define CDEFAT(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* FATAL trace  */
+#define CDEASS(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ASSERT trace */
+    #define TRCBAR CDEBAR   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCINF CDEINF   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCSUC CDESUC   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCWAR CDEWAR   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCERR CDEERR   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCFAT CDEFAT   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
+    #define TRCASS CDEASS   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
 
 /* __cdeFatAss()
 
