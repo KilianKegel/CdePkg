@@ -222,6 +222,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20230917
+* fix `CdePkg\Include\CDE.h` for debug trace purpose in conjunction with 
+    original Microsoft header files 
 ### 20230916
 * improve debug trace CDETRACE() configuration switches
     * `#define CDEDBG STDOUT` – traces directed to stdout

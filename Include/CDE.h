@@ -95,7 +95,7 @@ Author:
     } FILE;
 #endif
 
-extern FILE* __acrt_iob_func(unsigned);
+//FILE* __cdecl __acrt_iob_func(unsigned _Ix);
 
 #ifndef stdout
 #   define stdout (__acrt_iob_func(1))
@@ -368,13 +368,15 @@ Returns
     number of bytes
 */
 #define _CDE_INLINE_FPRINTF_DEFINED
-static int fprintf(FILE* stream, const char* pszFormat, ...)
+#pragma warning(push)
+#pragma warning(disable:4211)   // warning C4211: nonstandard extension used: redefined extern to static
+static int fprintf(FILE* const stream, char const* const pszFormat, ...)
 {
     int nRet = 0;
     va_list ap;
     CDEDBGFP __cdeDbgFp;
 
-    __cdeDbgFp.ptr = stream;
+    __cdeDbgFp.ptr = (void*)stream;
 
     va_start(ap, pszFormat);
 
@@ -383,6 +385,7 @@ static int fprintf(FILE* stream, const char* pszFormat, ...)
     va_end(ap);
     return nRet;
 }
+#pragma warning(pop)
 #endif//ifndef NCDETRACE
 //
 //  CDE helper macros
