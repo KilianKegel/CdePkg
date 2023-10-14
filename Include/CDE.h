@@ -98,7 +98,12 @@ Author:
 //FILE* __cdecl __acrt_iob_func(unsigned _Ix);
 
 #ifndef stdout
+    extern FILE * __cdecl __acrt_iob_func(unsigned); 
 #   define stdout (__acrt_iob_func(1))
+#endif//stdout
+#ifndef stderr
+    extern FILE* __cdecl __acrt_iob_func(unsigned);
+#   define stderr (__acrt_iob_func(2))
 #endif//stdout
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
