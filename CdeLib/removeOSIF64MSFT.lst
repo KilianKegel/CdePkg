@@ -30,6 +30,7 @@
 /REMOVE:x64\Release\osifUefiShellFileWrite.obj
 /REMOVE:x64\Release\osifUefiShellGetDrvCwd.obj
 /REMOVE:x64\Release\osifUefiShellGetEnv.obj
+/REMOVE:x64\Release\osifUefiShellGetTscPerSec.obj
 /REMOVE:x64\Release\osifUefiShellMemAlloc.obj
 /REMOVE:x64\Release\osifUefiShellMemFree.obj
 /REMOVE:x64\Release\osifUefiSmmEntryPoint.obj

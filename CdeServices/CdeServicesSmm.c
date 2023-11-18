@@ -36,7 +36,7 @@ extern MEMSTRXCMP _cdeMemStrxCmp;
 extern OSIFGETTIME       _osifIbmAtGetTime;
 extern OSIFSETTIME       osifIbmAtSetTime;
 extern OSIFGETTSCPERSEC _osifIbmAtGetTscPerSec;
-extern OSIFGETTSCPERSEC _osifIbmAtGetTsc;
+extern OSIFGETTSC       _osifIbmAtGetTsc;
 extern OSIFMEMALLOC   _osifUefiSmmMemAlloc/*pMemAlloc*/;
 extern OSIFMEMFREE    _osifUefiSmmMemFree/*pfREEPages*/;
 
@@ -196,7 +196,7 @@ EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTa
         //
         CdeServicesSmm.TSClocksAtSystemStart = CdeServicesSmm.pGetTsc(pCdeAppIf);
         if (0 == __cdeGetCurrentPrivilegeLevel()) {                                      // running in RING0
-            CdeServicesSmm.TSClocksPerSec = CdeServicesSmm.pGetTscPerSec(pCdeAppIf);
+            CdeServicesSmm.TSClocksPerSec = CdeServicesSmm.pGetTscPerSec(pCdeAppIf,0);
             CdeServicesSmm.TimeAtSystemStart = CdeServicesSmm.pGetTime(pCdeAppIf);
         }
 

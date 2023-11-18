@@ -421,7 +421,7 @@ typedef struct tagCDESTAT64I32 CDESTAT64I32;//prototype
 
 typedef long long           OSIFGETTIME(IN CDE_APP_IF* pCdeAppIf);
 typedef long long           OSIFSETTIME(IN CDE_APP_IF* pCdeAppIf, long long);
-typedef unsigned long long  OSIFGETTSCPERSEC(IN CDE_APP_IF* pCdeAppIf);
+typedef unsigned long long  OSIFGETTSCPERSEC(IN CDE_APP_IF* pCdeAppIf, unsigned short port);
 typedef unsigned long long  OSIFGETTSC(IN CDE_APP_IF* pCdeAppIf);
 
 typedef HEAPDESC*   OSIFMEMALLOC(IN CDE_APP_IF* pCdeAppIf, IN size_t Pages);

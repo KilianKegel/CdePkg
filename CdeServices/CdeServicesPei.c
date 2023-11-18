@@ -38,7 +38,7 @@ extern MEMSTRXCMP       _cdeMemStrxCmp;
 extern OSIFGETTIME		_osifIbmAtGetTime;
 extern OSIFSETTIME		_osifIbmAtSetTime;
 extern OSIFGETTSCPERSEC _osifIbmAtGetTscPerSec;
-extern OSIFGETTSCPERSEC _osifIbmAtGetTsc;
+extern OSIFGETTSC       _osifIbmAtGetTsc;
 extern OSIFMEMALLOC     _osifUefiPeiMemAlloc/*pMemAlloc*/;
 extern OSIFMEMFREE      _osifUefiPeiMemFree/*pfREEPages*/;
 
@@ -179,7 +179,7 @@ EFI_STATUS EFIAPI _Main(IN EFI_PEI_FILE_HANDLE* FfsHeader, IN const EFI_PEI_SERV
         pCdeHob->CdeServices.TSClocksAtSystemStart = pCdeHob->CdeServices.pGetTsc(NULL);
 
         if (0 == __cdeGetCurrentPrivilegeLevel()) {                                      // running in RING0
-            pCdeHob->CdeServices.TSClocksPerSec = pCdeHob->CdeServices.pGetTscPerSec(NULL);
+            pCdeHob->CdeServices.TSClocksPerSec = pCdeHob->CdeServices.pGetTscPerSec(NULL,0);
             pCdeHob->CdeServices.TimeAtSystemStart = pCdeHob->CdeServices.pGetTime(&CdeAppIfPei); // get time from RTC
         }
 
