@@ -1,6 +1,6 @@
 /*!
 @copyright
-    Copyright (c) 2020-2023, Kilian Kegel. All rights reserved.<BR>
+    Copyright (c) 2020-2024, Kilian Kegel. All rights reserved.<BR>
     SPDX-License-Identifier: BSD-2-Clause-Patent
 
 @file main.c

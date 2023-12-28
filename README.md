@@ -222,6 +222,8 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20231228
+* update copyright date
 ### 20231118
 * add ACPI timer based synchronization for **toro C Library** Shell programs.
   NOTE: On recent Intel platforms the previously used legacy timer's (i8254) input clock frequency is
