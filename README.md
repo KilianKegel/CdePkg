@@ -222,6 +222,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20240212, v0.8.0 Build 1
+* add semantic versioning + build enumeration
+* optimize source code
+    * reduce number of suppressed warnings (4200;4324;4100 only)
+    * enable static code analysis (`toroCLibrary.ruleset`, suppress warning 28251 only )
 ### 20231228
 * update copyright date
 ### 20231118
