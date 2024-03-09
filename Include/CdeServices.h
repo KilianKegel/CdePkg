@@ -633,6 +633,7 @@ typedef struct tagCDEFILE {
         //NOTE: dirty and clean TRUE together, implements the microsoft strategy for common read/write data held in a buffer
         //      If CLEAN AND DIRTY are set simultanously, file writes inhibited
     unsigned char fEof;                         // EOF flag for file
+    unsigned char  Eof;                         // EOF flag for POSIX
     unsigned char fErr;                         // ERR flag for file
     unsigned char fCtrlZ;                       // END OF TEXT FILE
     int           cntSkipCtrlZChk;              // skip CtrlZ check if > 0

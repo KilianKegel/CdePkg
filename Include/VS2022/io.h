@@ -22,9 +22,10 @@ Author:
 #ifndef _CDE_IO_H_
 #define _CDE_IO_H_
 
-#ifndef CDEABI
-#   define CDEABI __declspec(dllimport)
-#endif//CDEABI
+//NOTE: CDEABI currently not supported for this functions
+//#ifndef CDEABI
+//#   define CDEABI __declspec(dllimport)
+//#endif//CDEABI
 
 #include <stddef.h>
 
@@ -47,14 +48,16 @@ struct _finddata64i32_t
 #define _findfirst      _findfirst64i32
 #define _findnext       _findnext64i32
 
-CDEABI int _findclose(intptr_t _FindHandle);
-CDEABI int _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t* _FindData);
-CDEABI intptr_t _findfirst64i32(char const* _FileName,struct _finddata64i32_t* _FindData);
-CDEABI int _open(char const* _FileName,int _OpenFlag, ...);
-CDEABI int _close(int fd) ;
-CDEABI int _read(int const fd, void* const buffer, unsigned const buffer_size);
-CDEABI int _write(int fd, const void* buffer, unsigned int count);
-CDEABI int _isatty(int fd);
+int _findclose(intptr_t _FindHandle);
+int _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t* _FindData);
+intptr_t _findfirst64i32(char const* _FileName,struct _finddata64i32_t* _FindData);
+int _open(char const* _FileName,int _OpenFlag, ...);
+int _close(int fd) ;
+int _read(int const fd, void* const buffer, unsigned const buffer_size);
+int _write(int fd, const void* buffer, unsigned int count);
+int _isatty(int fd);
+int _eof(int fd);
+long _lseek(int fd, long offset, int origin);
 
 #define _A_NORMAL (0 << 0) /* Normal file - No read/write restrictions */
 #define _A_RDONLY (1 << 0) /* Read only file                           */
