@@ -223,7 +223,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 
 ## Revision history
 ### 20240414, v0.8.2 Build 73
-* add timeout detection for disabled **COM1**/**UART at I/O 3F8h** used for debug traces.
+* add timeout detection for disabled **COM1**/**UART at I/O 3F8h** used for debug traces.<br>
   NOTE: Disabled I/O devices usually do not respond to I/O cycles.  
   Internally this is done by ignoring the chipselect for that particular I/O address range, e.g. 3F8h .. 3FFh for **COM1**.  
   FFh is driven to the data bus when reading registers of those disabled devices.<br>
