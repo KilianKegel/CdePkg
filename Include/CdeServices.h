@@ -516,6 +516,7 @@ typedef struct _CDE_SERVICES {
     unsigned long long TSClocksPerSec;
 
     long long TimeAtSystemStart;            // epoch time / UNIX time / POSIX time at systemstart
+    char fCOM1Timeout;
 
     REPORT_STATUS_CODE ReportStatusCode;
     void* pvEfiShellProtocol;

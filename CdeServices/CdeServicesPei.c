@@ -89,6 +89,7 @@ CDE_HOB CdeHobRomDflt =
     0,//unsigned long long TSClocksAtCdeTrace;
     0,//unsigned long long TSClocksPerSec;
     0,//long long TimeAtSystemStart;    // epoch time / UNIX time / POSIX time at systemstart
+    FALSE,//fCOM1Timeout
     NULL,//REPORT_STATUS_CODE ReportStatusCode;
 
     NULL,//void* pvEfiShellProtocol;
