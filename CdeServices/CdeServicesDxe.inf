@@ -18,9 +18,10 @@
 [LibraryClasses]
     CdeLib
 
-[Depex]
+[Depex.X64]
     TRUE
-#    gCdeDxeProtocolGuid
+[Depex.IA32]
+    gEfiStatusCodeRuntimeProtocolGuid
 
 [BuildOptions] 
     MSFT:*_*_IA32_CC_FLAGS   = /GL- /Ob1 /Oi- /D "CDEABI=__declspec(dllimport)" /D "CDE_CONFIGURATION_STRING=\"EDK2 UEFI PEI\"" /D "CDE_PLATFORM_STRING=\"x86-32\""

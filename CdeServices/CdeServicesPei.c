@@ -87,7 +87,7 @@ CDE_HOB CdeHobRomDflt =
     { (void*)-1,ENDOFMEM,1,NULL,NULL,0,0,(void*)-1 },//HEAPDESC HeapStart;
     0,//unsigned long long TSClocksAtSystemStart;
     0,//unsigned long long TSClocksAtCdeTrace;
-    0,//unsigned long long TSClocksPerSec;
+    2000000000,//unsigned long long TSClocksPerSec; assuming 2GHz
     0,//long long TimeAtSystemStart;    // epoch time / UNIX time / POSIX time at systemstart
     FALSE,//fCOM1Timeout
     NULL,//REPORT_STATUS_CODE ReportStatusCode;

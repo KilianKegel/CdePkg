@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <signal.h>
 
+#include <Library\DebugLib.h>
 #define BSIZE   256
 #define NUMSEC  3/* number of seconds to wait*/
 
@@ -61,6 +62,25 @@ int main(int argc, char** argv) {
     int i = 0,j = 0;
 
     gpszModule = argv[0];
+//    __debugbreak();
+    DEBUG((DEBUG_ERROR, "-->\n"));
+    if (1)
+    {
+        EFI_GUID guid = { 0x12345678, 0x1111, 0x2222, {0x33, 0x33, 0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF} };
+        EFI_TIME etime = { 
+            .Year=2024,
+            .Month = 5,
+            .Day = 1,
+            .Hour = 2,
+            .Minute = 3
+
+        };
+        EFI_STATUS Status = ((1UL << 31) + 13UL);
+
+        DEBUG((DEBUG_ERROR, "%g\n", &guid));
+        DEBUG((DEBUG_ERROR, "%t\n", &etime));
+        DEBUG((DEBUG_ERROR, "%r\n", Status));
+    }
 
     memset(filename, 0, sizeof(filename));      // clear the pBuffer
     sscanf(argv[0], "%15s", &filename[0]);      // get the file name, limit to length of 16

@@ -64,7 +64,7 @@ CDE_SERVICES CdeServices = {/*CDE_SERVICES*/
     { (void*)-1,ENDOFMEM,1,NULL,NULL,0,0,(void*)-1 },//HEAPDESC HeapStart;
     0,//unsigned long long TSClocksAtSystemStart;
     0,//unsigned long long TSClocksAtCdeTrace;
-    0,//unsigned long long TSClocksPerSec;
+    2000000000,//unsigned long long TSClocksPerSec; assuming 2GHz
     0,//long long TimeAtSystemStart;    // epoch time / UNIX time / POSIX time at systemstart
     FALSE,//fCOM1Timeout
     NULL,//REPORT_STATUS_CODE ReportStatusCode;
@@ -156,8 +156,9 @@ EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTa
         //
         // locate the protocols needed to run CdeLib
         //
-        //if (EFI_SUCCESS != _cdegBS->LocateProtocol(&gEfiStatusCodeRuntimeProtocolGuid, NULL, (void**)&CdeServices.ReportStatusCode.pDxe))
-        //    break;
+        if (0 != __cdeGetCurrentPrivilegeLevel())   // running in RING3/Emulation
+            if (EFI_SUCCESS != _cdegBS->LocateProtocol(&gEfiStatusCodeRuntimeProtocolGuid, NULL, (void**)&CdeServices.ReportStatusCode.pDxe))
+                break;
 
         //if ( EFI_SUCCESS != _cdegBS->LocateProtocol( &gEfiCpuIoProtocolGuid, NULL, (void**)&CdeServices.CpuIoXyz.pDxe ) )
         //	break;

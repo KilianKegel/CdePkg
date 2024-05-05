@@ -222,6 +222,16 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20240505, v0.8.4 Build 91
+* fixed EDK2 `DEBUG` trace macro won't crash anymore with
+  UEFI specific (non-ANSI-C) format specifiers:<br>
+    * **%g**
+    * **%t**
+    * **%r**
+* improve **EMULATOR** support
+    * enable `EfiStatusCode` support for EMULATOR DXE
+    * fix div by 0 crash due to non-initialize Clocks-Per-Second in
+
 ### 20240428, v0.8.3 Build 84
 * include static code analysis configuration `toroCLibrary.ruleset`
 * fix minor static code analysis warnings
