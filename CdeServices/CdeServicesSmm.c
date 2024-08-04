@@ -53,10 +53,6 @@ static void _StdOutPutChar(int c, void** ppDest);
 //
 // globals
 //
-//EFI_SYSTEM_TABLE* _cdegST;                                          // Pointer to system table
-//EFI_BOOT_SERVICES* _cdegBS;                                         // Pointer to boot services
-//EFI_HANDLE _cdegImageHandle;                                        // image handel
-//EFI_SMM_SYSTEM_TABLE2* _cdegSmst;                                   // SMM SystemTable
 
 EFI_GUID gEfiSmmStatusCodeProtocolGuid = { 0x6afd2b77, 0x98c1, 0x4acd, { 0xa6, 0xf9, 0x8a, 0x94, 0x39, 0xde, 0xf, 0xb1} };
 
@@ -187,7 +183,7 @@ EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTa
         // locate the protocols needed to run CdeLib
         //
         if (0 != __cdeGetCurrentPrivilegeLevel())   // running in RING3/Emulation
-            if (EFI_SUCCESS != _cdegBS->LocateProtocol(&gEfiSmmStatusCodeProtocolGuid, NULL, (void**)&CdeServicesSmm.ReportStatusCode.pSmm))
+            if (EFI_SUCCESS != SystemTable->BootServices->LocateProtocol(&gEfiSmmStatusCodeProtocolGuid, NULL, (void**)&CdeServicesSmm.ReportStatusCode.pSmm))
                 break;
 
         //if ( EFI_SUCCESS != _cdegBS->LocateProtocol( &gEfiCpuIoProtocolGuid, NULL, (void**)&CdeServices.CpuIoXyz.pDxe ) )

@@ -23,6 +23,13 @@ Author:
 #define _CDE_H_
 #include <stdarg.h>
 #include <stddef.h>
+
+#ifdef __cplusplus
+#   define EXTERN extern "C"
+#else//__cplusplus
+#   define EXTERN extern
+#endif//__cplusplus
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////// CONFIGURATION SWITCHES /////////////////////////////////////////                                             
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,6 +41,8 @@ Author:
 //          defined: "#define NCDETRACE"                NO DEBUG TRACES
 //      NOT defined: "//#define NCDETRACE"              DEBUG TRACES
 //
+//      Visual Studio: Project Properties -> C/C++ -> Preprocessor -> Preprocessor Definitions: NCDETRACE
+// 
 // 2. CDEDBG
 // 
 //      Select debug traces output channel
@@ -76,15 +85,16 @@ Author:
 //          is needed.
 // 
 #if   defined(_M_AMD64)
-    extern void (*__imp_exit)(int);
-#   define CDEABI_EXIT(s) (*__imp_exit)(s)
-    extern int (*__imp_vfprintf)(void* stream, const char* pszFormat, char* ap);
-#   define CDEABI_VFPRINTF(s) (*__imp_vfprintf) s
+        EXTERN void (*__imp_exit)(int);
+#       define CDEABI_EXIT(s) (*__imp_exit)(s)
+        EXTERN int (*__imp_vfprintf)(void* stream, const char* pszFormat, char* ap);
+#       define CDEABI_VFPRINTF(s) (*__imp_vfprintf) s
 #else//   defined(_M_AMD64)
-    extern void (*_imp__exit)(int);
-#   define CDEABI_EXIT(s) (*_imp__exit)(s)
-    extern int (*_imp__vfprintf)(void* stream, const char* pszFormat, char* ap);
-#   define CDEABI_VFPRINTF(s) (*_imp__vfprintf) s
+        EXTERN void (*_imp__exit)(int);
+#       define CDEABI_EXIT(s) (*_imp__exit)(s)
+        EXTERN int (*_imp__vfprintf)(void* stream, const char* pszFormat, char* ap);
+#       define CDEABI_VFPRINTF(s) (*_imp__vfprintf) s
+
 #endif//  defined(_M_AMD64)
 
 #ifndef _FILE_DEFINED
@@ -183,8 +193,8 @@ extern char* __cdeTianocoreDebugPrintErrolevel2Str(size_t ErrorLevel, const char
 #endif//ASSERT_EFI_ERROR
 #define ASSERT_EFI_ERROR(StatusParameter)
 //
-extern void DebugPrint(size_t ErrorLevel, const char* pszFormat, ...);
-extern void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
+EXTERN void DebugPrint(size_t ErrorLevel, const char* pszFormat, ...);
+EXTERN void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
 
 #ifdef ASSERT
 #   undef ASSERT
@@ -197,17 +207,17 @@ extern void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
 //
 // externs
 //
-extern char* gEfiCallerBaseName;
-extern void* __cdeGetAppIf(void);
+EXTERN char* gEfiCallerBaseName;
+EXTERN void* __cdeGetAppIf(void);
 //
 // ANSI C Library related extensions 
 //
 #define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
-extern char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
+EXTERN char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
 {
-    void* ptr;
+    FILE* ptr;
     struct {
         size_t ptr : (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ ));
         size_t Msg : 3;	    // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
@@ -230,13 +240,13 @@ enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID:
 #define CDEDEADLOOP(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz);}
 #define CDEDEBUGBREAK(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
 
-#define CDEBAR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* bare trace   */
-#define CDEINF(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* INFO trace   */
-#define CDESUC(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = SUC, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* SUCCESS trace*/
-#define CDEWAR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = WAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* WARNING trace*/
-#define CDEERR(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ERR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ERROR trace  */
-#define CDEFAT(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* FATAL trace  */
-#define CDEASS(cond) (__cdeDbgFp.ptr = (void*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ASSERT trace */
+#define CDEBAR(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* bare trace   */
+#define CDEINF(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* INFO trace   */
+#define CDESUC(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = SUC, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* SUCCESS trace*/
+#define CDEWAR(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = WAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* WARNING trace*/
+#define CDEERR(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ERR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ERROR trace  */
+#define CDEFAT(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = FAT, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* FATAL trace  */
+#define CDEASS(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = ASS, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* ASSERT trace */
     #define TRCBAR CDEBAR   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
     #define TRCINF CDEINF   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
     #define TRCSUC CDESUC   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
@@ -274,7 +284,7 @@ static CDEDBGFP __cdeGetDbgFp(void* p, const char* str, ...)
 {
     CDEDBGFP __cdeDbgFp;
 
-    __cdeDbgFp.ptr = p;
+    __cdeDbgFp.ptr = (FILE*)p;
 
     return __cdeDbgFp;
 
@@ -282,13 +292,13 @@ static CDEDBGFP __cdeGetDbgFp(void* p, const char* str, ...)
 
 static char* __cdeGetSeverityString(CDEDBGFP __cdeDbgFp)
 {
-    return  (BAR == __cdeDbgFp.CdeDbg.Msg) ? "" : \
-        (INF == __cdeDbgFp.CdeDbg.Msg) ? "INFO" : \
-        (SUC == __cdeDbgFp.CdeDbg.Msg) ? "SUCCESS" : \
-        (WAR == __cdeDbgFp.CdeDbg.Msg) ? "WARNING" : \
-        (ERR == __cdeDbgFp.CdeDbg.Msg) ? "ERROR" : \
-        (FAT == __cdeDbgFp.CdeDbg.Msg) ? "FATAL" : \
-        (ASS == __cdeDbgFp.CdeDbg.Msg) ? "ASSERT" : "UNKNOWN";
+    return  (BAR == __cdeDbgFp.CdeDbg.Msg) ? (char*)"" : \
+        (INF == __cdeDbgFp.CdeDbg.Msg) ? (char*)"INFO" : \
+        (SUC == __cdeDbgFp.CdeDbg.Msg) ? (char*)"SUCCESS" : \
+        (WAR == __cdeDbgFp.CdeDbg.Msg) ? (char*)"WARNING" : \
+        (ERR == __cdeDbgFp.CdeDbg.Msg) ? (char*)"ERROR" : \
+        (FAT == __cdeDbgFp.CdeDbg.Msg) ? (char*)"FATAL" : \
+        (ASS == __cdeDbgFp.CdeDbg.Msg) ? (char*)"ASSERT" : (char*)"UNKNOWN";
 }
 
 //
@@ -302,7 +312,7 @@ if(__CDEC_HOSTED__) do {\
         if (0 == __cdeDbgFp.CdeDbg.En)\
             break;\
         if (BAR != __cdeDbgFp.CdeDbg.Msg) {\
-            fprintf(__cdeDbgFp.ptr, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeGetSeverityString(__cdeDbgFp));\
+            fprintf((FILE*)__cdeDbgFp.ptr, "%s`%s(%d)`%s()`%s> ", gEfiCallerBaseName, __FILE__, __LINE__, __FUNCTION__, __cdeGetSeverityString(__cdeDbgFp));\
         }\
         fprintf dbgsig_msg;\
         __cdeFatAss(__cdeDbgFp);\
@@ -375,13 +385,13 @@ Returns
 #define _CDE_INLINE_FPRINTF_DEFINED
 #pragma warning(push)
 #pragma warning(disable:4211)   // warning C4211: nonstandard extension used: redefined extern to static
-static int fprintf(FILE* const stream, char const* const pszFormat, ...)
+static int fprintf(FILE* stream, char const* const pszFormat, ...)
 {
     int nRet = 0;
     va_list ap;
     CDEDBGFP __cdeDbgFp;
 
-    __cdeDbgFp.ptr = (void*)stream;
+    __cdeDbgFp.ptr = stream;
 
     va_start(ap, pszFormat);
 

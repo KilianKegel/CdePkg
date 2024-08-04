@@ -222,6 +222,13 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20240804, v0.8.5 Build 122
+* improve **C++** support for `CDE.H`
+    * enable mixed *C/C++* applications based **toro C Library** using `CDE.H`
+* fixe SMM issues:
+    * fix `CdePkg`-based SMM drivers hangs on startup.
+    * fix `CdeServicesSmm.c` failed to build<br>
+**NOTE: The improvement above doesn't change ANSI-C related behaviour of previous library versions**
 ### 20240505, v0.8.4 Build 91
 * fixed EDK2 `DEBUG` trace macro won't crash anymore with
   UEFI specific (non-ANSI-C) format specifiers:<br>
