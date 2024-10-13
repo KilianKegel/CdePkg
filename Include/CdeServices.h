@@ -703,6 +703,66 @@ typedef struct tagCDESTAT64I32  // Microsofts "struct _stat64i32" analogon
     __time64_t          st_mtime;
     __time64_t          st_ctime;
 }CDESTAT64I32;
+
+#define CDEDOUBLE_EXPPOS 52
+#define CDEDOUBLE_SIGPOS 63
+typedef union tagCDEDOUBLE
+{
+    double dbl;
+    uint64_t uint64;
+    struct {
+        uint64_t mant : 52;
+        uint64_t exp : 11;	    // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
+        uint64_t sign : 1;	    // highest bit - 1 31/63 is the debug message enable
+    }member;
+}CDEDOUBLE;
+
+//  https://www.intel.com/content/www/us/en/content-details/782158/intel-64-and-ia-32-architectures-software-developer-s-manual-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html?docid=782158#page=211
+//  https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/programmer-references/24592.pdf#page=356
+//  https://0x04.net/~mwk/doc/intel/80387dx.pdf#page=11
+//Table 2.5.Condition Code Defining Operand Class
+//  C3 C2 C1 C0 Value at TOP
+//  0  0  0  0  + Unsupported
+//  0  0  0  1  + NaN
+//  0  0  1  0  - Unsupported
+//  0  0  1  1  - NaN
+//  0  1  0  0  + Normal
+//  0  1  0  1  + Infinity
+//  0  1  1  0  - Normal
+//  0  1  1  1  - Infinity
+//  1  0  0  0  + 0
+//  1  0  0  1  + Empty
+//  1  0  1  0  - 0
+//  1  0  1  1  - Empty
+//  1  1  0  0  + Denormal
+//  1  1  1  0  - Denormal
+//  C3 C2 C0 C1 Meaning
+//  0  0  0  0  +unsupported
+//  0  0  0  1  -unsupported
+//  0  0  1  0  +NAN
+//  0  0  1  1  -NAN
+//  0  1  0  0  +normal
+//  0  1  0  1  -normal
+//  0  1  1  0  +infinity
+//  0  1  1  1  -infinity
+//  1  0  0  0  +0
+//  1  0  0  1  -0
+//  1  0  1  0  +empty
+//  1  0  1  1  -empty
+//  1  1  0  0  +denormal
+//  1  1  0  1  -denormal
+typedef enum {
+    SIGN = 1,
+    ZERO = 2,
+    NORMAL = 4,
+    DENORMAL = 8,
+    INFIN = 16,
+    NAN = 32,
+    EMPTY = 64,
+    UNSUPPORTED = 128,
+    UNKNOWN = 256
+}CDEXAMDOUBLE_T;//examine
+
 //
 // externals
 //
