@@ -224,7 +224,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 ## Revision history
 ### 20241013, v0.8.7 Build 200
 * fixed: removed  disassembled math function wasn't replaced by extracted intrinsic 
-math function from Microsoft **LIBCMT.LIB:
+math function from Microsoft **LIBCMT.LIB**:
     * `ftol3.obj`
     * `ullshr.obj`
     * `ullrem.obj`
@@ -239,7 +239,7 @@ math function from Microsoft **LIBCMT.LIB:
     original Microsoft functions are now available in the **toro C Library** for 32Bit.
 * **NEW**: Introduce **preliminary alpha** version of `MATH.H` functions<br>
     **NOTE**: Use functions below fails with special parameters.<br>
-    **It is recommented to not use these functions in productive code.**<br>
+    **It is recommented to not to use these functions in productive code.**<br>
     * [`acos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/acos.c)
     * [`asin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/asin.c)
     * [`atan()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/atan.)
