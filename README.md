@@ -222,6 +222,11 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20241103, v0.8.8 Build 222
+* add dedicated DEBUG/RELEASE support for **CdePkg**.<br>
+  In preparation for the upcoming [**EDK2-EMU**](https://github.com/KilianKegel/EDK2-EMU) project
+  the entire **CdePkg** and **CdePkg**-based components will be debugable on source code level in the **EDK2-Emulator**.
+ 
 ### 20241013, v0.8.7 Build 200
 * fixed: removed  disassembled math function wasn't replaced by extracted intrinsic 
 math function from Microsoft **LIBCMT.LIB**:
@@ -521,13 +526,13 @@ math function from Microsoft **LIBCMT.LIB**:
 ### 20210427
 * source tree redesign
 * torito C library redesign to coexist with / replace EDK2 driver functions
-* configure CdePkg to support original tianocore DEBUG traces
+* configure **CdePkg** to support original tianocore DEBUG traces
 * extend Microsft intrinsic __acrt_iob_func() to support variable length I/O buffer count
 * improve EDK2 emulator support:
   1. check privileg level before _enable() and _disable()
   2. provide BREAKPOINT entries __cdeImageEntryPointPeiINT3(), __cdeImageEntryPointDxeINT3()
 * remove dependancy from 'LoadOptions'
-  CdePkg based drivers can start w/o LoadOptions and just get argv[0], argc == 1, if the LoadfOptions driver is not present in the system
+  **CdePkg** based drivers can start w/o LoadOptions and just get argv[0], argc == 1, if the LoadfOptions driver is not present in the system
 * add missing UEFI SHELL Emulation support
 * minor face lifts
   1. move forward to better module naming scheme with prefix '__cde'
@@ -548,10 +553,10 @@ math function from Microsoft **LIBCMT.LIB**:
     * [`setall.nsh`](https://github.com/KilianKegel/CdePkg/blob/master/LoadOptionShell/setall.nsh), to set command line defaults for all CdePkg drivers
     * [`enaclock.nsh`](https://github.com/KilianKegel/CdePkg/blob/master/LoadOptionShell/enaclock.nsh), to set command line defaults for CdeDiagTSCDiag and clock only
     * [`disall.nsh`](https://github.com/KilianKegel/CdePkg/blob/master/LoadOptionShell/disall.nsh), to prevent known CdePkg drivers from beeing started
-    * [`delall.nsh`](https://github.com/KilianKegel/CdePkg/blob/master/LoadOptionShell/delall.nsh), to delete all CdePkg related command lines from flash
+    * [`delall.nsh`](https://github.com/KilianKegel/CdePkg/blob/master/LoadOptionShell/delall.nsh), to delete all **CdePkg** related command lines from flash
     * NOTE: 
         1. run `setall.nsh` first
-        2. `disall.nsh`to prevent CdePkg drivers from beeing started if you don't want run all drivers
+        2. `disall.nsh`to prevent **CdePkg** drivers from beeing started if you don't want run all drivers
         3. adjust `enaclock.nsh` to your needs
 * NOTE: This release is focused on real HW (MinnowBoard). Emulation mode doesn't allow hardware access (GPIO, RTC)
   For Emulation Build the command lines are still stored in the [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h)

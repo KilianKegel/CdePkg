@@ -1,0 +1,13 @@
+<component>
+	name = "toro C Library DEBUG"
+	category = ModulePart
+	LocalRoot = "CdePkg\"
+	RefName = "toroCLibraryDEBUG"
+[files]
+	"DEBUG\toroC32.lib"
+	"DEBUG\toroC64.lib"
+	"DEBUG\removeNONCDEABI32MSFT.lst"
+	"DEBUG\removeNONCDEABI64MSFT.lst"
+	"DEBUG\removeOSIF32MSFT.lst"
+	"DEBUG\removeOSIF64MSFT.lst"
+<endComponent>

@@ -1,9 +1,0 @@
-<component>
-    name = "toro C Library"
-    category = ModulePart
-    LocalRoot = "CdePkg\"
-    RefName = "toroCLibrary"
-[files]
-"toroC32.lib"
-"toroC64.lib"
-<endComponent>

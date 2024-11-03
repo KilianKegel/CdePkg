@@ -1,15 +1,25 @@
-/*!
-\copyright
+/*++
 
-    Torito C Library, Copyright (c) 2020, Kilian Kegel. All rights reserved.
+    toro C Library
+    https://github.com/KilianKegel/toro-C-Library#toro-c-library-formerly-known-as-torito-c-library
 
-\mainpage CdeServiceDxe
+    Copyright (c) 2017-2024, Kilian Kegel. All rights reserved.
+    SPDX-License-Identifier: GNU General Public License v3.0
 
-\brief Implementation of the <em>CdeServiceDxe</em> CRT0 entry point
+Module Name:
 
-\file CdeServiceDxe.c
+    CdeServicesDxe
 
-*/
+Abstract:
+
+    C Development Environment services driver for UEFI DXE
+
+Author:
+
+    Kilian Kegel
+
+--*/
+
 #define OS_EFI
 #include <time.h>
 typedef __int64                       __time64_t;

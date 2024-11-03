@@ -5,9 +5,9 @@
 TARGET_FILES = $(OUTPUT_DIR)\CdeLibNull.lib
 
 !IF "$(ARCH)" == "X64"
-TOROCLIBRARY=$(WORKSPACE)\CdePkg\toroC64.lib
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\toroC64.lib
 !ELSE
-TOROCLIBRARY=$(WORKSPACE)\CdePkg\toroC32.lib
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\toroC32.lib
 !ENDIF
                                 
 $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
@@ -16,10 +16,10 @@ $(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
 	@ECHO ###############################################################################################################
 	copy /y $(TOROCLIBRARY) $(OUTPUT_DIR)\CdeLibNull.lib 
 !IF "$(ARCH)" == "X64"
-	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeNONCDEABI64MSFT.lst $(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeOSIF64MSFT.lst		$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI64MSFT.lst $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeOSIF64MSFT.lst      $(OUTPUT_DIR)\CdeLibNull.lib
 !ELSE
-	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeNONCDEABI32MSFT.lst	$(OUTPUT_DIR)\CdeLibNull.lib
-	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\CdePkg\CdeLib\removeOSIF32MSFT.lst		$(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI32MSFT.lst $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeOSIF32MSFT.lst      $(OUTPUT_DIR)\CdeLibNull.lib
 !ENDIF
 all: $(TARGET_FILES) $(STATIC_LIBRARY_FILES)

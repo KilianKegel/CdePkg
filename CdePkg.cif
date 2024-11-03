@@ -20,7 +20,8 @@
     "CdeLib\removeNONCDEABI64MSFT.lst"
     "CdeLib\removeOSIF32MSFT.lst"
     "CdeLib\removeOSIF64MSFT.lst"
- [parts]
-    "toroCLibrary"
-    "standardHeader"
+[parts]
+...."toroCLibraryRELEASE"
+...."toroCLibraryDEBUG"
+...."standardHeader"
 <endComponent>

@@ -1,0 +1,13 @@
+<component>
+	name = "toro C Library RELEASE"
+	category = ModulePart
+	LocalRoot = "CdePkg\"
+	RefName = "toroCLibraryRELEASE"
+[files]
+	"RELEASE\toroC32.lib"
+	"RELEASE\toroC64.lib"
+	"RELEASE\removeNONCDEABI32MSFT.lst"
+	"RELEASE\removeNONCDEABI64MSFT.lst"
+	"RELEASE\removeOSIF32MSFT.lst"
+	"RELEASE\removeOSIF64MSFT.lst"
+<endComponent>
