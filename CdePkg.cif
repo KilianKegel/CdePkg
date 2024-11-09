@@ -16,12 +16,8 @@
     "CdePkg.sdl"
     "CdePkg.dec"
     "CdePkg.dsc"
-    "CdeLib\removeNONCDEABI32MSFT.lst"
-    "CdeLib\removeNONCDEABI64MSFT.lst"
-    "CdeLib\removeOSIF32MSFT.lst"
-    "CdeLib\removeOSIF64MSFT.lst"
 [parts]
-...."toroCLibraryRELEASE"
-...."toroCLibraryDEBUG"
-...."standardHeader"
+    "toroCLibraryRELEASE"
+    "toroCLibraryDEBUG"
+    "standardHeader"
 <endComponent>
