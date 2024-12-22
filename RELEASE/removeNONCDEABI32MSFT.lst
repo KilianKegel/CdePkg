@@ -91,6 +91,7 @@
 /REMOVE:x86\Release\mbtowc.obj
 /REMOVE:x86\Release\Qsort.obj
 /REMOVE:x86\Release\rand.obj
+/REMOVE:x86\Release\_exit.obj
 /REMOVE:x86\Release\Realloc.obj
 /REMOVE:x86\Release\srand.obj
 /REMOVE:x86\Release\strtol.obj

@@ -91,6 +91,7 @@
 /REMOVE:x64\Debug\mbtowc.obj
 /REMOVE:x64\Debug\Qsort.obj
 /REMOVE:x64\Debug\rand.obj
+/REMOVE:x64\Debug\_exit.obj
 /REMOVE:x64\Debug\Realloc.obj
 /REMOVE:x64\Debug\srand.obj
 /REMOVE:x64\Debug\strtol.obj
