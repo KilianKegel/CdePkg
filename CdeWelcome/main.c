@@ -5,7 +5,8 @@
 #include <wchar.h>
 #include <ctype.h>
 #include <signal.h>
-
+#include <CdeServices.h>
+#include <math.h>
 #include <Library\DebugLib.h>
 #define BSIZE   256
 #define NUMSEC  3/* number of seconds to wait*/
@@ -62,7 +63,71 @@ int main(int argc, char** argv) {
     int i = 0,j = 0;
 
     gpszModule = argv[0];
-//    __debugbreak();
+    
+    // MATH.H demo
+    if (1)
+    {
+        CDEDOUBLE x;
+		x.dbl = sin(0.5);
+		printf("sin(0.5) = %016llX\n", x.uint64);
+        x.dbl = sin(0.0);
+        printf("sin(0.0) = %016llX\n", x.uint64);
+        x.dbl = sin(1.0);
+        printf("sin(1.0) = %016llX\n", x.uint64);
+        x.dbl = sin(3.1415926);
+        printf("sin(3.1415926) = %016llX\n", x.uint64);
+
+        int e;
+		double iptr;
+        x.dbl = acos(0.4);
+		printf("acos(0.4) = %016llX\n", x.uint64);
+        x.dbl = asin(0.4);
+		printf("asin(0.4) = %016llX\n", x.uint64);
+        x.dbl = atan(0.4);
+		printf("atan(0.4) = %016llX\n", x.uint64);
+        x.dbl = atan2(0.3, 0.4);
+		printf("atan2(0.3, 0.4) = %016llX\n", x.uint64);
+        x.dbl = cos(0.4);
+		printf("cos(0.4) = %016llX\n", x.uint64);
+        x.dbl = sin(0.4);
+		printf("sin(0.4) = %016llX\n", x.uint64);
+        x.dbl = tan(0.4);
+		printf("tan(0.4) = %016llX\n", x.uint64);
+        x.dbl = cosh(0.4);
+		printf("cosh(0.4) = %016llX\n", x.uint64);
+        x.dbl = sinh(0.4);
+		printf("sinh(0.4) = %016llX\n", x.uint64);
+        x.dbl = tanh(0.4);
+		printf("tanh(0.4) = %016llX\n", x.uint64);
+        x.dbl = exp(0.4);
+		printf("exp(0.4) = %016llX\n", x.uint64);
+        x.dbl = frexp(0.3, &e);
+		printf("frexp(0.3) = %016llX\n", x.uint64);
+        x.dbl = ldexp(0.4, 3);
+		printf("ldexp(0.4, 3) = %016llX\n", x.uint64);
+        x.dbl = log(0.4);
+		printf("log(0.4) = %016llX\n", x.uint64);
+        x.dbl = log10(0.4);
+		printf("log10(0.4) = %016llX\n", x.uint64);
+        x.dbl = modf(0.3, &iptr);
+		printf("modf(0.3) = %016llX\n", x.uint64);
+        x.dbl = pow(0.4, 0.3);
+		printf("pow(0.4, 0.3) = %016llX\n", x.uint64);
+        x.dbl = sqrt(0.4);
+		printf("sqrt(0.4) = %016llX\n", x.uint64);
+        x.dbl = ceil(0.4);
+		printf("ceil(0.4) = %016llX\n", x.uint64);
+        x.dbl = fabs(0.4);
+		printf("fabs(0.4) = %016llX\n", x.uint64);
+        x.dbl = floor(0.4);
+		printf("floor(0.4) = %016llX\n", x.uint64);
+        x.dbl = fmod(0.4, 0.3);
+		printf("fmod(0.4, 0.3) = %016llX\n", x.uint64);
+
+
+    }
+   
+
     DEBUG((DEBUG_ERROR, "-->\n"));
     if (1)
     {

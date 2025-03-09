@@ -36,7 +36,7 @@ Author:
     typedef unsigned int size_t;
 #endif
 
-typedef short wchar_t;
+typedef unsigned short wchar_t;
 
 #define offsetof(s,m) ((size_t)&(((s*)0)->m))
 

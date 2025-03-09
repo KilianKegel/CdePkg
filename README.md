@@ -222,6 +222,62 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20250309, v0.9.0 Build 243
+#### finalize MATH.H implementation
+The architecture of this math library introduces a space optimized implementation of C's MATH.H functions,
+while keeping precision and correctness as good as already known in earlier x87-based math libraries.<BR>
+Since the traditional math coprocessor 80387 is still present in current x86 processors and is also not deprecated
+in the [X86S specification](https://www.intel.com/content/www/us/en/developer/articles/technical/envisioning-future-simplified-architecture.html) [.PDF](https://github.com/KilianKegel/4KPages-TechDocs/blob/main/x86s-eas-external-1.1.pdf),
+it can be used here.<br><br>
+The 80387 processor has various improvements over its 8087 predecessor, such as<br>
+  * range extension for transcendental function:
+
+    | Instruction  | function           |
+    |--------------|--------------------|
+    |FPTAN         | Partial tangent    |
+    |FPATAN        | Partial arctangent |
+    |F2XM1         | 2^X - 1            |
+    |FYL2X         | Y * log2X          |
+    |FYL2XP        |Y*log2(X + 1)       |
+    
+* new instructions, e.g.
+
+    | Instruction  | function                 |
+    |--------------|--------------------------|
+    |FXAM          |  Examine Floating-Point  |
+    |FSIN          | sine                     |
+    |FCOS          | cosine                   |
+
+That has reduced the programming effort dramatically and made algorithms very simple and easy to implement.<br>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/KL_intel_i387DX.jpg" width="200"/><br>
+
+
+* [`acos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/acos.c)
+* [`asin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/asin.c)
+* [`atan()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/atan.c)
+* [`atan2()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/atan2.c)
+* [`ceil()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/ceil.c)
+* [`cos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/cos.c)
+* [`cosh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/cosh.c)
+* [`exp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/exp.c)
+* [`fabs()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/fabs.c)
+* [`floor()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/floor.c)
+* [`fmod()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/fmod.c)
+* [`frexp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/frexp.c)
+* [`ldexp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/ldexp.c)
+* [`log()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/log.c)
+* [`log10()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/log10.c)
+* [`modf()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/modf.c)
+* [`pow()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/pow.c)
+* [`sin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sin.c)
+* [`sinh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sinh.c)
+* [`sqrt()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sqrt.c)
+* [`tan()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/tan.c)    
+* [`tanh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/tanh.c)
+
+**All these functions run also in UEFI POST stages PEI, DXE, SMM.**
+
 ### 20250222, v0.8.9 Build 231
 * fix build error with **Windows SDK 10.0.26100.0**
 ### 20241222, v0.8.9 Build 227
@@ -256,30 +312,6 @@ math function from Microsoft **LIBCMT.LIB**:
     * `lldiv.obj`
     original Microsoft functions are now available in the **toro C Library** for 32Bit.
 * **NEW**: Introduce **preliminary alpha** version of `MATH.H` functions<br>
-    **NOTE**: Use functions below fails with special parameters.<br>
-    **It is recommended not to use these functions in productive code.**<br>
-    * [`acos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/acos.c)
-    * [`asin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/asin.c)
-    * [`atan()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/atan.)
-    * [`atan2()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/atan2.c)
-    * [`ceil()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/ceil.c)
-    * [`cos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/cos.c)
-    * [`cosh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/cosh.c)
-    * [`exp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/exp.c)
-    * [`fabs()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/fabs.c)
-    * [`floor()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/floor.c)
-    * [`fmod()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/fmod.c)
-    * [`frexp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/frexp.c)
-    * [`ldexp()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/ldexp.c)
-    * [`log()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/log.c)
-    * [`log10()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/log10.c)
-    * [`modf()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/modf.c)
-    * [`pow()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/pow.c)
-    * [`sin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sinc.)
-    * [`sinh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sinh.c)
-    * [`sqrt()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/sqrt.c)
-    * [`tan()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/tan.c)    
-    * [`tanh()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/tanh.c)
 ### 20240908, v0.8.6 Build 187
 * introduce intrinsic math function (`_allXYZ()`, `_aullXYZ()` and `__ltod3()`) extraction from Microsoft **LIBCMT.LIB<br>
     * remove disassembled `__allXYZ()` and `__aullXYZ()` from `toroCLibrary`
@@ -306,7 +338,8 @@ math function from Microsoft **LIBCMT.LIB**:
 
 ### 20240428, v0.8.3 Build 84
 * include static code analysis configuration `toroCLibrary.ruleset`
-* fix minor static code analysis warnings
+* fix minor static code analysis warnings<br>
+**NOTE: The improvement above doesn't change ANSI-C related behaviour of previous library versions**
 ### 20240414, v0.8.2 Build 73
 * add timeout detection for disabled **COM1**/**UART at I/O 3F8h** used for debug traces.<br>
   NOTE: Disabled I/O devices usually do not respond to I/O cycles.  
@@ -316,7 +349,8 @@ math function from Microsoft **LIBCMT.LIB**:
     1. address decoding is kept enabled
     2. internal clock line is stopped or decoupled from internal circuitry<br>
        The disadvantage of this aproach is, that status registers are still visible
-       but not updated anymore.
+       but not updated anymore.<br>
+**NOTE: The improvement above doesn't change ANSI-C related behaviour of previous library versions**
 ### 20240309, v0.8.1 Build 54
 * add Microsoft/POSIX C Library functions: 
     - [`_lseek()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/io_h/_Lseek.c)
@@ -325,11 +359,13 @@ math function from Microsoft **LIBCMT.LIB**:
 * add semantic versioning + build enumeration
 * optimize source code
     * reduce number of suppressed warnings (4200;4324;4100 only)
-    * enable static code analysis (`toroCLibrary.ruleset`, suppress warning 28251 only )
+    * enable static code analysis (`toroCLibrary.ruleset`, suppress warning 28251 only )<br>
+**NOTE: The improvement above doesn't change ANSI-C related behaviour of previous library versions**
 ### 20231228
-* update copyright date
+* update copyright date<br>
+**NOTE: The improvement above doesn't change ANSI-C related behaviour of previous library versions**
 ### 20231118
-* add ACPI timer based synchronization for **toro C Library** Shell programs.
+* add ACPI timer based synchronization for **toro C Library** Shell programs.<br>
   NOTE: On recent Intel platforms the previously used legacy timer's (i8254) input clock frequency is
   clocked down to an unspecified frequency with setup default `Enable 8254 Clock Gate`.
   Additionally the I/O latency to access i8254 ports is increased with setup default `Legacy IO Low Latency`

@@ -699,9 +699,9 @@ typedef struct tagCDESTAT64I32  // Microsofts "struct _stat64i32" analogon
     short               st_gid;
     uint32_t/*_dev_t*/  st_rdev;
     int32_t/*_off_t*/   st_size;
-    __time64_t          st_atime;
-    __time64_t          st_mtime;
-    __time64_t          st_ctime;
+    int64_t             st_atime;
+    int64_t             st_mtime;
+    int64_t             st_ctime;
 }CDESTAT64I32;
 
 #define CDEDOUBLE_EXPPOS 52
