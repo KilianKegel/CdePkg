@@ -757,7 +757,7 @@ typedef enum {
     NORMAL = 4,
     DENORMAL = 8,
     INFIN = 16,
-    NAN = 32,
+    NANUM = 32,
     EMPTY = 64,
     UNSUPPORTED = 128,
     UNKNOWN = 256
