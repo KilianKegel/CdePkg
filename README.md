@@ -235,6 +235,8 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 * fix [`pow()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/pow.c): **+/-infinity<sup>negative number</sup>**
 * add missing import library version of [`wctob()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/wctobCDEABI.c)
 
+### 20250504
+* W/A for **cdeWelcomePei** sample driver when started with **gEfiPeiMemoryDiscoveredPpiGuid** depex hangs on some systems
 ### 20250309, v0.9.0 Build 243
 #### finalize MATH.H implementation
 The architecture of this math library introduces a space optimized implementation of C's MATH.H functions,
