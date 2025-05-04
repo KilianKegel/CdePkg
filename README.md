@@ -232,11 +232,9 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
   **NOTE:** The LLVM linker **lld-link** can't deal with the multi-entrypoint library **toro C Library** directly.<br>
             To remedy this, the **toro C Library** is simply split into the above separate libraries.
 * fix double float representation using printf()-**%G**-format specifier used in [**libxlsxwriter**](https://github.com/KilianKegel/Visual-LIBXLSXWRITER-for-UEFI-Shell#visual-libxlsxwriter-for-uefi-shell).
-* fix [`pow()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/pow.c): +/-infinity<sup>negative number</sup> is now correctly.
+* fix [`pow()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/pow.c): **+/-infinity<sup>negative number</sup>**
 * add missing import library version of [`wctob()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/wctobCDEABI.c)
 
- 
-    
 ### 20250309, v0.9.0 Build 243
 #### finalize MATH.H implementation
 The architecture of this math library introduces a space optimized implementation of C's MATH.H functions,
@@ -251,7 +249,7 @@ The 80387 processor has various improvements over its 8087 predecessor, such as<
     |--------------|--------------------|
     |FPTAN         | Partial tangent    |
     |FPATAN        | Partial arctangent |
-    |F2XM1         | 2^X - 1            |
+    |F2XM1         | 2<sup>x</sup> - 1  |
     |FYL2X         | Y * log2X          |
     |FYL2XP        |Y*log2(X + 1)       |
     
