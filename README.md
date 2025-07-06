@@ -222,6 +222,10 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20250706, v0.9.2 Build 289
+* fix fatal compiler optimization bug with  **Visual Studio 2022 v17.14**
+    * [`memcpy()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/string_h/MemCpy.c) and [`wmemcpy()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/wchar_h/WMemCpy.c) recursively call `memcpy()`
+
 ### 20250322, v0.9.1 Build 267
 * introduce **toro C Library** for the **Microsoft VS2022 LLVM tool chain** for **Windows NT** and **UEFI Shell** targets<br>
     - toroc64LLVMUefiShell.lib
@@ -239,6 +243,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 * W/A for **cdeWelcomePei** sample driver when started with **gEfiPeiMemoryDiscoveredPpiGuid** depex hangs on some systems
 ### 20250309, v0.9.0 Build 243
 #### finalize MATH.H implementation
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/KL_intel_i387DX.jpg" width="200"/><br>
 The architecture of this math library introduces a space optimized implementation of C's MATH.H functions,
 while keeping precision and correctness as good as already known in earlier x87-based math libraries.<BR>
 Since the traditional math coprocessor 80387 is still present in current x86 processors and is also not deprecated
@@ -253,7 +258,7 @@ The 80387 processor has various improvements over its 8087 predecessor, such as<
     |FPATAN        | Partial arctangent |
     |F2XM1         | 2<sup>x</sup> - 1  |
     |FYL2X         | Y * log2X          |
-    |FYL2XP        |Y*log2(X + 1)       |
+    |FYL2XP        |Y * log2(X + 1)       |
     
 * new instructions, e.g.
 
@@ -264,9 +269,6 @@ The 80387 processor has various improvements over its 8087 predecessor, such as<
     |FCOS          | cosine                   |
 
 That has reduced the programming effort dramatically and made algorithms very simple and easy to implement.<br>
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/KL_intel_i387DX.jpg" width="200"/><br>
-
 
 * [`acos()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/acos.c)
 * [`asin()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/math_h/asin.c)
