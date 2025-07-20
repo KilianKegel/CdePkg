@@ -105,7 +105,7 @@ extern void* __cdeGetIOBuffer(unsigned i);
 #define FALSE 0
 #endif//FALSE
 #ifndef TRUE
-#define TRUE !FALSE
+#define TRUE (!FALSE)
 #endif//TRUE
 #define CDE_STATUS size_t
 #define CDE_SUCCESS 0
@@ -627,8 +627,8 @@ typedef struct tagCDEFILE {
     int   bufPosEOF;                            // buffer EOF: If buffer isn't filled completely by the read operation, EOF appears in the buffer at position X
     int    bsiz;                                // sizeof internal buffer
     fpos_t  bpos;                               // buffers position equivalent to file pointer position. bpos[63] == CDE_SEEK_BIAS_APPEND marker CDE_FPOS_SEEKEND!!!
-    long    bidx;                               // index into Buffer[] ranges from 0 .. bufsiz
-    long    bvld;                               // number of valid bytes in the buffer beginning from
+    int     bidx;                               // index into Buffer[] ranges from 0 .. bufsiz
+    int     bvld;                               // number of valid bytes in the buffer beginning from
     unsigned char bdirty;                       // buffer is dirty -> the buffer conatains unwritten characters
     unsigned char bclean;                       // buffer is clean -> the buffer conatains characters read from the stream
         //NOTE: dirty and clean TRUE together, implements the microsoft strategy for common read/write data held in a buffer
@@ -712,8 +712,8 @@ typedef union tagCDEDOUBLE
     uint64_t uint64;
     struct {
         uint64_t mant : 52;
-        uint64_t exp : 11;	    // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
-        uint64_t sign : 1;	    // highest bit - 1 31/63 is the debug message enable
+        uint64_t exp : 11;      // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
+        uint64_t sign : 1;      // highest bit - 1 31/63 is the debug message enable
     }member;
 }CDEDOUBLE;
 

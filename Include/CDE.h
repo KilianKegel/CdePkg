@@ -212,7 +212,7 @@ EXTERN void* __cdeGetAppIf(void);
 //
 // ANSI C Library related extensions 
 //
-#define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())	// replacement for __STDC_HOSTED__ 
+#define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())    // replacement for __STDC_HOSTED__ 
 EXTERN char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
@@ -220,8 +220,8 @@ typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
     FILE* ptr;
     struct {
         size_t ptr : (sizeof(void*) * 8 - (3 + 1/*bitsizeof(En + Msg)*/ ));
-        size_t Msg : 3;	    // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
-        size_t En : 1;	    // highest bit - 1 31/63 is the debug message enable
+        size_t Msg : 3;     // highest (bit - 5)[0..2] 28..30/60..62 is the debug message encoding
+        size_t En : 1;    // highest bit - 1 31/63 is the debug message enable
     }CdeDbg;
 
 }CDEDBGFP;// CDE DEBUG FILE POINTER
@@ -236,9 +236,9 @@ enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID:
 #   define CDEDBG STDOUT
 #endif
 
-#define CDEPOSTCODE(c,v)	if(c)outp(0x80,v)
-#define CDEDEADLOOP(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz);}
-#define CDEDEBUGBREAK(c,v)	if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
+#define CDEPOSTCODE(c,v)    if(c)_cdeOUTByte(0x80,v)
+#define CDEDEADLOOP(c,v)    if(c){volatile int abcxyz = v;while(v == abcxyz);}
+#define CDEDEBUGBREAK(c,v)  if(c){volatile int abcxyz = v;while(v == abcxyz)__debugbreak();}
 
 #define CDEBAR(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = BAR, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* bare trace   */
 #define CDEINF(cond) (__cdeDbgFp.ptr = (FILE*)CDEDBG, __cdeDbgFp.CdeDbg.Msg = INF, __cdeDbgFp.CdeDbg.En = cond, __cdeDbgFp.ptr),/* INFO trace   */
@@ -255,6 +255,7 @@ enum CDEDBGMSGID { BAR, INF, SUC, WAR, ERR, FAT, ASS }; // CDE DEBUG MESSAGE ID:
     #define TRCFAT CDEFAT   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
     #define TRCASS CDEASS   /* deprecated -- "Deprecated" means we intend to remove the feature or capability from a future release.  */
 
+#ifndef NCDETRACE
 /* __cdeFatAss()
 
 Synopsis
@@ -274,7 +275,7 @@ static void __cdeFatAss(CDEDBGFP __cdeDbgFp)
 
     if (ASS == __cdeDbgFp.CdeDbg.Msg)           // ASSERT -> DEADLOOP
     {
-        volatile int x = 0xCDE0DEAD;
+        volatile unsigned x = 0xCDE0DEAD;
         while (0xCDE0DEAD == x)
             ;
     }
@@ -300,6 +301,7 @@ static char* __cdeGetSeverityString(CDEDBGFP __cdeDbgFp)
         (FAT == __cdeDbgFp.CdeDbg.Msg) ? (char*)"FATAL" : \
         (ASS == __cdeDbgFp.CdeDbg.Msg) ? (char*)"ASSERT" : (char*)"UNKNOWN";
 }
+#endif//NCDETRACE
 
 //
 // NOTE/WARNING: CDETRACE macro ARGUMENTS are evaluated multiple times
@@ -338,9 +340,9 @@ if(__CDEC_HOSTED__) do {\
 #define CDE_HOB_GUID                    {0xCDE00004, 0x8801, 0x4cfb, { 0xb1, 0xca, 0xdc, 0x63, 0xde, 0xaa, 0x52, 0xdd }}
 #define CDEPKG_TOKEN_SPACE_GUID         {0xCDE00005, 0x31d3, 0x40f5, { 0xb1, 0x0c, 0x53, 0x9b, 0x2d, 0xb9, 0x40, 0xcd }}
 #define CDE_END_OF_DXE_GUID             {0xCDE00006, 0x0c2a, 0x4cb4, { 0x82, 0xe4, 0x5a, 0x0b, 0x6f, 0x2f, 0x5e, 0xf2 }}
-#define CDE_UNKNOWN_DRIVER_FILE_GUID	{0xCDE00007, 0x0000, 0x0000, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }}
+#define CDE_UNKNOWN_DRIVER_FILE_GUID    {0xCDE00007, 0x0000, 0x0000, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }}
 #define CDE_APP_IF_HOB_GUID             {0xCDE00008, 0xaa95, 0x48af, { 0xb5, 0xac, 0xb9, 0x32, 0x33, 0xdd, 0xcd, 0x69 }}
-#define CDE_UNKNOWN_DRIVER_FILE_NAME	"CDE_UNKNOWN_DRIVER_FILE_NAME"
+#define CDE_UNKNOWN_DRIVER_FILE_NAME    "CDE_UNKNOWN_DRIVER_FILE_NAME"
 
 //
 // LoadOptions / command line support
@@ -354,10 +356,10 @@ typedef struct _COMM_GUID {
 
 typedef struct _COMMANDLINE {
     int rejectStart;            //  1 -> suppress start of driver, even if registered with EFI_CALLER_ID_GUID. 0 -> start driver and pass command line to it
-    COMM_GUID EfiCallerIdGuid;	/*	EFI_CALLER_ID_GUID from AutoGen.h
+    COMM_GUID EfiCallerIdGuid;  /*  EFI_CALLER_ID_GUID from AutoGen.h
                                     gEfiCallerIdGuid from AutoGen.c
-                                    FILE_GUID from .INF	*/
-    char* szCommandLine;		/*  assigned command line includeing filename*/
+                                    FILE_GUID from .INF */
+    char* szCommandLine;        /*  assigned command line includeing filename*/
 }COMMANDLINE;
 
 typedef char* GETLOADOPTIONS (void* PeiDxeInterface, COMM_GUID * pEfiCallerIdGuid, char *pVarBuf/* of 128 elements */);

@@ -31,11 +31,11 @@ Author:
 #include <stddef.h>
 
 #ifndef _FILE_DEFINED
-	#define _FILE_DEFINED
-	typedef struct _iobuf
-	{
-		void* _empty;
-	} FILE;
+    #define _FILE_DEFINED
+    typedef struct _iobuf
+    {
+        void* _empty;
+    } FILE;
 #endif
 typedef long long fpos_t;
 
@@ -81,16 +81,16 @@ CDEABI int setvbuf( FILE * stream, char * buf, int mode, size_t size );
 CDEABI int fscanf( FILE * stream, const char * format, ... );
 CDEABI int printf( const char * format, ... );
 CDEABI int scanf( const char * format, ... );
-CDEABI int snprintf( char * s, size_t n, const char * format, ... );		// C99, function is implemented
+CDEABI int snprintf( char * s, size_t n, const char * format, ... );        // C99, function is implemented
 CDEABI int sprintf( char * s, const char * format, ... );
 CDEABI int sscanf( const char * s, const char * format, ... );
 CDEABI int vfprintf( FILE * stream, const char * format, va_list arg );
 CDEABI int vprintf( const char * format, va_list arg );
 CDEABI int vsprintf( char * s, const char * format, va_list arg ) ;
-CDEABI int vfscanf( FILE * stream, const char * format, va_list arg );			// C99, function is implemented
-CDEABI int vscanf( const char * format, va_list arg );							// C99, function is implemented
-CDEABI int vsnprintf( char * s, size_t n, const char * format, va_list arg );	// C99, function is implemented
-CDEABI int vsscanf( const char * s, const char * format, va_list arg );		// C99, function is implemented
+CDEABI int vfscanf( FILE * stream, const char * format, va_list arg );          // C99, function is implemented
+CDEABI int vscanf( const char * format, va_list arg );                          // C99, function is implemented
+CDEABI int vsnprintf( char * s, size_t n, const char * format, va_list arg );   // C99, function is implemented
+CDEABI int vsscanf( const char * s, const char * format, va_list arg );         // C99, function is implemented
 CDEABI int fgetc( FILE *stream );
 CDEABI char *fgets( char * s, int n, FILE * stream );
 CDEABI int fputc( int c, FILE *stream );

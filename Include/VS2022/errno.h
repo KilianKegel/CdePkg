@@ -29,9 +29,9 @@ Author:
 
 #define errno (*_errno())
 
-#define EDOM	0x21
+#define EDOM    0x21
 #define ERANGE  0x22
-#define EILSEQ  0x2A	/*C99 defined*/
+#define EILSEQ  0x2A    /*C99 defined*/
 
 // Microsoft specific Error codes
 //https://docs.microsoft.com/en-us/cpp/c-runtime-library/errno-constants?view=msvc-160

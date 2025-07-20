@@ -222,6 +222,18 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20250720, v0.9.4 Build 672
+* **add LLVM/CLANG-cl-family support — the library source code itself is now buildable with LLVM/CLANG-cl:**
+    * support VS2022 v17.14 with **LLVM (clang-cl)** tool chain
+    * support **Intel C++ Compiler 2024** tool chain<br>
+      **NOTE:** Only [**Intel oneAPI Base Toolkir ver 2024.2.1**](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html)
+      provides the 32Bit compiler.<br>In versions **2025.x.y** the 32Bit compiler isn't shipped anymore.
+* Windows SDK version **10.0.26100.0**
+* support Microsoft tool chain:
+    * **v143(VS2022)**
+    * **v142(VS2019)** 
+    * **v141(VS2017)**
+
 ### 20250712, v0.9.3 Build 298
 * add C++ `virtual` function support by providing [Microsoft `type_info`](https://learn.microsoft.com/en-us/cpp/cpp/type-info-class?view=msvc-170) intrinsic
 

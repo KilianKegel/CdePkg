@@ -45,7 +45,7 @@ typedef struct _lldiv_t
 {
     long long quot;
     long long rem;
-} lldiv_t;	/* C99 */
+} lldiv_t;  /* C99 */
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1

@@ -28,5 +28,5 @@
 "wchar.h"
 "wctype.h"
 "sys\stat.h"
-"..\CdeServices.h"	
+"..\CdeServices.h"
 <endComponent>
