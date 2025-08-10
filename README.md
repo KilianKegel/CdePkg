@@ -273,7 +273,7 @@ The 80387 processor has various improvements over its 8087 predecessor, such as<
     |FPATAN        | Partial arctangent |
     |F2XM1         | 2<sup>x</sup> - 1  |
     |FYL2X         | Y * log2X          |
-    |FYL2XP        |Y * log2(X + 1)       |
+    |FYL2XP1       |Y * log2(X + 1)       |
     
 * new instructions, e.g.
 
