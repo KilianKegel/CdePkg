@@ -208,11 +208,17 @@ EXTERN void __cdecl _assert(char* pszExpession, char* pszFile, unsigned dwLine);
 // externs
 //
 EXTERN char* gEfiCallerBaseName;
+#ifndef CDEAPPIFNOTAVAIL
 EXTERN void* __cdeGetAppIf(void);
+#endif//CDEAPPIFNOTAVAIL
 //
 // ANSI C Library related extensions 
 //
-#define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())    // replacement for __STDC_HOSTED__ 
+#ifndef CDEAPPIFNOTAVAIL
+#   define __CDEC_HOSTED__ (((void *)0)/*NULL*/ != __cdeGetAppIf())    // replacement for __STDC_HOSTED__ 
+#else// CDEAPPIFNOTAVAIL
+#   define __CDEC_HOSTED__ 1    // replacement for __STDC_HOSTED__ 
+#endif// CDEAPPIFNOTAVAIL
 EXTERN char* _strefierror(size_t errcode);           // strerror() replacement for UEFI. Convert EFI_STATUS to string
 
 typedef union _CDEDBGFP // CDE DEBUG FILE POINTER
