@@ -224,6 +224,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 ## Revision history
 ### 20250906, v0.9.6 Build 757
 * fix buffer flush in `fprintf()`-family functions
+* 
 ### 20250830, v0.9.5 Build 755
 * add [**errno.h**]((https://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf#page=198)) support for [**math.h** functions](https://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf#page=224)
     - `EDOM` for domain errors
