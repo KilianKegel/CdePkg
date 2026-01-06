@@ -1,11 +1,17 @@
-# CdePkg
+# CdePkg —  	C-D-E-Package<br> /siː-diː-iː ˈpækɪʤ/
+
 C Development Environment Package for EDK2 and derived BIOS products.
 * [Preface](README.md#preface)
 * [Introduction](README.md#introduction)
 * [Intention](README.md#intention)
-* [Implementation](README.md#implementation)
+* [Implementation](README.md#cdepkg-c-d-e-package)
+	* [CdeServices — C-D-E-Services](cdeservices-c-d-e-services)
+	* [CdeLib — C-D-E-Lib](cdeservices-c-d-e-lib)
+	* [CdeServices — C-D-E-Services](cdeservices-c-d-e-services)
+	    * [Building CdeLib.lib](building-cdelib-lib)
+	    * [Building CdeLibNull.lib](building-cdelibnull-lib)
 	* [Interface architecture](README.md#interface-architecture)
-	* [CdeLoadOptions/command line](README.md#cdeloadoptions--command-line)
+	<!--* [CdeLoadOptions/command line](README.md#cdeloadoptions--command-line)-->
 	* [Boot flow architecture](README.md#boot-flow-architecture)
 * [Status](README.md#status)
 	* [todo](README.md#todo)
@@ -94,7 +100,7 @@ Microsoft C Library functions had to be recreated, fully compatible, bug for bug
 This would provide the most relieable solution for cross development, enable the use of the original
 Microsoft header files and prevent from documenting yet another C Library implementation.
 
-A *Hosted Environment* provides the following obligatory features: 
+A ***Hosted Environment*** provides the following obligatory features: 
 * [`int main(int argc,char **argv)`](https://docs.microsoft.com/en-us/cpp/c-language/main-function-and-program-execution?view=vs-2019) is the driver entry point[<sup>4</sup>](https://github.com/KilianKegel/CdePkg/blob/master/footnotes/footnote-4.md)
 * `argc` and `argv` are used for parameter passing, in **CdePkg** also for POST drivers<br>https://docs.microsoft.com/en-us/cpp/c-language/parsing-c-command-line-arguments?view=vs-2019
 * full blown ANSI C library
@@ -111,45 +117,300 @@ This e.g. allows the support engineer to change BIOS behaviour on a (partially)
 defect system for repair/debug mode, enabling trace messages, excluding special
 (non-compliant) devices from beeing enumerated. 
 
-## Implementation
-**CdePkg**'s functionality is composed of three components:
-  1. the C Library **CdeLib**
-  2. the service driver **CdeServices**
-  3. the POST command line reference implementation [**CdeLoadOptions**](https://github.com/KilianKegel/CdePkg/tree/master/CdeLoadOptionsDxe)
+# CdePkg — C-D-E-Package
+**CdePkg**'s functionality is composed of two components:
+  1. the protocol  driver **CdeServices**
+  2. the C Library **CdeLib**
+<!--  3. the POST command line reference implementation [**CdeLoadOptions**](https://github.com/KilianKegel/CdePkg/tree/master/CdeLoadOptionsDxe), not in current release-->
 
 all in 32 and 64 bit variants for DXE, SMM and PEI each.
 
-**CdeLib** and **CdeServices** are highly optimized for space minimized appearance of 
-ANSI C library functions in the UEFI drivers. This is achieved by implementing all-embracing worker functions
+**CdeServices** is optimized for space minimized appearance of ANSI C library functions in the UEFI drivers.<br>
+**CdeLib** is optimized for build speed — it is provided without sourcecode to save build time in the **EDK2** build environment.<br>
 
-* `printf()`-family core
-* `scanf()`-family core
-* `realloc()` core (`malloc()`, `free()`, `realloc()` and `calloc()`)
-* `strcmp()`-family core (all `str`/`wcs`/`mem` `n` `i` functions)
-* `strcpy()`-family core (all `str`/`wcs`/`mem` `n` functions)
-* `strpbrk()`/`strspn()` -family core (all `str`/`wcs` `pbrk`- and `spn`- functions)
-* `strtok()`-family core (all `str`/`wcs` `tok`-functions)
-* CRT0 startup code for DXE, SMM, PEI
-* buffered I/O core (`fread()`, `fwrite()` and `ungetc()`)
-* locale character tables
-* interface functions to access DXE- and PEI-API
+**CdePkg** directly supports ![](media/ami.png) build environment.
 
-in the **CdeServices** driver, that resides once in DXE-, SMM- and PEI-phase each.
-The **CdeLib** just provides small wrapper functions that invoke **CdeServices**.
+## CdeServices — C-D-E-Services
+**CdeServices** is the UEFI protocol that provides the actual implementation of the space optimized, static-duration-less (for pre-memory usage in PEI) core library functions.
 
-### Interface architecture
-![architectural view](archview.png)
+Those functions provide usually an all embracing implementation of a family of function, e.g.:
 
+* [**`_cdeCoreVwxPrintf()`**](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreVwxPrintf.c) 
+  and [**`_cdeCoreVwxScanf()`**](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreVwxScanf.c) supports formatted output and input to streams and memory buffers,
+in both narrow and wide character format, zero and length terminated.
+* [**`_cdeWcsStrPbrkSpn()`**](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeWcsStrPbrkSpn.c)
+supports all narrow and wide variants of  `pbrk`(pointer break)- and `spn`(span)-functions.
+
+Centralizing these sophisticated core functions in one space-optimized protocol driver minimizes duplication 
+and reduces code size across all POST drivers that depend on them.<br> Typically, the Standard C Library 
+entry points are thin wrappers that adapt arguments and dispatch to the shared core implementations.<br>
+
+* [`printf()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreVwxPrintf.c)
+* [`scanf()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreVwxScanf.c)
+* [`realloc()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreMemRealloc.c) (`malloc()`, `free()`, `realloc()` and `calloc()`)
+* [`strcmp()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeMemStrxCmp.c) (all `str`/`wcs`/`mem` `n` `i` functions)
+* [`strcpy()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeMemStrxCpy.c) (all `str`/`wcs`/`mem` `n` functions)
+* [`strpbrk()`/`strspn()` -family core]((https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeWcsStrPbrkSpn.c)) (all `str`/`wcs` `pbrk`- and `spn`- functions)
+* [`strtok()`-family core](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreWcsStrTok.c) (all `str`/`wcs` `tok`-functions)
+* buffered I/O cores ([`fread()-core`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreFread.c) and [`fwrite()-core`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/LibCore/_cdeCoreFwrite.c))
+* CRT0 startup code for DXE, SMM, PEI, in future releases
+* locale character tables, in future releases
+
+The protocol interface is simple, selfexplaining defined here and valid for all PEI, DXE and SMI drivers, on true platforms and in the **EmulatorPkg**:<br>
+
+```
+typedef struct _CDE_SERVICES {
+    unsigned short wVerMajor;
+    unsigned short wVerMinor;
+    unsigned char fx64Opcode;
+    unsigned char fMemoryDiscovered;        // flag EfiPeiMemoryDiscovered, always true for DXE, SMM
+    HEAPDESC HeapStart;
+
+    unsigned long long TSClocksAtSystemStart;
+    unsigned long long TSClocksAtCdeTrace;
+    unsigned long long TSClocksPerSec;
+
+    long long TimeAtSystemStart;            // epoch time / UNIX time / POSIX time at systemstart
+    char fCOM1Timeout;
+
+    REPORT_STATUS_CODE ReportStatusCode;
+    void* pvEfiShellProtocol;
+    CDESYSTEMVOLUMES* pCdeSystemVolumes;    // system volumes for CdePkg
+    CRT0SERVICE* pCRT0Service;
+
+    _GETCHAR* pGetConIn;                    // FNDECL_GETSTDIN(*pgetstdin);            // STDIN  - COM1
+    _PUTCHAR* pPutConOut;                   // FNDECL_PUTSTDOUT(*pputstdout);          // STDOUT - COM1
+    _PUTCHAR* pPutDebug;                    // FNDECL_PUTDBGOUT(*pputdbgout);          // DBGOUT - COM1
+    VWXPRINTF* pVwxPrintf;                  // protocol function 0
+    VWXSCANF* pVwxScanf;                    // protocol function 1
+    MEMREALLOC* pMemRealloc;
+    MEMSTRXCPY* pMemStrxCpy;                //    FNDECL_MEMSTRXNCPY(*pmemstrxncpy);
+    MEMSTRXCMP* pMemStrxCmp;                //    FNDECL_MEMSTRXNCMP(*pmemstrxncmp);
+//
+// string processing functions
+//
+    WCSSTRPBRKSPN* pWcsStrPbrkSpn;//    FNDECL_MEMSTRXPBRK(*pmemstrxpbrk);
+    WCSSTRTOK* pWcsStrTok;//    FNDECL_MEMSTRXTOK(*pmemstrxtok);
+
+    // ----- core C functions, running on driver side
+
+    COREFILERW* pFReadCORE;                 // core fread()
+    COREFILERW* pFWriteCORE;                // core fwrite()
+    CORESETPOS* pFSetPosCORE;               // core fsetpos()
+    COREFFLUSH* pFFlushCORE;                // core fflush()    int _coreFflush(CDE_APP_IF* pCdeAppIf, FILE* stream)
+
+//
+// OSIF - operating system interface
+//
+    OSIFGETTIME* pGetTime;
+    OSIFSETTIME* pSetRtcTime;
+    OSIFGETTSCPERSEC* pGetTscPerSec;
+    OSIFGETTSC* pGetTsc;
+//
+// memory
+//
+    OSIFMEMALLOC* pMemAlloc;
+    OSIFMEMFREE* pMemFree;
+//
+// file
+//
+    OSIFFOPEN* pFopen;
+    OSIFFCLOSE* pFclose;
+    OSIFFREAD* pFread;
+    OSIFFWRITE* pFwrite;
+    OSIFFSETPOS* pFsetpos;
+    OSIFFDELETE* pFdelete;
+    OSIFFRENAME* pFrename;
+    OSIFFFINDALL* pFfindall;
+    OSIFFGETSTATUS* pFgetstatus;
+    // ----- directory
+    OSIFDIRCREATE* pDirCreate;
+    OSIFDIRREMOVE* pDirRemove;
+    // ----- exec/system
+    OSIFCMDEXEC* pCmdExec;
+    // ----- getenv
+    OSIFGETENV* pGetEnv;
+    // ----- get drive current working directory
+    OSIFGETDCWD* pGetDrvCwd;
+    // 
+    //void* pOSIFR4FX0; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX1; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX2; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX3; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX4; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX5; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX6; // R4FX: reserved for future extensions
+    //void* pOSIFR4FX7; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX0; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX1; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX2; // R4FX: reserved for future extensions
+    //void* pDIAGR4FX3; // R4FX: reserved for future extensions
+
+}CDE_SERVICES;
+
+```
+https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeServices.h#L507
+
+The service driver itself is implemented quite minimalistic and simple for PEI, DXE and SMM.
+<br>Even more simplified: 
+1. detect CPU speed (speed of the TSC – time stamp counter)
+2. initialized time related data structures
+2. installs the **`CDE_SERVICES`** protocol.<br>
+* [CdeServices PEI](https://github.com/KilianKegel/CdePkg/blob/master/CdeServices/CdeServicesPei.c#L148)
+* [CdeServices DXE](https://github.com/KilianKegel/CdePkg/blob/master/CdeServices/CdeServicesDxe.c#L152)
+* [CdeServices SMM](https://github.com/KilianKegel/CdePkg/blob/master/CdeServices/CdeServicesSmm.c#L151)
+
+```
+EFI_STATUS EFIAPI _Main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTable)
+{
+    EFI_STATUS Status, nRet = EFI_ABORTED;
+    //
+    // NOTE:    Sole purpose here for CdeAppIf here is to provide a "struct tm*" for _osifIbmAtGetTime()
+    //          when calling CdeServices.pGetTime(pCdeAppIf) below
+    CDE_APP_IF *pCdeAppIf = &CdeAppIfDxe;
+
+    do {
+
+        _cdegST = SystemTable;
+        _cdegBS = SystemTable->BootServices;
+        _cdegImageHandle = ImageHandle;
+
+        //
+        // locate the protocols needed to run CdeLib
+        //
+        if (0 != __cdeGetCurrentPrivilegeLevel())   // running in RING3/Emulation
+            if (EFI_SUCCESS != _cdegBS->LocateProtocol(&gEfiStatusCodeRuntimeProtocolGuid, NULL, (void**)&CdeServices.ReportStatusCode.pDxe))
+                break;
+
+        //if ( EFI_SUCCESS != _cdegBS->LocateProtocol( &gEfiCpuIoProtocolGuid, NULL, (void**)&CdeServices.CpuIoXyz.pDxe ) )
+        //	break;
+
+        //
+        // clock() initialization
+        //
+        CdeServices.TSClocksAtSystemStart = CdeServices.pGetTsc(pCdeAppIf);
+        if (0 == __cdeGetCurrentPrivilegeLevel()) {                                      // running in RING0
+            CdeServices.TSClocksPerSec = CdeServices.pGetTscPerSec(pCdeAppIf,0);
+            CdeServices.TimeAtSystemStart = CdeServices.pGetTime(pCdeAppIf);
+        }
+
+        //
+        // install the CdeServices for DXE
+        //
+        Status = _cdegBS->InstallMultipleProtocolInterfaces(
+            &_cdegImageHandle,                              // Image Handle
+            &_gCdeDxeProtocolGuid, &CdeServices,        // Guid / Protocol pair
+            NULL                                        // End of list
+        );
+
+        if (EFI_SUCCESS != Status)
+            break;
+
+        nRet = EFI_SUCCESS;
+
+    } while (0);
+    
+    return nRet;
+}
+
+```
+https://github.com/KilianKegel/CdePkg/blob/master/CdeServices/CdeServicesDxe.c#L152
+
+NOTE: Because PEI-**CdeServices** are installed before memory discovery, the PEI-driver installs the protocol
+in a HOB (hand-off block) to be a writeable storage duration as required.
+
+## CdeLib — C-D-E-Lib
+The source code of the Standard C Library is ***not part*** of the **CdePkg**  — primerily to save build time in the **EDK2** build environment.
+<br>Instead the library functions needed for **CdeLib** are extracted at build time from the original **toro C Library**–binary.
+
+NOTE: To avoid conflicts of porting **EDK2** drivers using Standard C functions (e.g. [**RedfishPkg** C Library port](https://github.com/tianocore/edk2/blob/master/RedfishPkg/PrivateLibrary/RedfishCrtLib/RedfishCrtLib.c) )
+to **CdePkg** ,<br>
+all **CdeLib** functions use a different *Application Binary Interface* (ABI), called **CDEABI**.<br>
+**CDEABI** for POST drivers is given here:<br>
+```
+#define CDEABI __declspec(dllimport)    // Microsoft .DLL style indirect function calls
+```
+Using **CDEABI**-CdeLib Standard C Library functions from both implementations can simultaniously coexist in one driver without symbol conflicts.<br>
+Thus traditional **MdePkg** drivers using **EDK2**-Standard-C-Library-ported functions can be transformed to **CdePkg** without breaking existing functionality.
+
+**NOTE: When transforming **EDK2**-drivers to **CdePkg**-drivers, the following has to be considered:**
+1. **the component providing the entry point function, needs the **CdeLib** library in its .INF file**
+2. **other **EDK2** library components shared with other drivers and the **CdePkg**-driver, needs  the **CdeLibNull** library in their .INF file to avoid symbol conflicts**
+
+### Building CdeLib.lib
+From the original **toro C Library** the non-**CDEABI** functions are removed by the librarian using a function list file.<br>
+
+
+```
+# 
+#   Copyright (c) 2020-2026, Kilian Kegel. All rights reserved.<BR>
+#   SPDX-License-Identifier: BSD-2-Clause-Patent
+# 
+TARGET_FILES = $(OUTPUT_DIR)\CdeLib.lib
+
+!IF "$(ARCH)" == "X64"
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\toroC64.lib
+!ELSE
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\TOROC32.lib
+!ENDIF
+
+$(OUTPUT_DIR)\CdeLib.lib: $(TOROCLIBRARY)
+	@ECHO ###############################################################################################################
+	@ECHO ### CdeLib -- .OBJ removal of all non-CDEABI functions ########################################################
+	@ECHO ###############################################################################################################
+	copy /y $(TOROCLIBRARY) $(OUTPUT_DIR)\CdeLib.lib 
+!IF "$(ARCH)" == "X64"
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI64MSFT.lst   $(OUTPUT_DIR)\CdeLib.lib
+!ELSE
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI32MSFT.lst   $(OUTPUT_DIR)\CdeLib.lib
+!ENDIF
+
+all: $(TARGET_FILES)
+```
+
+### Building CdeLibNull.lib
+
+```
+# 
+#   Copyright (c) 2020-2026, Kilian Kegel. All rights reserved.<BR>
+#   SPDX-License-Identifier: BSD-2-Clause-Patent
+# 
+TARGET_FILES = $(OUTPUT_DIR)\CdeLibNull.lib
+
+!IF "$(ARCH)" == "X64"
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\toroC64.lib
+!ELSE
+TOROCLIBRARY=$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\toroC32.lib
+!ENDIF
+                                
+$(OUTPUT_DIR)\CdeLibNull.lib:$(STATIC_LIBRARY_FILES)
+	@ECHO ###############################################################################################################
+	@ECHO ### CdeLibNull -- .OBJ removal of all non-CDEABI and operating system interface OSIF functions ################
+	@ECHO ###############################################################################################################
+	copy /y $(TOROCLIBRARY) $(OUTPUT_DIR)\CdeLibNull.lib 
+!IF "$(ARCH)" == "X64"
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI64MSFT.lst $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeOSIF64MSFT.lst      $(OUTPUT_DIR)\CdeLibNull.lib
+!ELSE
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeNONCDEABI32MSFT.lst $(OUTPUT_DIR)\CdeLibNull.lib
+	"$(SLINK)" $(SLINK_FLAGS) @$(WORKSPACE)\$(CDEPKG_PATH)\CdePkg\$(TARGET)\removeOSIF32MSFT.lst      $(OUTPUT_DIR)\CdeLibNull.lib
+!ENDIF
+all: $(TARGET_FILES) $(STATIC_LIBRARY_FILES)
+
+```
+## Interface Architecture
+![architectural view](media/archview.png)
+<!--
 ### **CdeLoadOptions** / command line
-Each *CdePkg*Driver reports its EfiCallerIdGuid while running through CRT0 to **CdeLoadOptions**.
+Each **CdePkg**Driver reports its EfiCallerIdGuid while running through CRT0 to **CdeLoadOptions**.
 **CdeLoadOptions** provides a pointer to the matching "Command Line" from an simple EfiCallerIdGuid/CommandLine table
 within the file [`CdeLoadOptions.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeLoadOptions.h), 
 compiled into the [**CdeLoadOptions**](https://github.com/KilianKegel/CdePkg/blob/master/CdeLoadOptionsDxe/CdeLoadOptionsDxe.c) driver binary.
 
 **This is just a proof of concept. In a real implementation, as mentioned above, the command line can be
 changed without recompilation and BIOS update.**
-
-### Boot flow architecture
+-->
+## Boot flow architecture
 
 The Boot flow sequence consists of: 
 
@@ -173,10 +434,10 @@ run on platforms without **CdeServices** protocol.)
 
 The functions below are already implemented and tested, every single one of them, except otherwise noted:
 
-[List of available functions](https://github.com/KilianKegel/toro-C-Library/blob/master/implemented.md)
+[List of available functions](https://github.com/KilianKegel/toro-C-Library?tab=readme-ov-file#implementation-status--cross-matrix)
 
 
-[Toro C Library](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
+[**toro C Library**](https://github.com/KilianKegel/torito-C-Library#torito-c-library) has passed extensive
 tests to verify Microsoft's C Library compatibility and is also approved in various real world applications.
 Therefore the **CdePkg**'s C library will be validated by simple tests only, in the [CdeValidationPkg](https://github.com/KilianKegel/CdeValidationPkg#cdevalidationpkg), for DXE, SMM and PEI respectively.
 
@@ -186,8 +447,7 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 * 20190714 <del>add PEI support</del>
 * move CRT0 startup code to **CdeServices**
 * move local character tables to **CdeServices**
-* move buffered I/O core to **CdeServices**
-* validate functions in DXE, SMM and PEI [List of available functions](https://github.com/KilianKegel/torito-C-Library/blob/master/implemented.md#validation-status)
+* validate functions in DXE, SMM and PEI [List of available functions](https://github.com/KilianKegel/toro-C-Library?tab=readme-ov-file#implementation-status--cross-matrix)
 * complete library implementation
 
 ## Howto

@@ -1,7 +1,7 @@
 ;/*!
 ;\copyright     
 ;     
-;    Torito C Library, Copyright (c) 2020-2025, Kilian Kegel. All rights reserved.
+;    Toro C Library, Copyright (c) 2020-2026, Kilian Kegel. All rights reserved.
 ;
 ; \mainpage _CdeGetCurrentPrivilegeLevel
 ; 
