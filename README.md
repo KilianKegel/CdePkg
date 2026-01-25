@@ -481,6 +481,12 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20260124, v0.9.10 Build 803
+* fix `getchar()`/`fread()` (when reading from `stdin`) returns `EOF` after receiving ENTER key
+* fix `__chkstk()` missing in 32Bit library build
+* update UEFI Include files to EDK2 version edk2-stable202511
+* update copyright calendar year to 2026
+
 ### 20251213, v0.9.9 Build 799
 * fix **LLVM/CLANG-cl-family** (`clang version 20.1.8`) translated library application link error
 ```

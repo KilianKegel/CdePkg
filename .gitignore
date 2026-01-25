@@ -5,3 +5,4 @@ CdeWelcomeDxe/Win32
 CdeWelcomeDxe/x64
 CdeWelcomePei/Win32
 build
+.vs/
