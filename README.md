@@ -481,6 +481,31 @@ Therefore the **CdePkg**'s C library will be validated by simple tests only, in 
 |[Visual HWTools for UEFI Shell](https://github.com/KilianKegel/Visual-HWTools-for-UEFI-Shell#visual-hwtools-for-uefi-shell)|HWTools: PCI- and GPIOSpy for Baytrail. MemSpy for all.|
 
 ## Revision history
+### 20260315, v0.9.11 Build 857
+* add Microsoft compatible wide character support for `printf()` family
+    * add `_setmode()` to control wide character handling<br>
+**NOTE: This enables developers to directly use UEFI box-drawing symbols with formatted output functions:**<br>
+    ```
+        wprintf(L"─│┌┐└┘├┤┬┴┼═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬░▲►▼◄←↑→↓\n");
+
+        wprintf(L"  ↑ ↓ ↑ ↓ ↑ ↓ ↑ ↓  \n");
+        wprintf(L" ┌────────────────┐\n");
+        wprintf(L"8│██░░██░░██░░██░░│←\n");
+        wprintf(L"7│░░██░░██░░██░░██│→\n");
+        wprintf(L"6│██░░██░░██░░██░░│←\n");
+        wprintf(L"5│░░██░░██░░██░░██│→\n");
+        wprintf(L"4│██░░██░░██░░██░░│←\n");
+        wprintf(L"3│░░██░░██░░██░░██│→\n");
+        wprintf(L"2│██░░██░░██░░██░░│←\n");
+        wprintf(L"1│░░██░░██░░██░░██│→\n");
+        wprintf(L" └────────────────┘\n");
+        wprintf(L"  a b c d e f g h \n"); 
+    ```
+* add [`_get_invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/stdlib_h/_get_invalid_parameter_handler.c)
+* fix [`_set_invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/stdlib_h/_set_invalid_parameter_handler.c) to return **NULL** when default invaid parameter handler is installed
+* improve [`invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Intrinsics/_cdeDefaultInvalidParameterHandler.c) to emulate Microsoft `FAST_FAIL` behavior
+* Ensure **`FATAL ERROR: CdeServices DXE not available.`** is emitted to `ConOut`.
+* add UEFI Box Draw definitions: [`CdeBoxDraw.h`](https://github.com/KilianKegel/CdePkg/blob/master/Include/CdeBoxDraw.h)
 ### 20260124, v0.9.10 Build 803
 * fix `getchar()`/`fread()` (when reading from `stdin`) returns `EOF` after receiving ENTER key
 * fix `__chkstk()` missing in 32Bit library build
@@ -616,31 +641,6 @@ That has reduced the programming effort dramatically and made algorithms very si
 
 **All these functions run also in UEFI POST stages PEI, DXE, SMM.**
 
-### 20260315, v0.9.11 Build 857
-* add Microsoft compatible wide character support for `printf()` family
-    * add `_setmode()` to control wide character handling<br>
-**NOTE: This enables developers to directly use UEFI box-drawing symbols with formatted output functions:**<br>
-    ```
-        wprintf(L"─│┌┐└┘├┤┬┴┼═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬░▲►▼◄←↑→↓\n");
-
-        wprintf(L"  ↑ ↓ ↑ ↓ ↑ ↓ ↑ ↓  \n");
-        wprintf(L" ┌────────────────┐\n");
-        wprintf(L"8│██░░██░░██░░██░░│←\n");
-        wprintf(L"7│░░██░░██░░██░░██│→\n");
-        wprintf(L"6│██░░██░░██░░██░░│←\n");
-        wprintf(L"5│░░██░░██░░██░░██│→\n");
-        wprintf(L"4│██░░██░░██░░██░░│←\n");
-        wprintf(L"3│░░██░░██░░██░░██│→\n");
-        wprintf(L"2│██░░██░░██░░██░░│←\n");
-        wprintf(L"1│░░██░░██░░██░░██│→\n");
-        wprintf(L" └────────────────┘\n");
-        wprintf(L"  a b c d e f g h \n"); 
-    ```
-* add [`_get_invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/stdlib_h/_get_invalid_parameter_handler.c)
-* fix [`_set_invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/stdlib_h/_set_invalid_parameter_handler.c) to return **NULL** when default invaid parameter handler is installed
-* imporove [`invalid_parameter_handler()`](https://github.com/KilianKegel/Visual-TORO-C-LIBRARY-for-UEFI/blob/main/toroCLibrary/Library/Intrinsics/_cdeDefaultInvalidParameterHandler.c) to emulate Microsoft `FAST_FAIL` behavior
-* Ensure **`FATAL ERROR: CdeServices DXE not available.`** is emitted to `ConOut`.
-* add UEFI Box Draw definitions: [`CdeBoxDraw.h`](https://github.com/KilianKegel/CdePkg/Include/CdeBoxDraw.h)
 ### 20250222, v0.8.9 Build 231
 * fix build error with **Windows SDK 10.0.26100.0**
 ### 20241222, v0.8.9 Build 227
