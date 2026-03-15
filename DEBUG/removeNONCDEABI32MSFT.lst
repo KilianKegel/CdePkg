@@ -1,5 +1,3 @@
-/REMOVE:x86\Debug\_invalid_parameter_handler.obj
-/REMOVE:x86\Debug\_set_invalid_parameter_handler.obj
 /REMOVE:x86\Debug\_assert.obj
 /REMOVE:x86\Debug\_wassert.obj
 /REMOVE:x86\Debug\isalnum.obj

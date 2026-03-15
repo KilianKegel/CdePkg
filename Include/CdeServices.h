@@ -205,7 +205,7 @@ typedef struct _HEAPDESC {
 
 #define DFL (0 << 0)                /* default preset */
 #define PIP (1 << 0)                /* fPointerIsParm:1;       /*filepointer/memorypointer */
-#define PIF (1 << 1)                /* fPointerIsFilePointer:1;/*if pointer is passed, it is a filepointer */
+#define PIF (1 << 1)                /* fCdeFilePointer:1;/*if pointer is passed, it is a filepointer */
 #define CIP (1 << 2)                /* fCountIsParm:1;         /*it is a n-function */
 #define ADI (1 << 3)                /* fAjustDifference:1;     /*for MS complience - not used */
 #define WID (1 << 4)                /* fWide:1;                /*it is a w-function */
@@ -216,7 +216,7 @@ typedef struct _HEAPDESC {
 #define TDN (1 << 9)                /* top down -> decrement -> copy / move from higher to lower memory */
 
 #define PRESET_PIP (preset & PIP)   /* fPointerIsParm:1;       /*filepointer/memorypointer*/
-#define PRESET_PIF (preset & PIF)   /* fPointerIsFilePointer:1;/*if pointer is passed, it is a filepointer*/
+#define PRESET_PIF (preset & PIF)   /* fCdeFilePointer:1;/*if pointer is passed, it is a filepointer*/
 #define PRESET_CIP (preset & CIP)   /* fCountIsParm:1;         /*it is a n-function*/
 #define PRESET_ADI (preset & ADI)   /* fAjustDifference:1;     /*for MS complience - not used*/
 #define PRESET_WID (preset & WID)   /* fWide:1;                /*it is a w-function*/
@@ -234,8 +234,7 @@ typedef struct _ROMPARM_WCSSTRTOK {
 
 typedef struct _ROMPARM_VWXPRINTF {
     unsigned char fForceToDataSeg;        /*always 1*/
-    unsigned char fPointerIsParm;         /*filepointer/memorypointer*/
-    unsigned char fPointerIsFilePointer;  /*if pointer is passed, it is a filepointer*/
+    unsigned char fCdeFilePointer;        /*pointer is a true pCdeFile,*not a memory pointer nor a pCdeAppIf for post drivers */
     unsigned char fCountIsParm;           /*it is a n-function*/
     unsigned char fAjustDifference;       /*for MS complience - not used*/
     unsigned char fWide;                  /*it is a w-function*/
@@ -244,8 +243,7 @@ typedef struct _ROMPARM_VWXPRINTF {
 
 typedef struct _ROMPARM_VWXSCANF {
     unsigned char fForceToDataSeg;        /*always 1*/
-    unsigned char fPointerIsParm;         /*filepointer/memorypointer*/
-    unsigned char fPointerIsFilePointer;  /*if pointer is passed, it is a filepointer*/
+    unsigned char fCdeFilePointer;        /*pointer is a true pCdeFile,*not a memory pointer nor a pCdeAppIf for post drivers */
     unsigned char fCountIsParm;           /*it is a n-function*/
     unsigned char fAjustDifference;       /*for MS complience - not used*/
     unsigned char fWide;                  /*it is a w-function*/
@@ -598,23 +596,23 @@ extern void _CdeMemPutNada(int c, void** ppDest);
 extern void _CdeMemPutChar(int c, void** ppDest);
 extern void* __cdeGetAppIf(void);
 
-
+//
 // ----- definitions for file i/o
 //
 
-#define O_CDEWCSZONLY   (1 << 16)/*Bug in FileHandleWrappers.c: FileInterfaceStdOutWrite() does not use BufferSize, instead it writes until ZERO*/
-#define O_CDENOSEEK     (1 << 17)/* file does't support seek/tell related functions*/
-#define O_CDEREDIR      (1 << 18)/* this is STDIN/STDOUT/STDERR redirected to file (<>|). If NOT SET, EOF is NOT THE END OF THE STREAM, It is a real keyboard */
-                                 /* O_CDEREDIR is only used with STDIN/STDOUT/STDERR */
-                                 /* NOTE: A REDIRected file is provided by the OS shell when using one of  > < | "operators" from outside. It can not be closed */
-#define O_CDEREOPEN     (1 << 19)/* this is STDOUT/STDERR "freopen()"-ed */
-                                 /* NOTE: A REOPENED file is provided by the freopen() internally by the program. It must be closed on exit */
-#define O_CDESTDIN      (1 << 20)/* this is STDIN  */
-#define O_CDESTDOUT     (2 << 20)/* this is STDOUT */
-#define O_CDESTDERR     (3 << 20)/* this is STDERR */
-#define O_CDESTDMASK    (3 << 20)/* this is mask stdin/out/err */
-#define O_CDEWIDTH16    (1 << 22)/* width of the stream 0 = 8 Bit, 1 = 16 Bit */
-#define O_CDEDETECTED   (1 << 23)/* stream width detected */
+#define O_CDEWCSZONLY   (1 << (16 + 4)) /* Bug in FileHandleWrappers.c: FileInterfaceStdOutWrite() does not use BufferSize, instead it writes until ZERO*/
+#define O_CDENOSEEK     (1 << (17 + 4)) /* file does't support seek/tell related functions*/
+#define O_CDEREDIR      (1 << (18 + 4)) /* this is STDIN/STDOUT/STDERR redirected to file (<>|). If NOT SET, EOF is NOT THE END OF THE STREAM, It is a real keyboard */
+                                        /* O_CDEREDIR is only used with STDIN/STDOUT/STDERR */
+                                        /* NOTE: A REDIRected file is provided by the OS shell when using one of  > < | "operators" from outside. It can not be closed */
+#define O_CDEREOPEN     (1 << (19 + 4)) /* this is STDOUT/STDERR "freopen()"-ed */
+                                        /* NOTE: A REOPENED file is provided by the freopen() internally by the program. It must be closed on exit */
+#define O_CDESTDIN      (1 << (20 + 4)) /* this is STDIN  */
+#define O_CDESTDOUT     (2 << (20 + 4)) /* this is STDOUT */
+#define O_CDESTDERR     (3 << (20 + 4)) /* this is STDERR */
+#define O_CDESTDMASK    (3 << (20 + 4)) /* this is mask stdin/out/err */
+#define O_CDEWIDTH16    (1 << (22 + 4)) /* width of the stream 0 = 8 Bit, 1 = 16 Bit */
+#define O_CDEDETECTED   (1 << (23 + 4)) /* stream width detected */
 
 //#define CDE_FPOS_SEEKEND (1LL << 63)
 
